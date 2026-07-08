@@ -1,0 +1,58 @@
+name: Manana
+options:
+  bundleIdPrefix: com.wonji
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+    GENERATE_INFOPLIST_FILE: YES
+    INFOPLIST_KEY_UILaunchScreen_Generation: YES
+    INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+    INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+    INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: "오늘의 날씨에 맞는 배경과 문장을 보여주기 위해 위치 정보가 필요해요."
+    INFOPLIST_KEY_UIUserInterfaceStyle: Automatic
+    INFOPLIST_KEY_CFBundleDisplayName: "Mañana"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+targets:
+  Manana:
+    type: application
+    platform: iOS
+    sources:
+      - path: Manana
+    entitlements:
+      path: Manana/Manana.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.wonji.manana
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wonji.manana
+        TARGETED_DEVICE_FAMILY: "1"
+    dependencies:
+      - target: MananaWidgetExtension
+        embed: true
+
+  MananaWidgetExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: MananaWidget
+      - path: Manana/Shared
+    entitlements:
+      path: MananaWidget/MananaWidget.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.wonji.manana
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wonji.manana.widget
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: MananaWidget/Info.plist

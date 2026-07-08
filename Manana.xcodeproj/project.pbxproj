@@ -1,0 +1,580 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01E683D9543EBF5043EF5645 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56863CF13FA809DC32E0EC62 /* NotificationManager.swift */; };
+		1184205FA2DF20C5E7A3EF7D /* SharedWeatherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577C04803329F8E28394181 /* SharedWeatherStore.swift */; };
+		1ECC3DB2060585F3D03BE044 /* MananaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FFF886B8594EC330112B5B /* MananaApp.swift */; };
+		3314139DF72FBCAA50BBCD44 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20261B8294262233F291DA72 /* WeatherService.swift */; };
+		39D9F490ECA4ADE0AE4C40FC /* QuoteAdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C10AD00672210A5DC56829 /* QuoteAdminView.swift */; };
+		3E66DE2E1328A34D0A09827D /* CombinedWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B62450300842B089222BAF /* CombinedWidget.swift */; };
+		54B63E4C5BD1D00ECFC42D22 /* MananaWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F2583ADEAF4F0227B3AF139A /* MananaWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		55EF6E501968952BC93935F7 /* WeatherCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A287B2BDF1709B3B957AAD2 /* WeatherCondition.swift */; };
+		61F05213CCB4AEA3EFB666B1 /* DrawingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B87E859897609DC673F06A /* DrawingStorage.swift */; };
+		641300AB5ACDFEB60D97BA46 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FF4458BE310E3A1511C588 /* MainView.swift */; };
+		67864992ED408439EC2A6D27 /* DrawingWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4137B54FFC1DE66A34F3B96C /* DrawingWidget.swift */; };
+		6979670F817103818650A7C3 /* DiaryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96FF59619FA4B2ACFCCA55F /* DiaryEntry.swift */; };
+		72F9B8462B7800E88DFDA46C /* QuoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81165CF98FDF9A0F715555E4 /* QuoteService.swift */; };
+		86B91B0BFE27472780F6511D /* SharedDrawingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7112DD17A41EBD802773E /* SharedDrawingStore.swift */; };
+		99A01AF6A1A6A67D92F6C24D /* ArchiveListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34717ECC27BC5280F6625CA1 /* ArchiveListView.swift */; };
+		9EF7D41D8400071749A7F7DA /* DrawingCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B5A9C55615F5999B3C5167 /* DrawingCanvasView.swift */; };
+		A67CB0964ACFAEEAC13365BC /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32D375ACBD1925ECC046FC /* Quote.swift */; };
+		AAB7DB3722C1DB87AF439FF9 /* SharedWeatherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577C04803329F8E28394181 /* SharedWeatherStore.swift */; };
+		AB238B270FB985CAEB1A44CD /* MananaWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE33AAB206DB50A1B5AE556 /* MananaWidgetBundle.swift */; };
+		AC19C8C817BB7D04CA590260 /* SharedDrawingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7112DD17A41EBD802773E /* SharedDrawingStore.swift */; };
+		BAEDC42850845C0C2F9A413E /* WeatherEntryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F646E7C606AFA3F855DC2A /* WeatherEntryProvider.swift */; };
+		D0107FA1301A8C343F0F9E60 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29D77B214B6497C587F83D1 /* SettingsView.swift */; };
+		D8E4155F3CFA0B5E37DEE9A8 /* DiaryEntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AE92CEFF979F9174033C7 /* DiaryEntryDetailView.swift */; };
+		DDA7A620A32B4E80354FBEFE /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C1A302F4FB9F7ED3178FD /* LocationManager.swift */; };
+		EB89EE06B7B014348F8365E5 /* quotes.json in Resources */ = {isa = PBXBuildFile; fileRef = EE71493E7991FC7CA0B3510B /* quotes.json */; };
+		F68616936C1AEE977261B30C /* WeatherQuoteWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A95758926B97B3C8FDCB53 /* WeatherQuoteWidget.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FB471387281E505493E23D14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D768305FEE13F22F78F1774 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 01547B8A9D3552F412090BC8;
+			remoteInfo = MananaWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		41C65AF56EF7B9103C82018E /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				54B63E4C5BD1D00ECFC42D22 /* MananaWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		20261B8294262233F291DA72 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		24C10AD00672210A5DC56829 /* QuoteAdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteAdminView.swift; sourceTree = "<group>"; };
+		2577C04803329F8E28394181 /* SharedWeatherStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedWeatherStore.swift; sourceTree = "<group>"; };
+		25B5F57386541A623188EA56 /* MananaWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MananaWidget.entitlements; sourceTree = "<group>"; };
+		34717ECC27BC5280F6625CA1 /* ArchiveListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveListView.swift; sourceTree = "<group>"; };
+		40F646E7C606AFA3F855DC2A /* WeatherEntryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherEntryProvider.swift; sourceTree = "<group>"; };
+		4137B54FFC1DE66A34F3B96C /* DrawingWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingWidget.swift; sourceTree = "<group>"; };
+		4CE33AAB206DB50A1B5AE556 /* MananaWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MananaWidgetBundle.swift; sourceTree = "<group>"; };
+		4E244FED6E722AE4866BCEEC /* Manana.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Manana.entitlements; sourceTree = "<group>"; };
+		53A95758926B97B3C8FDCB53 /* WeatherQuoteWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherQuoteWidget.swift; sourceTree = "<group>"; };
+		56863CF13FA809DC32E0EC62 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		5B1C1A302F4FB9F7ED3178FD /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		61FFF886B8594EC330112B5B /* MananaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MananaApp.swift; sourceTree = "<group>"; };
+		81165CF98FDF9A0F715555E4 /* QuoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteService.swift; sourceTree = "<group>"; };
+		81B5A9C55615F5999B3C5167 /* DrawingCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvasView.swift; sourceTree = "<group>"; };
+		86FF4458BE310E3A1511C588 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		8CF7112DD17A41EBD802773E /* SharedDrawingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDrawingStore.swift; sourceTree = "<group>"; };
+		97B62450300842B089222BAF /* CombinedWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedWidget.swift; sourceTree = "<group>"; };
+		9A287B2BDF1709B3B957AAD2 /* WeatherCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCondition.swift; sourceTree = "<group>"; };
+		B29D77B214B6497C587F83D1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B96FF59619FA4B2ACFCCA55F /* DiaryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntry.swift; sourceTree = "<group>"; };
+		C10AE92CEFF979F9174033C7 /* DiaryEntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntryDetailView.swift; sourceTree = "<group>"; };
+		DE32D375ACBD1925ECC046FC /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
+		E0B87E859897609DC673F06A /* DrawingStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingStorage.swift; sourceTree = "<group>"; };
+		E20D1E61D5B3DBEF1667FCA7 /* Manana.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Manana.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E931745FCFEACCD1C6810019 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EE71493E7991FC7CA0B3510B /* quotes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = quotes.json; sourceTree = "<group>"; };
+		F2583ADEAF4F0227B3AF139A /* MananaWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MananaWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		1CDD0224E2FE656BE98523E4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E0B87E859897609DC673F06A /* DrawingStorage.swift */,
+				5B1C1A302F4FB9F7ED3178FD /* LocationManager.swift */,
+				56863CF13FA809DC32E0EC62 /* NotificationManager.swift */,
+				81165CF98FDF9A0F715555E4 /* QuoteService.swift */,
+				20261B8294262233F291DA72 /* WeatherService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		41D41460094121D0B3346ABE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B96FF59619FA4B2ACFCCA55F /* DiaryEntry.swift */,
+				DE32D375ACBD1925ECC046FC /* Quote.swift */,
+				9A287B2BDF1709B3B957AAD2 /* WeatherCondition.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4A42FBBB397FBE47DDB1C3A4 /* Manana */ = {
+			isa = PBXGroup;
+			children = (
+				4E244FED6E722AE4866BCEEC /* Manana.entitlements */,
+				C6274F8B35BF75BD0D885EF5 /* App */,
+				41D41460094121D0B3346ABE /* Models */,
+				A0E057178834B6E3360F0938 /* Resources */,
+				1CDD0224E2FE656BE98523E4 /* Services */,
+				E973E80C9410437FC60E89DD /* Shared */,
+				C05D21019ED5499EA1569698 /* Views */,
+			);
+			path = Manana;
+			sourceTree = "<group>";
+		};
+		89FB3AD0D25EEB9854238A75 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E20D1E61D5B3DBEF1667FCA7 /* Manana.app */,
+				F2583ADEAF4F0227B3AF139A /* MananaWidgetExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9D3DC7F7FD394FBA7193BC09 = {
+			isa = PBXGroup;
+			children = (
+				4A42FBBB397FBE47DDB1C3A4 /* Manana */,
+				A0C057A93FE7A779AA28A0BD /* MananaWidget */,
+				89FB3AD0D25EEB9854238A75 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A0C057A93FE7A779AA28A0BD /* MananaWidget */ = {
+			isa = PBXGroup;
+			children = (
+				97B62450300842B089222BAF /* CombinedWidget.swift */,
+				4137B54FFC1DE66A34F3B96C /* DrawingWidget.swift */,
+				E931745FCFEACCD1C6810019 /* Info.plist */,
+				25B5F57386541A623188EA56 /* MananaWidget.entitlements */,
+				4CE33AAB206DB50A1B5AE556 /* MananaWidgetBundle.swift */,
+				40F646E7C606AFA3F855DC2A /* WeatherEntryProvider.swift */,
+				53A95758926B97B3C8FDCB53 /* WeatherQuoteWidget.swift */,
+			);
+			path = MananaWidget;
+			sourceTree = "<group>";
+		};
+		A0E057178834B6E3360F0938 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EE71493E7991FC7CA0B3510B /* quotes.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C05D21019ED5499EA1569698 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				34717ECC27BC5280F6625CA1 /* ArchiveListView.swift */,
+				C10AE92CEFF979F9174033C7 /* DiaryEntryDetailView.swift */,
+				81B5A9C55615F5999B3C5167 /* DrawingCanvasView.swift */,
+				86FF4458BE310E3A1511C588 /* MainView.swift */,
+				24C10AD00672210A5DC56829 /* QuoteAdminView.swift */,
+				B29D77B214B6497C587F83D1 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C6274F8B35BF75BD0D885EF5 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				61FFF886B8594EC330112B5B /* MananaApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		E973E80C9410437FC60E89DD /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				8CF7112DD17A41EBD802773E /* SharedDrawingStore.swift */,
+				2577C04803329F8E28394181 /* SharedWeatherStore.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		01547B8A9D3552F412090BC8 /* MananaWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF52DFD3F448434D6574FBEC /* Build configuration list for PBXNativeTarget "MananaWidgetExtension" */;
+			buildPhases = (
+				CF76A265EBBA7554890A8951 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MananaWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = MananaWidgetExtension;
+			productReference = F2583ADEAF4F0227B3AF139A /* MananaWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		3B7833C7E100856BE232CF1D /* Manana */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 369772F422B226A2920EA65E /* Build configuration list for PBXNativeTarget "Manana" */;
+			buildPhases = (
+				A527E809B49AA8F423444CC2 /* Sources */,
+				69CD941BC03D08128B17581B /* Resources */,
+				41C65AF56EF7B9103C82018E /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				153142990B8D26FEE8E2BD0E /* PBXTargetDependency */,
+			);
+			name = Manana;
+			packageProductDependencies = (
+			);
+			productName = Manana;
+			productReference = E20D1E61D5B3DBEF1667FCA7 /* Manana.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2D768305FEE13F22F78F1774 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					01547B8A9D3552F412090BC8 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					3B7833C7E100856BE232CF1D = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 9ECD86C55BFD1093136ED62F /* Build configuration list for PBXProject "Manana" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 9D3DC7F7FD394FBA7193BC09;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 89FB3AD0D25EEB9854238A75 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3B7833C7E100856BE232CF1D /* Manana */,
+				01547B8A9D3552F412090BC8 /* MananaWidgetExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		69CD941BC03D08128B17581B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB89EE06B7B014348F8365E5 /* quotes.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A527E809B49AA8F423444CC2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99A01AF6A1A6A67D92F6C24D /* ArchiveListView.swift in Sources */,
+				6979670F817103818650A7C3 /* DiaryEntry.swift in Sources */,
+				D8E4155F3CFA0B5E37DEE9A8 /* DiaryEntryDetailView.swift in Sources */,
+				9EF7D41D8400071749A7F7DA /* DrawingCanvasView.swift in Sources */,
+				61F05213CCB4AEA3EFB666B1 /* DrawingStorage.swift in Sources */,
+				DDA7A620A32B4E80354FBEFE /* LocationManager.swift in Sources */,
+				641300AB5ACDFEB60D97BA46 /* MainView.swift in Sources */,
+				1ECC3DB2060585F3D03BE044 /* MananaApp.swift in Sources */,
+				01E683D9543EBF5043EF5645 /* NotificationManager.swift in Sources */,
+				A67CB0964ACFAEEAC13365BC /* Quote.swift in Sources */,
+				39D9F490ECA4ADE0AE4C40FC /* QuoteAdminView.swift in Sources */,
+				72F9B8462B7800E88DFDA46C /* QuoteService.swift in Sources */,
+				D0107FA1301A8C343F0F9E60 /* SettingsView.swift in Sources */,
+				86B91B0BFE27472780F6511D /* SharedDrawingStore.swift in Sources */,
+				1184205FA2DF20C5E7A3EF7D /* SharedWeatherStore.swift in Sources */,
+				55EF6E501968952BC93935F7 /* WeatherCondition.swift in Sources */,
+				3314139DF72FBCAA50BBCD44 /* WeatherService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CF76A265EBBA7554890A8951 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E66DE2E1328A34D0A09827D /* CombinedWidget.swift in Sources */,
+				67864992ED408439EC2A6D27 /* DrawingWidget.swift in Sources */,
+				AB238B270FB985CAEB1A44CD /* MananaWidgetBundle.swift in Sources */,
+				AC19C8C817BB7D04CA590260 /* SharedDrawingStore.swift in Sources */,
+				AAB7DB3722C1DB87AF439FF9 /* SharedWeatherStore.swift in Sources */,
+				BAEDC42850845C0C2F9A413E /* WeatherEntryProvider.swift in Sources */,
+				F68616936C1AEE977261B30C /* WeatherQuoteWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		153142990B8D26FEE8E2BD0E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 01547B8A9D3552F412090BC8 /* MananaWidgetExtension */;
+			targetProxy = FB471387281E505493E23D14 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1F193811F7740060DF823F74 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Manana/Manana.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		3B0B0D2045B5ACF9B879354F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MananaWidget/MananaWidget.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MananaWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana.widget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		400D05013B397F7D6AFBD774 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Mañana";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "오늘의 날씨에 맞는 배경과 문장을 보여주기 위해 위치 정보가 필요해요.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		D0085B3119AC4B7EDD8D07AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MananaWidget/MananaWidget.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MananaWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana.widget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		DF652D2A720EB7CDC4D9E883 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Mañana";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "오늘의 날씨에 맞는 배경과 문장을 보여주기 위해 위치 정보가 필요해요.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		EA7773DED1BBBE5CB8513A07 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Manana/Manana.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		369772F422B226A2920EA65E /* Build configuration list for PBXNativeTarget "Manana" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA7773DED1BBBE5CB8513A07 /* Debug */,
+				1F193811F7740060DF823F74 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9ECD86C55BFD1093136ED62F /* Build configuration list for PBXProject "Manana" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF652D2A720EB7CDC4D9E883 /* Debug */,
+				400D05013B397F7D6AFBD774 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EF52DFD3F448434D6574FBEC /* Build configuration list for PBXNativeTarget "MananaWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0085B3119AC4B7EDD8D07AD /* Debug */,
+				3B0B0D2045B5ACF9B879354F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2D768305FEE13F22F78F1774 /* Project object */;
+}
