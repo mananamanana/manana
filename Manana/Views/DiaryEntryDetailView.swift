@@ -48,21 +48,43 @@ struct DiaryEntryDetailView: View {
 
             VStack {
                 Spacer()
-                VStack(spacing: 6) {
+                VStack(spacing: 8) {
+                    Rectangle()
+                        .fill(entry.weatherCondition.quoteInkColor(isDay: true).opacity(0.3))
+                        .frame(width: 22, height: 1)
                     Text(entry.quoteText)
-                        .font(.system(.body, design: .serif))
+                        .font(.mananaQuote(.body))
+                        .foregroundStyle(entry.weatherCondition.quoteInkColor(isDay: true))
                         .multilineTextAlignment(.center)
+                        .lineSpacing(4)
                     if let source = entry.quoteSource {
                         Text("— \(source)")
-                            .font(.caption2)
-                            .foregroundStyle(.white.opacity(0.8))
+                            .font(.system(.caption2, design: .rounded).weight(.semibold))
+                            .tracking(1.2)
+                            .foregroundStyle(MananaTheme.clay)
                     }
+                    Text(folio)
+                        .font(.system(.caption2, design: .rounded))
+                        .tracking(1.5)
+                        .monospacedDigit()
+                        .foregroundStyle(MananaTheme.ink.opacity(0.35))
                 }
-                .padding()
-                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
-                .padding()
+                .padding(.horizontal, 24)
+                .padding(.vertical, 22)
+                .frame(maxWidth: .infinity)
+                .background(
+                    LinearGradient(
+                        colors: [MananaTheme.paper.opacity(0), MananaTheme.paper.opacity(0.85)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
             }
         }
+    }
+
+    private var folio: String {
+        "\(Calendar.current.ordinality(of: .day, in: .year, for: entry.date) ?? 1) / 365"
     }
 
     @MainActor

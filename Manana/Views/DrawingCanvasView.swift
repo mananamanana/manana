@@ -26,8 +26,10 @@ struct DrawingCanvasView: UIViewRepresentable {
         Coordinator(onDrawingChanged: onDrawingChanged)
     }
 
+    /// A soft graphite pencil rather than a heavy pen — thinner, lighter,
+    /// closer to the sketchy literary-journal line the app is going for.
     private static var penTool: PKInkingTool {
-        PKInkingTool(.pen, color: UIColor(white: 0.12, alpha: 0.85), width: 6)
+        PKInkingTool(.pencil, color: UIColor(red: 0.33, green: 0.30, blue: 0.28, alpha: 0.8), width: 3)
     }
 
     final class Coordinator: NSObject, PKCanvasViewDelegate {

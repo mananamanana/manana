@@ -7,8 +7,13 @@ import Foundation
 struct SharedWeatherSnapshot: Codable {
     var emoji: String
     var temperature: Double?
+    var feelsLike: Double?
+    var highTemp: Double?
+    var lowTemp: Double?
+    var precipitationProbability: Int?
     var conditionName: String
     var backgroundColors: [[Double]]
+    var quoteInkColor: [Double]
     var quoteText: String
     var quoteSource: String?
     var updatedAt: Date

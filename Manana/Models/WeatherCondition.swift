@@ -55,6 +55,25 @@ enum WeatherCondition: String, Codable, CaseIterable, Identifiable {
         }
     }
 
+    /// A short, unhurried description in place of a plain forecast label —
+    /// "느린 햇살" instead of "맑음" — matching the mañana mood.
+    func poeticPhrase(isDay: Bool) -> String {
+        switch (self, isDay) {
+        case (.clear, true): return "느린 햇살"
+        case (.clear, false): return "고요한 밤"
+        case (.cloudy, true): return "낮게 뜬 구름"
+        case (.cloudy, false): return "구름 낀 밤"
+        case (.fog, true): return "옅은 안개"
+        case (.fog, false): return "밤 안개"
+        case (.rain, true): return "조용한 빗소리"
+        case (.rain, false): return "밤비"
+        case (.snow, true): return "포근한 눈"
+        case (.snow, false): return "눈 내리는 밤"
+        case (.thunderstorm, true): return "천둥이 지나가는 오후"
+        case (.thunderstorm, false): return "천둥 치는 밤"
+        }
+    }
+
     var symbolName: String {
         switch self {
         case .clear: return "sun.max.fill"
@@ -69,36 +88,99 @@ enum WeatherCondition: String, Codable, CaseIterable, Identifiable {
     /// Background gradient stops as raw [hue, saturation, brightness] triples,
     /// tuned separately for day/night. Kept as plain numbers (not `Color`) so
     /// this same data can be written into the widget's shared snapshot.
+    ///
+    /// Palette follows the "mañana siesta" mood: warm, sun-worn tones (gold,
+    /// terracotta, clay) rather than cool blues, even for rain/snow/storms —
+    /// unhurried afternoon light rather than clinical weather-app color.
+    /// Saturation is kept deliberately restrained (sun-bleached book jacket,
+    /// not a vivid weather-app gradient) so it reads as toned paper first,
+    /// weather mood second — the daily quote is the thing that should pop.
     func gradientHSB(isDay: Bool) -> [[Double]] {
         switch (self, isDay) {
         case (.clear, true):
-            return [[0.56, 0.55, 0.98], [0.12, 0.45, 0.99]]
+            return [[0.11, 0.32, 0.97], [0.04, 0.38, 0.94]]
         case (.clear, false):
-            return [[0.68, 0.55, 0.25], [0.72, 0.45, 0.12]]
+            return [[0.80, 0.32, 0.30], [0.03, 0.38, 0.18]]
         case (.cloudy, true):
-            return [[0.58, 0.12, 0.82], [0.58, 0.08, 0.93]]
+            return [[0.09, 0.13, 0.91], [0.06, 0.16, 0.85]]
         case (.cloudy, false):
-            return [[0.62, 0.15, 0.30], [0.62, 0.10, 0.18]]
+            return [[0.86, 0.14, 0.28], [0.04, 0.18, 0.18]]
         case (.fog, true):
-            return [[0.55, 0.05, 0.88], [0.55, 0.03, 0.95]]
+            return [[0.10, 0.06, 0.96], [0.07, 0.07, 0.91]]
         case (.fog, false):
-            return [[0.58, 0.08, 0.35], [0.58, 0.05, 0.22]]
+            return [[0.08, 0.07, 0.36], [0.05, 0.08, 0.27]]
         case (.rain, true):
-            return [[0.60, 0.35, 0.55], [0.58, 0.25, 0.75]]
+            return [[0.53, 0.14, 0.66], [0.58, 0.20, 0.52]]
         case (.rain, false):
-            return [[0.62, 0.40, 0.20], [0.62, 0.30, 0.10]]
+            return [[0.60, 0.20, 0.26], [0.64, 0.23, 0.15]]
         case (.snow, true):
-            return [[0.58, 0.10, 0.95], [0.60, 0.05, 1.00]]
+            return [[0.02, 0.07, 0.98], [0.09, 0.07, 1.00]]
         case (.snow, false):
-            return [[0.60, 0.15, 0.40], [0.60, 0.08, 0.28]]
+            return [[0.92, 0.11, 0.35], [0.62, 0.09, 0.27]]
         case (.thunderstorm, true):
-            return [[0.72, 0.35, 0.40], [0.66, 0.30, 0.55]]
+            return [[0.90, 0.30, 0.46], [0.97, 0.39, 0.31]]
         case (.thunderstorm, false):
-            return [[0.74, 0.45, 0.12], [0.70, 0.35, 0.08]]
+            return [[0.92, 0.39, 0.21], [0.99, 0.43, 0.11]]
         }
     }
 
     func gradientColors(isDay: Bool) -> [Color] {
         gradientHSB(isDay: isDay).map { Color(hue: $0[0], saturation: $0[1], brightness: $0[2]) }
+    }
+
+    /// Ink tint for the daily quote — the literary "ink" shifted subtly
+    /// toward each condition's mood, so the sentence itself carries a trace
+    /// of the day's weather. Raw [red, green, blue] so it can travel to the
+    /// widget the same way `gradientHSB` does.
+    func quoteInkRGB(isDay: Bool) -> [Double] {
+        switch (self, isDay) {
+        case (.clear, true):
+            return [0.52, 0.32, 0.12]
+        case (.clear, false):
+            return [0.34, 0.18, 0.30]
+        case (.cloudy, true):
+            return [0.32, 0.27, 0.23]
+        case (.cloudy, false):
+            return [0.24, 0.20, 0.19]
+        case (.fog, true):
+            return [0.36, 0.33, 0.29]
+        case (.fog, false):
+            return [0.28, 0.26, 0.23]
+        case (.rain, true):
+            return [0.16, 0.30, 0.32]
+        case (.rain, false):
+            return [0.13, 0.22, 0.24]
+        case (.snow, true):
+            return [0.34, 0.24, 0.30]
+        case (.snow, false):
+            return [0.26, 0.19, 0.24]
+        case (.thunderstorm, true):
+            return [0.38, 0.12, 0.20]
+        case (.thunderstorm, false):
+            return [0.26, 0.08, 0.14]
+        }
+    }
+
+    func quoteInkColor(isDay: Bool) -> Color {
+        let rgb = quoteInkRGB(isDay: isDay)
+        return Color(red: rgb[0], green: rgb[1], blue: rgb[2])
+    }
+}
+
+/// Shared visual language for Mañana: a warm, unhurried "siesta" palette —
+/// paper, clay, ink — paired with literary serif type for anything quoted
+/// and clean rounded type for interface chrome.
+enum MananaTheme {
+    static let ink = Color(red: 0.24, green: 0.17, blue: 0.14)
+    static let paper = Color(red: 0.98, green: 0.94, blue: 0.86)
+    static let clay = Color(red: 0.80, green: 0.42, blue: 0.28)
+    static let accent = clay
+}
+
+extension Font {
+    /// Serif italic, for anything quoted — matches the literary "borrowed
+    /// sentence" feel of the app's daily quote.
+    static func mananaQuote(_ style: Font.TextStyle) -> Font {
+        .system(style, design: .serif).italic()
     }
 }

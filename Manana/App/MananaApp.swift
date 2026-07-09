@@ -17,6 +17,7 @@ struct MananaApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
+                .tint(MananaTheme.accent)
                 .environmentObject(locationManager)
                 .environmentObject(weatherService)
                 .environmentObject(quoteService)

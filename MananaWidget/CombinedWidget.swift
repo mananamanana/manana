@@ -24,12 +24,19 @@ struct CombinedWidgetView: View {
                                 .font(.headline)
                         }
                         Text(snapshot.conditionName)
-                            .font(.caption2)
+                            .font(.system(.caption2, design: .rounded))
+                            .foregroundStyle(.secondary)
+                    }
+
+                    if let detail = WidgetBackground.detailLine(for: snapshot) {
+                        Text(detail)
+                            .font(.system(.caption2, design: .rounded))
                             .foregroundStyle(.secondary)
                     }
 
                     Text(snapshot.quoteText)
-                        .font(.system(.caption, design: .serif))
+                        .font(.system(.caption, design: .serif).italic())
+                        .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot))
                         .lineLimit(3)
                         .fixedSize(horizontal: false, vertical: true)
                 } else {

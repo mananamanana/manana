@@ -17,13 +17,20 @@ struct WeatherQuoteWidgetView: View {
                     }
                 }
                 Text(snapshot.conditionName)
-                    .font(.footnote.weight(.medium))
+                    .font(.system(.footnote, design: .rounded).weight(.medium))
                     .foregroundStyle(.secondary)
+
+                if let detail = WidgetBackground.detailLine(for: snapshot) {
+                    Text(detail)
+                        .font(.system(.caption2, design: .rounded))
+                        .foregroundStyle(.secondary)
+                }
 
                 Spacer(minLength: 6)
 
                 Text(snapshot.quoteText)
-                    .font(.system(.subheadline, design: .serif).weight(.semibold))
+                    .font(.system(.subheadline, design: .serif).weight(.semibold).italic())
+                    .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot))
                     .multilineTextAlignment(.center)
                     .lineLimit(4)
                     .minimumScaleFactor(0.8)

@@ -35,6 +35,8 @@ struct SettingsView: View {
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(MananaTheme.paper.opacity(0.35))
             .navigationTitle("설정")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

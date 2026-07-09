@@ -7,6 +7,10 @@ import Foundation
 final class WeatherService: ObservableObject {
     @Published var condition: WeatherCondition = .clear
     @Published var temperature: Double?
+    @Published var feelsLike: Double?
+    @Published var highTemp: Double?
+    @Published var lowTemp: Double?
+    @Published var precipitationProbability: Int?
     @Published var isDay: Bool = true
     @Published var lastUpdated: Date?
     @Published var lastError: String?
@@ -18,11 +22,18 @@ final class WeatherService: ObservableObject {
 
     private struct ForecastResponse: Decodable {
         struct CurrentWeather: Decodable {
-            let temperature: Double
-            let weathercode: Int
+            let temperature_2m: Double
+            let apparent_temperature: Double
+            let weather_code: Int
             let is_day: Int
         }
-        let current_weather: CurrentWeather
+        struct DailyWeather: Decodable {
+            let temperature_2m_max: [Double]
+            let temperature_2m_min: [Double]
+            let precipitation_probability_max: [Int]?
+        }
+        let current: CurrentWeather
+        let daily: DailyWeather
     }
 
     init(locationManager: LocationManager) {
@@ -51,9 +62,13 @@ final class WeatherService: ObservableObject {
         do {
             let location = try await locationManager.requestCurrentLocation()
             let response = try await fetchForecast(for: location.coordinate)
-            condition = .from(weatherCode: response.current_weather.weathercode)
-            temperature = response.current_weather.temperature
-            isDay = response.current_weather.is_day == 1
+            condition = .from(weatherCode: response.current.weather_code)
+            temperature = response.current.temperature_2m
+            feelsLike = response.current.apparent_temperature
+            isDay = response.current.is_day == 1
+            highTemp = response.daily.temperature_2m_max.first
+            lowTemp = response.daily.temperature_2m_min.first
+            precipitationProbability = response.daily.precipitation_probability_max?.first
             lastUpdated = Date()
             lastError = nil
         } catch {
@@ -66,7 +81,10 @@ final class WeatherService: ObservableObject {
         components.queryItems = [
             URLQueryItem(name: "latitude", value: String(coordinate.latitude)),
             URLQueryItem(name: "longitude", value: String(coordinate.longitude)),
-            URLQueryItem(name: "current_weather", value: "true"),
+            URLQueryItem(name: "current", value: "temperature_2m,apparent_temperature,weather_code,is_day"),
+            URLQueryItem(name: "daily", value: "temperature_2m_max,temperature_2m_min,precipitation_probability_max"),
+            URLQueryItem(name: "timezone", value: "auto"),
+            URLQueryItem(name: "forecast_days", value: "1"),
         ]
         let (data, _) = try await URLSession.shared.data(from: components.url!)
         return try JSONDecoder().decode(ForecastResponse.self, from: data)
