@@ -1,46 +1,50 @@
 import PencilKit
 import SwiftUI
 
-/// Thin UIViewRepresentable wrapper around PKCanvasView. Kept deliberately
-/// single-tool (pen + eraser only, fixed color) to match the very plain,
-/// no-chrome canvas the reference app (Grug) uses.
+/// Thin UIViewRepresentable wrapper around PKCanvasView. Pen color and
+/// eraser mode are driven from the outside (the expandable tool panel in
+/// MainView) rather than fixed here.
 struct DrawingCanvasView: UIViewRepresentable {
     @Binding var canvasView: PKCanvasView
+    @Binding var canUndo: Bool
     var isErasing: Bool
+    var inkColor: UIColor
     var onDrawingChanged: (PKDrawing) -> Void
 
     func makeUIView(context: Context) -> PKCanvasView {
         canvasView.backgroundColor = .clear
         canvasView.isOpaque = false
         canvasView.drawingPolicy = .anyInput
-        canvasView.tool = Self.penTool
+        canvasView.tool = currentTool
         canvasView.delegate = context.coordinator
         return canvasView
     }
 
     func updateUIView(_ uiView: PKCanvasView, context: Context) {
-        uiView.tool = isErasing ? PKEraserTool(.bitmap) : Self.penTool
+        uiView.tool = currentTool
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(onDrawingChanged: onDrawingChanged)
+        Coordinator(onDrawingChanged: onDrawingChanged, canUndo: $canUndo)
     }
 
-    /// A soft graphite pencil rather than a heavy pen — thinner, lighter,
-    /// closer to the sketchy literary-journal line the app is going for.
-    private static var penTool: PKInkingTool {
-        PKInkingTool(.pencil, color: UIColor(red: 0.33, green: 0.30, blue: 0.28, alpha: 0.8), width: 3)
+    private var currentTool: PKTool {
+        isErasing ? PKEraserTool(.bitmap) : PKInkingTool(.crayon, color: inkColor, width: 8)
     }
 
     final class Coordinator: NSObject, PKCanvasViewDelegate {
         let onDrawingChanged: (PKDrawing) -> Void
+        let canUndo: Binding<Bool>
         private var debounceTask: Task<Void, Never>?
 
-        init(onDrawingChanged: @escaping (PKDrawing) -> Void) {
+        init(onDrawingChanged: @escaping (PKDrawing) -> Void, canUndo: Binding<Bool>) {
             self.onDrawingChanged = onDrawingChanged
+            self.canUndo = canUndo
         }
 
         func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+            canUndo.wrappedValue = canvasView.undoManager?.canUndo ?? false
+
             let drawing = canvasView.drawing
             debounceTask?.cancel()
             debounceTask = Task {

@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 import WidgetKit
 
 struct WeatherEntry: TimelineEntry {
@@ -28,6 +29,22 @@ struct MananaWidgetProvider: TimelineProvider {
 }
 
 enum WidgetBackground {
+    /// Widget-sized copies (MananaWidget/Backgrounds, ~700px wide) of the
+    /// same 16 hand-painted backgrounds the main app uses — kept separate
+    /// from the app's own full-resolution copies since the widget extension
+    /// has a much tighter memory budget.
+    private static var imageCache: [String: UIImage] = [:]
+
+    static func image(for snapshot: SharedWeatherSnapshot?) -> UIImage? {
+        guard let name = snapshot?.backgroundImageName else { return nil }
+        if let cached = imageCache[name] { return cached }
+        guard let url = Bundle.main.url(forResource: name, withExtension: "jpg"),
+              let image = UIImage(contentsOfFile: url.path)
+        else { return nil }
+        imageCache[name] = image
+        return image
+    }
+
     static func colors(for snapshot: SharedWeatherSnapshot?) -> [Color] {
         guard let hsb = snapshot?.backgroundColors, !hsb.isEmpty else {
             return [Color(hue: 0.09, saturation: 0.18, brightness: 0.90), Color(hue: 0.06, saturation: 0.22, brightness: 0.84)]
@@ -40,6 +57,20 @@ enum WidgetBackground {
             return Color(red: 0.24, green: 0.17, blue: 0.14)
         }
         return Color(red: rgb[0], green: rgb[1], blue: rgb[2])
+    }
+
+    /// The full-bleed widget background — the matching hand-painted art
+    /// when available, falling back to the old programmatic gradient
+    /// (e.g. for a stale cached snapshot from before this field existed).
+    @ViewBuilder
+    static func art(for snapshot: SharedWeatherSnapshot?) -> some View {
+        if let uiImage = image(for: snapshot) {
+            Image(uiImage: uiImage)
+                .resizable()
+                .scaledToFill()
+        } else {
+            LinearGradient(colors: colors(for: snapshot), startPoint: .top, endPoint: .bottom)
+        }
     }
 
     static func detailLine(for snapshot: SharedWeatherSnapshot?) -> String? {

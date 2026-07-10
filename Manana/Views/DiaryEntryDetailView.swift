@@ -57,14 +57,19 @@ struct DiaryEntryDetailView: View {
                         .foregroundStyle(entry.weatherCondition.quoteInkColor(isDay: true))
                         .multilineTextAlignment(.center)
                         .lineSpacing(4)
-                    if let source = entry.quoteSource {
-                        Text("— \(source)")
-                            .font(.system(.caption2, design: .rounded).weight(.semibold))
+                    if let bookTitle = entry.quoteBookTitle {
+                        Text("『\(bookTitle)』")
+                            .font(.manana(.caption2, weight: .semibold))
                             .tracking(1.2)
                             .foregroundStyle(MananaTheme.clay)
                     }
+                    if let author = entry.quoteAuthor {
+                        Text(author)
+                            .font(.manana(.caption2))
+                            .foregroundStyle(MananaTheme.ink.opacity(0.55))
+                    }
                     Text(folio)
-                        .font(.system(.caption2, design: .rounded))
+                        .font(.manana(.caption2))
                         .tracking(1.5)
                         .monospacedDigit()
                         .foregroundStyle(MananaTheme.ink.opacity(0.35))

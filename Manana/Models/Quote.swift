@@ -5,7 +5,8 @@ import Foundation
 struct Quote: Codable, Identifiable, Hashable {
     var id: String
     var text: String
-    var source: String?
+    var bookTitle: String?
+    var author: String?
     var weatherTags: [String]
 
     static let anyTag = "any"

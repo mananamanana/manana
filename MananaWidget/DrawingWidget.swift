@@ -17,7 +17,7 @@ struct DrawingWidgetView: View {
                     .scaledToFill()
             } else {
                 Text("아직 그린 그림이 없어요")
-                    .font(.caption2)
+                    .font(.manana(.caption2))
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
                     .padding()
@@ -25,7 +25,7 @@ struct DrawingWidgetView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .containerBackground(for: .widget) {
-            LinearGradient(colors: WidgetBackground.colors(for: entry.snapshot), startPoint: .top, endPoint: .bottom)
+            WidgetBackground.art(for: entry.snapshot)
         }
     }
 }

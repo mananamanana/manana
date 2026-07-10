@@ -1,38 +1,18 @@
 import Foundation
 
-/// Loads the bundled seed quotes plus any quotes added through the dev-only
-/// admin tool, and resolves "today's quote" from a day-of-year rotation that
-/// falls back to a weather-tag match when the rotation pick doesn't fit today.
+/// Loads the bundled seed quotes and resolves "today's quote" from a
+/// day-of-year rotation that falls back to a weather-tag match when the
+/// rotation pick doesn't fit today.
 @MainActor
 final class QuoteService: ObservableObject {
     @Published private(set) var quotes: [Quote] = []
-
-    private let customQuotesURL: URL = {
-        let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        return documents.appendingPathComponent("custom_quotes.json")
-    }()
 
     init() {
         reload()
     }
 
     func reload() {
-        quotes = loadBundledQuotes() + loadCustomQuotes()
-    }
-
-    /// Adds a quote from the dev-only admin tool and persists it to Documents
-    /// so it survives relaunches without needing to touch the app bundle.
-    func addCustomQuote(text: String, source: String?, weatherTags: [String]) {
-        var custom = loadCustomQuotes()
-        let quote = Quote(
-            id: "custom-\(UUID().uuidString.prefix(8))",
-            text: text,
-            source: source,
-            weatherTags: weatherTags.isEmpty ? [Quote.anyTag] : weatherTags
-        )
-        custom.append(quote)
-        saveCustomQuotes(custom)
-        reload()
+        quotes = loadBundledQuotes()
     }
 
     func quoteForToday(condition: WeatherCondition, date: Date = Date()) -> Quote? {
@@ -60,19 +40,5 @@ final class QuoteService: ObservableObject {
             return []
         }
         return decoded
-    }
-
-    private func loadCustomQuotes() -> [Quote] {
-        guard let data = try? Data(contentsOf: customQuotesURL),
-              let decoded = try? JSONDecoder().decode([Quote].self, from: data)
-        else {
-            return []
-        }
-        return decoded
-    }
-
-    private func saveCustomQuotes(_ quotes: [Quote]) {
-        guard let data = try? JSONEncoder().encode(quotes) else { return }
-        try? data.write(to: customQuotesURL, options: .atomic)
     }
 }

@@ -6,45 +6,49 @@ struct WeatherQuoteWidgetView: View {
     var entry: WeatherEntry
 
     var body: some View {
-        VStack(spacing: 4) {
+        VStack(alignment: .leading, spacing: 6) {
             if let snapshot = entry.snapshot {
-                HStack(spacing: 6) {
-                    Text(snapshot.emoji)
-                        .font(.system(size: 36))
+                // The quote is the point of this widget — the weather line
+                // is just a small header, not a competing focal point.
+                HStack(spacing: 4) {
+                    Image(systemName: snapshot.symbolName)
+                        .font(.system(size: 13))
                     if let temperature = snapshot.temperature {
                         Text("\(Int(temperature.rounded()))°")
-                            .font(.system(size: 30, weight: .bold, design: .rounded))
+                            .font(.manana(size: 13, weight: .semibold))
+                    }
+                    Text(snapshot.conditionName)
+                        .font(.manana(.caption2))
+                        .foregroundStyle(.secondary)
+                    if let detail = WidgetBackground.detailLine(for: snapshot) {
+                        Text("· \(detail)")
+                            .font(.manana(.caption2))
+                            .foregroundStyle(.secondary)
                     }
                 }
-                Text(snapshot.conditionName)
-                    .font(.system(.footnote, design: .rounded).weight(.medium))
-                    .foregroundStyle(.secondary)
-
-                if let detail = WidgetBackground.detailLine(for: snapshot) {
-                    Text(detail)
-                        .font(.system(.caption2, design: .rounded))
-                        .foregroundStyle(.secondary)
-                }
+                .lineLimit(1)
+                .minimumScaleFactor(0.75)
 
                 Spacer(minLength: 6)
 
                 Text(snapshot.quoteText)
-                    .font(.system(.subheadline, design: .serif).weight(.semibold).italic())
+                    .font(.manana(.subheadline, weight: .semibold).italic())
                     .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot))
-                    .multilineTextAlignment(.center)
-                    .lineLimit(4)
-                    .minimumScaleFactor(0.8)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(6)
+                    .minimumScaleFactor(0.6)
             } else {
                 Text("Mañana 앱을 열어\n오늘의 날씨를 가져와보세요")
-                    .font(.caption2)
+                    .font(.manana(.caption2))
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .center)
             }
         }
         .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         .containerBackground(for: .widget) {
-            LinearGradient(colors: WidgetBackground.colors(for: entry.snapshot), startPoint: .top, endPoint: .bottom)
+            WidgetBackground.art(for: entry.snapshot)
         }
     }
 }

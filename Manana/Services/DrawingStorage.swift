@@ -15,10 +15,14 @@ final class DrawingStorage {
         try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
     }
 
+    /// Anchored to KST regardless of the device's own timezone — this app
+    /// is Korea-only (KMA weather, Korean UI), and the daily rollover is
+    /// meant to follow the Korean calendar day specifically.
     static func dateKey(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
         return formatter.string(from: date)
     }
 

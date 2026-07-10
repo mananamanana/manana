@@ -12,7 +12,8 @@ final class DiaryEntry {
     var weatherConditionRaw: String
     var temperature: Double?
     var quoteText: String
-    var quoteSource: String?
+    var quoteBookTitle: String?
+    var quoteAuthor: String?
     var drawingFileName: String
 
     init(
@@ -20,7 +21,8 @@ final class DiaryEntry {
         weatherCondition: WeatherCondition,
         temperature: Double?,
         quoteText: String,
-        quoteSource: String?,
+        quoteBookTitle: String?,
+        quoteAuthor: String?,
         drawingFileName: String
     ) {
         self.dayKey = DrawingStorage.dateKey(date)
@@ -28,7 +30,8 @@ final class DiaryEntry {
         self.weatherConditionRaw = weatherCondition.rawValue
         self.temperature = temperature
         self.quoteText = quoteText
-        self.quoteSource = quoteSource
+        self.quoteBookTitle = quoteBookTitle
+        self.quoteAuthor = quoteAuthor
         self.drawingFileName = drawingFileName
     }
 

@@ -1,7 +1,10 @@
 import SwiftUI
 
 /// Coarse weather category used for both background styling and quote tagging.
-/// Maps from Open-Meteo's WMO weather codes: https://open-meteo.com/en/docs
+/// Maps from KMA (기상청) 단기예보 codes: PTY (precipitation type) takes
+/// priority since it's directly observed; SKY (cloud cover) only matters
+/// when there's no precipitation. KMA's short-term APIs have no distinct
+/// fog or thunderstorm code, so those two never occur from this source.
 enum WeatherCondition: String, Codable, CaseIterable, Identifiable {
     case clear
     case cloudy
@@ -12,22 +15,24 @@ enum WeatherCondition: String, Codable, CaseIterable, Identifiable {
 
     var id: String { rawValue }
 
-    static func from(weatherCode: Int) -> WeatherCondition {
-        switch weatherCode {
-        case 0, 1:
-            return .clear
-        case 2, 3:
-            return .cloudy
-        case 45, 48:
-            return .fog
-        case 51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82:
+    /// - Parameters:
+    ///   - pty: 강수형태 — 0 없음, 1 비, 2 비/눈, 3 눈, 4 소나기, 5 빗방울, 6 빗방울눈날림, 7 눈날림
+    ///   - sky: 하늘상태 — 1 맑음, 3 구름많음, 4 흐림 (only consulted when pty == 0)
+    static func from(pty: Int, sky: Int?) -> WeatherCondition {
+        switch pty {
+        case 1, 4, 5:
             return .rain
-        case 71, 73, 75, 77, 85, 86:
+        case 2, 3, 6, 7:
             return .snow
-        case 95, 96, 99:
-            return .thunderstorm
         default:
-            return .cloudy
+            switch sky {
+            case 1:
+                return .clear
+            case 3, 4:
+                return .cloudy
+            default:
+                return .cloudy
+            }
         }
     }
 
@@ -55,24 +60,6 @@ enum WeatherCondition: String, Codable, CaseIterable, Identifiable {
         }
     }
 
-    /// A short, unhurried description in place of a plain forecast label —
-    /// "느린 햇살" instead of "맑음" — matching the mañana mood.
-    func poeticPhrase(isDay: Bool) -> String {
-        switch (self, isDay) {
-        case (.clear, true): return "느린 햇살"
-        case (.clear, false): return "고요한 밤"
-        case (.cloudy, true): return "낮게 뜬 구름"
-        case (.cloudy, false): return "구름 낀 밤"
-        case (.fog, true): return "옅은 안개"
-        case (.fog, false): return "밤 안개"
-        case (.rain, true): return "조용한 빗소리"
-        case (.rain, false): return "밤비"
-        case (.snow, true): return "포근한 눈"
-        case (.snow, false): return "눈 내리는 밤"
-        case (.thunderstorm, true): return "천둥이 지나가는 오후"
-        case (.thunderstorm, false): return "천둥 치는 밤"
-        }
-    }
 
     var symbolName: String {
         switch self {
@@ -175,12 +162,4 @@ enum MananaTheme {
     static let paper = Color(red: 0.98, green: 0.94, blue: 0.86)
     static let clay = Color(red: 0.80, green: 0.42, blue: 0.28)
     static let accent = clay
-}
-
-extension Font {
-    /// Serif italic, for anything quoted — matches the literary "borrowed
-    /// sentence" feel of the app's daily quote.
-    static func mananaQuote(_ style: Font.TextStyle) -> Font {
-        .system(style, design: .serif).italic()
-    }
 }

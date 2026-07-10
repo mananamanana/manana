@@ -7,32 +7,75 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		012431919A8B12F3241A4F14 /* background_비(밤).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 38FEA2019DB84A28561DCFDD /* background_비(밤).jpg */; };
 		01E683D9543EBF5043EF5645 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56863CF13FA809DC32E0EC62 /* NotificationManager.swift */; };
+		049FF27803C5C162BDB04DA3 /* background_실안개.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 99341FD45B3B90CABB9024D6 /* background_실안개.jpg */; };
+		0E5F1A74B5661A35DD2A4DA1 /* background_흐림.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4B73EF8A78B1263E212D851E /* background_흐림.jpg */; };
 		1184205FA2DF20C5E7A3EF7D /* SharedWeatherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577C04803329F8E28394181 /* SharedWeatherStore.swift */; };
+		1634F50444068AB5A7C1592A /* background_폭설.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD9E175F1784432F14485F2D /* background_폭설.jpg */; };
 		1ECC3DB2060585F3D03BE044 /* MananaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FFF886B8594EC330112B5B /* MananaApp.swift */; };
+		293C8FDEDCA911BE8155F646 /* background_청명함(밤).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B4E0982FCC2E20B45ED7A2E /* background_청명함(밤).jpg */; };
+		2AE648D6D6E5DCD1AF0EDA19 /* background_한때흐림(밤).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 45C96E164C7F45FE33F2FFE2 /* background_한때흐림(밤).jpg */; };
+		3190F5DC868491EDA323FF53 /* YoonChildfundkoreaDaeHan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87D9C2A0B9756ABAFD754629 /* YoonChildfundkoreaDaeHan.ttf */; };
 		3314139DF72FBCAA50BBCD44 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20261B8294262233F291DA72 /* WeatherService.swift */; };
-		39D9F490ECA4ADE0AE4C40FC /* QuoteAdminView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C10AD00672210A5DC56829 /* QuoteAdminView.swift */; };
+		394658F4482306E3D2D86576 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A02F2CDBA472DED63FCB424D /* Assets.xcassets */; };
 		3E66DE2E1328A34D0A09827D /* CombinedWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B62450300842B089222BAF /* CombinedWidget.swift */; };
+		45433B02E401456A4B5654DC /* background_호우.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E38F7F1D74D62E1DB09CA6AD /* background_호우.jpg */; };
+		45CEE79099A3DC2978CF9F52 /* background_흐림.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 91AC23C0E5DFE8DACD3162C1 /* background_흐림.jpg */; };
+		50E59A0747E1DCA9DFCB5704 /* background_태풍.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9A51A5876995EADF9409C508 /* background_태풍.jpg */; };
+		543C6CA13C9AF52930BA9049 /* background_한때흐림(낮).jpg in Resources */ = {isa = PBXBuildFile; fileRef = F97BF34F90D4A5F117FB7EA7 /* background_한때흐림(낮).jpg */; };
 		54B63E4C5BD1D00ECFC42D22 /* MananaWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F2583ADEAF4F0227B3AF139A /* MananaWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		55EF6E501968952BC93935F7 /* WeatherCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A287B2BDF1709B3B957AAD2 /* WeatherCondition.swift */; };
+		5889D723C61F35A4EEC8F388 /* background_비(밤).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F7C49EFCBFE162A109089 /* background_비(밤).jpg */; };
+		5D7BDFB6A7EB81A950EAD10A /* background_번개.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F0032B4026AB85989BBEDCB /* background_번개.jpg */; };
 		61F05213CCB4AEA3EFB666B1 /* DrawingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B87E859897609DC673F06A /* DrawingStorage.swift */; };
 		641300AB5ACDFEB60D97BA46 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FF4458BE310E3A1511C588 /* MainView.swift */; };
+		650CD9B6C3B28655BD1951E3 /* YoonChildfundkoreaDaeHan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87D9C2A0B9756ABAFD754629 /* YoonChildfundkoreaDaeHan.ttf */; };
 		67864992ED408439EC2A6D27 /* DrawingWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4137B54FFC1DE66A34F3B96C /* DrawingWidget.swift */; };
 		6979670F817103818650A7C3 /* DiaryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96FF59619FA4B2ACFCCA55F /* DiaryEntry.swift */; };
+		6DE44AEF163BE90A48D6BE1A /* background_뇌우.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3D26A21AA1B14F5E598013B /* background_뇌우.jpg */; };
 		72F9B8462B7800E88DFDA46C /* QuoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81165CF98FDF9A0F715555E4 /* QuoteService.swift */; };
+		78243E52CEED36EDAB8DE476 /* background_폭설.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F6911CA1002A919DCEA1EF1 /* background_폭설.jpg */; };
 		86B91B0BFE27472780F6511D /* SharedDrawingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7112DD17A41EBD802773E /* SharedDrawingStore.swift */; };
+		90B155D6F03028DFA8EAFF36 /* YoonChildfundkoreaManSeh.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAD0F01B6D9D71565807B5B0 /* YoonChildfundkoreaManSeh.ttf */; };
+		988EE80743E36EB8E8067B0B /* background_눈비.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E5E3637C47336144934F3ED /* background_눈비.jpg */; };
 		99A01AF6A1A6A67D92F6C24D /* ArchiveListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34717ECC27BC5280F6625CA1 /* ArchiveListView.swift */; };
+		9AAF618EFE8AEFFE3D4D225C /* background_눈비.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CAA1F7234C8E09DA235E3015 /* background_눈비.jpg */; };
+		9E4AA320BCC45BB0FB518527 /* background_청명함(밤).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 736DB65D54086B438ACA1A65 /* background_청명함(밤).jpg */; };
+		9E673B82E05CF827E6D35290 /* background_호우.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 88D5371CB1569393622280FA /* background_호우.jpg */; };
 		9EF7D41D8400071749A7F7DA /* DrawingCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B5A9C55615F5999B3C5167 /* DrawingCanvasView.swift */; };
+		9FF177393805517733E567FD /* background_청명함(낮).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18586E5E3461D88CEB8FC12B /* background_청명함(낮).jpg */; };
+		A4842597EF8AE6CE69F0B853 /* background_비(낮).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7613CB916153865F54D1DD36 /* background_비(낮).jpg */; };
 		A67CB0964ACFAEEAC13365BC /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32D375ACBD1925ECC046FC /* Quote.swift */; };
+		A8F0599B74FF5B4F32A9EA9F /* YoonChildfundkoreaManSeh.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAD0F01B6D9D71565807B5B0 /* YoonChildfundkoreaManSeh.ttf */; };
+		A90A406D7B6B333031AD520B /* WeatherBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A2B0C1BCECE05D72E69142 /* WeatherBackground.swift */; };
 		AAB7DB3722C1DB87AF439FF9 /* SharedWeatherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577C04803329F8E28394181 /* SharedWeatherStore.swift */; };
 		AB238B270FB985CAEB1A44CD /* MananaWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE33AAB206DB50A1B5AE556 /* MananaWidgetBundle.swift */; };
 		AC19C8C817BB7D04CA590260 /* SharedDrawingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7112DD17A41EBD802773E /* SharedDrawingStore.swift */; };
+		B152CBD39A0E65568D13A022 /* background_뇌우.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7E5CB21C65B2CA8425F18315 /* background_뇌우.jpg */; };
+		B97C67F5A4AAFBC4C612E97F /* Font+Manana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A079DCEC25B1A9C47CC9C5 /* Font+Manana.swift */; };
+		BAECE7A06BFE80A65304FC36 /* background_태풍.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B1C853AB470CC0A2CB108A4 /* background_태풍.jpg */; };
 		BAEDC42850845C0C2F9A413E /* WeatherEntryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F646E7C606AFA3F855DC2A /* WeatherEntryProvider.swift */; };
+		C239C550CD601CCAA79A56D8 /* background_안개.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D87CC544AB997711D88B8B0 /* background_안개.jpg */; };
+		C3513E227C2E0BC416E1B774 /* Font+Manana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A079DCEC25B1A9C47CC9C5 /* Font+Manana.swift */; };
+		C3B9D86D1A9B7D1EDD5D1313 /* YoonChildfundkoreaMinGuk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8890D146342692911F53D84 /* YoonChildfundkoreaMinGuk.ttf */; };
+		C90AE672C0E3D42EE82CE755 /* background_눈.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4310EB53921BBD28251C2717 /* background_눈.jpg */; };
+		CC262AC105504E3FCF6D583F /* background_눈.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6FA4BC0F2B14292BC239DF38 /* background_눈.jpg */; };
 		D0107FA1301A8C343F0F9E60 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29D77B214B6497C587F83D1 /* SettingsView.swift */; };
 		D8E4155F3CFA0B5E37DEE9A8 /* DiaryEntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AE92CEFF979F9174033C7 /* DiaryEntryDetailView.swift */; };
+		DCB057BD7F3609016AB33A72 /* background_한때흐림(낮).jpg in Resources */ = {isa = PBXBuildFile; fileRef = FBF23BFB3E9143B95CAADFE6 /* background_한때흐림(낮).jpg */; };
 		DDA7A620A32B4E80354FBEFE /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C1A302F4FB9F7ED3178FD /* LocationManager.swift */; };
+		EA92E4DF7527F13C414FC789 /* KMAGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2115C93A4FEB346FB5535 /* KMAGrid.swift */; };
 		EB89EE06B7B014348F8365E5 /* quotes.json in Resources */ = {isa = PBXBuildFile; fileRef = EE71493E7991FC7CA0B3510B /* quotes.json */; };
+		ED36DEA9DAE32321B0C7AD34 /* background_실안개.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 519A85A346F9B3C8116EAEFF /* background_실안개.jpg */; };
+		F0B5F2745D59A5B3C72BEED3 /* background_청명함(낮).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3701D6C2515DE60D74867903 /* background_청명함(낮).jpg */; };
+		F12AE3ED9571B1F3FF922DB9 /* background_한때흐림(밤).jpg in Resources */ = {isa = PBXBuildFile; fileRef = F9FC25682A71195FC4577D51 /* background_한때흐림(밤).jpg */; };
+		F2738F50D549B5B8C2B7283E /* YoonChildfundkoreaMinGuk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8890D146342692911F53D84 /* YoonChildfundkoreaMinGuk.ttf */; };
+		F3E5A0A5F2F99250CEE27BA2 /* background_번개.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E70B6593C1BF4D40C28D46E1 /* background_번개.jpg */; };
 		F68616936C1AEE977261B30C /* WeatherQuoteWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A95758926B97B3C8FDCB53 /* WeatherQuoteWidget.swift */; };
+		FA2E795DEC3CA8B14684E2C8 /* background_비(낮).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 74956CEF6A6CA182EC3D36D7 /* background_비(낮).jpg */; };
+		FBAD343874D22CC4EA48C912 /* background_안개.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E28BC10F6F7039E3D9E90FE0 /* background_안개.jpg */; };
+		FF0C0301E83C9E1FB1DD2BB9 /* DiaryCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FB0CFA9A4427C615C97496 /* DiaryCalendarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,34 +103,74 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		18586E5E3461D88CEB8FC12B /* background_청명함(낮).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_청명함(낮).jpg"; sourceTree = "<group>"; };
 		20261B8294262233F291DA72 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
-		24C10AD00672210A5DC56829 /* QuoteAdminView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteAdminView.swift; sourceTree = "<group>"; };
 		2577C04803329F8E28394181 /* SharedWeatherStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedWeatherStore.swift; sourceTree = "<group>"; };
 		25B5F57386541A623188EA56 /* MananaWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MananaWidget.entitlements; sourceTree = "<group>"; };
+		29C471F1423E4C7D5BB51DA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		34717ECC27BC5280F6625CA1 /* ArchiveListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveListView.swift; sourceTree = "<group>"; };
+		3701D6C2515DE60D74867903 /* background_청명함(낮).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_청명함(낮).jpg"; sourceTree = "<group>"; };
+		38FEA2019DB84A28561DCFDD /* background_비(밤).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_비(밤).jpg"; sourceTree = "<group>"; };
 		40F646E7C606AFA3F855DC2A /* WeatherEntryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherEntryProvider.swift; sourceTree = "<group>"; };
 		4137B54FFC1DE66A34F3B96C /* DrawingWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingWidget.swift; sourceTree = "<group>"; };
+		4310EB53921BBD28251C2717 /* background_눈.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_눈.jpg"; sourceTree = "<group>"; };
+		45C96E164C7F45FE33F2FFE2 /* background_한때흐림(밤).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_한때흐림(밤).jpg"; sourceTree = "<group>"; };
+		4B73EF8A78B1263E212D851E /* background_흐림.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_흐림.jpg"; sourceTree = "<group>"; };
 		4CE33AAB206DB50A1B5AE556 /* MananaWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MananaWidgetBundle.swift; sourceTree = "<group>"; };
 		4E244FED6E722AE4866BCEEC /* Manana.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Manana.entitlements; sourceTree = "<group>"; };
+		519A85A346F9B3C8116EAEFF /* background_실안개.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_실안개.jpg"; sourceTree = "<group>"; };
 		53A95758926B97B3C8FDCB53 /* WeatherQuoteWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherQuoteWidget.swift; sourceTree = "<group>"; };
+		53FB0CFA9A4427C615C97496 /* DiaryCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCalendarView.swift; sourceTree = "<group>"; };
 		56863CF13FA809DC32E0EC62 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		5B1C1A302F4FB9F7ED3178FD /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		5C7F7C49EFCBFE162A109089 /* background_비(밤).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_비(밤).jpg"; sourceTree = "<group>"; };
 		61FFF886B8594EC330112B5B /* MananaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MananaApp.swift; sourceTree = "<group>"; };
+		6E5E3637C47336144934F3ED /* background_눈비.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_눈비.jpg"; sourceTree = "<group>"; };
+		6FA4BC0F2B14292BC239DF38 /* background_눈.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_눈.jpg"; sourceTree = "<group>"; };
+		736DB65D54086B438ACA1A65 /* background_청명함(밤).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_청명함(밤).jpg"; sourceTree = "<group>"; };
+		74956CEF6A6CA182EC3D36D7 /* background_비(낮).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_비(낮).jpg"; sourceTree = "<group>"; };
+		7613CB916153865F54D1DD36 /* background_비(낮).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_비(낮).jpg"; sourceTree = "<group>"; };
+		76A079DCEC25B1A9C47CC9C5 /* Font+Manana.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Manana.swift"; sourceTree = "<group>"; };
+		7B1C853AB470CC0A2CB108A4 /* background_태풍.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_태풍.jpg"; sourceTree = "<group>"; };
+		7B4E0982FCC2E20B45ED7A2E /* background_청명함(밤).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_청명함(밤).jpg"; sourceTree = "<group>"; };
+		7D87CC544AB997711D88B8B0 /* background_안개.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_안개.jpg"; sourceTree = "<group>"; };
+		7E5CB21C65B2CA8425F18315 /* background_뇌우.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_뇌우.jpg"; sourceTree = "<group>"; };
+		7F0032B4026AB85989BBEDCB /* background_번개.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_번개.jpg"; sourceTree = "<group>"; };
+		7F6911CA1002A919DCEA1EF1 /* background_폭설.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_폭설.jpg"; sourceTree = "<group>"; };
 		81165CF98FDF9A0F715555E4 /* QuoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteService.swift; sourceTree = "<group>"; };
 		81B5A9C55615F5999B3C5167 /* DrawingCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvasView.swift; sourceTree = "<group>"; };
 		86FF4458BE310E3A1511C588 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		87D9C2A0B9756ABAFD754629 /* YoonChildfundkoreaDaeHan.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = YoonChildfundkoreaDaeHan.ttf; sourceTree = "<group>"; };
+		88D5371CB1569393622280FA /* background_호우.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_호우.jpg"; sourceTree = "<group>"; };
 		8CF7112DD17A41EBD802773E /* SharedDrawingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDrawingStore.swift; sourceTree = "<group>"; };
+		91AC23C0E5DFE8DACD3162C1 /* background_흐림.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_흐림.jpg"; sourceTree = "<group>"; };
 		97B62450300842B089222BAF /* CombinedWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedWidget.swift; sourceTree = "<group>"; };
+		99341FD45B3B90CABB9024D6 /* background_실안개.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_실안개.jpg"; sourceTree = "<group>"; };
 		9A287B2BDF1709B3B957AAD2 /* WeatherCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCondition.swift; sourceTree = "<group>"; };
+		9A51A5876995EADF9409C508 /* background_태풍.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_태풍.jpg"; sourceTree = "<group>"; };
+		A02F2CDBA472DED63FCB424D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B29D77B214B6497C587F83D1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B96FF59619FA4B2ACFCCA55F /* DiaryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntry.swift; sourceTree = "<group>"; };
 		C10AE92CEFF979F9174033C7 /* DiaryEntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntryDetailView.swift; sourceTree = "<group>"; };
+		C3D26A21AA1B14F5E598013B /* background_뇌우.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_뇌우.jpg"; sourceTree = "<group>"; };
+		C8890D146342692911F53D84 /* YoonChildfundkoreaMinGuk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = YoonChildfundkoreaMinGuk.ttf; sourceTree = "<group>"; };
+		CAA1F7234C8E09DA235E3015 /* background_눈비.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_눈비.jpg"; sourceTree = "<group>"; };
+		CD9E175F1784432F14485F2D /* background_폭설.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_폭설.jpg"; sourceTree = "<group>"; };
+		D8A2B0C1BCECE05D72E69142 /* WeatherBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherBackground.swift; sourceTree = "<group>"; };
 		DE32D375ACBD1925ECC046FC /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
 		E0B87E859897609DC673F06A /* DrawingStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingStorage.swift; sourceTree = "<group>"; };
 		E20D1E61D5B3DBEF1667FCA7 /* Manana.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Manana.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E28BC10F6F7039E3D9E90FE0 /* background_안개.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_안개.jpg"; sourceTree = "<group>"; };
+		E38F7F1D74D62E1DB09CA6AD /* background_호우.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_호우.jpg"; sourceTree = "<group>"; };
+		E70B6593C1BF4D40C28D46E1 /* background_번개.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_번개.jpg"; sourceTree = "<group>"; };
+		E8C2115C93A4FEB346FB5535 /* KMAGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMAGrid.swift; sourceTree = "<group>"; };
 		E931745FCFEACCD1C6810019 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EAD0F01B6D9D71565807B5B0 /* YoonChildfundkoreaManSeh.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = YoonChildfundkoreaManSeh.ttf; sourceTree = "<group>"; };
 		EE71493E7991FC7CA0B3510B /* quotes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = quotes.json; sourceTree = "<group>"; };
 		F2583ADEAF4F0227B3AF139A /* MananaWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MananaWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F97BF34F90D4A5F117FB7EA7 /* background_한때흐림(낮).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_한때흐림(낮).jpg"; sourceTree = "<group>"; };
+		F9FC25682A71195FC4577D51 /* background_한때흐림(밤).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_한때흐림(밤).jpg"; sourceTree = "<group>"; };
+		FBF23BFB3E9143B95CAADFE6 /* background_한때흐림(낮).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_한때흐림(낮).jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -95,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				E0B87E859897609DC673F06A /* DrawingStorage.swift */,
+				E8C2115C93A4FEB346FB5535 /* KMAGrid.swift */,
 				5B1C1A302F4FB9F7ED3178FD /* LocationManager.swift */,
 				56863CF13FA809DC32E0EC62 /* NotificationManager.swift */,
 				81165CF98FDF9A0F715555E4 /* QuoteService.swift */,
@@ -103,11 +187,22 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		2C3FD9D88C117A21B31D78F2 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				87D9C2A0B9756ABAFD754629 /* YoonChildfundkoreaDaeHan.ttf */,
+				EAD0F01B6D9D71565807B5B0 /* YoonChildfundkoreaManSeh.ttf */,
+				C8890D146342692911F53D84 /* YoonChildfundkoreaMinGuk.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		41D41460094121D0B3346ABE /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				B96FF59619FA4B2ACFCCA55F /* DiaryEntry.swift */,
 				DE32D375ACBD1925ECC046FC /* Quote.swift */,
+				D8A2B0C1BCECE05D72E69142 /* WeatherBackground.swift */,
 				9A287B2BDF1709B3B957AAD2 /* WeatherCondition.swift */,
 			);
 			path = Models;
@@ -116,6 +211,8 @@
 		4A42FBBB397FBE47DDB1C3A4 /* Manana */ = {
 			isa = PBXGroup;
 			children = (
+				A02F2CDBA472DED63FCB424D /* Assets.xcassets */,
+				29C471F1423E4C7D5BB51DA9 /* Info.plist */,
 				4E244FED6E722AE4866BCEEC /* Manana.entitlements */,
 				C6274F8B35BF75BD0D885EF5 /* App */,
 				41D41460094121D0B3346ABE /* Models */,
@@ -125,6 +222,29 @@
 				C05D21019ED5499EA1569698 /* Views */,
 			);
 			path = Manana;
+			sourceTree = "<group>";
+		};
+		6CEA3D4B96ADCFD466A187FF /* Backgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				7E5CB21C65B2CA8425F18315 /* background_뇌우.jpg */,
+				4310EB53921BBD28251C2717 /* background_눈.jpg */,
+				6E5E3637C47336144934F3ED /* background_눈비.jpg */,
+				E70B6593C1BF4D40C28D46E1 /* background_번개.jpg */,
+				7613CB916153865F54D1DD36 /* background_비(낮).jpg */,
+				38FEA2019DB84A28561DCFDD /* background_비(밤).jpg */,
+				99341FD45B3B90CABB9024D6 /* background_실안개.jpg */,
+				7D87CC544AB997711D88B8B0 /* background_안개.jpg */,
+				18586E5E3461D88CEB8FC12B /* background_청명함(낮).jpg */,
+				7B4E0982FCC2E20B45ED7A2E /* background_청명함(밤).jpg */,
+				7B1C853AB470CC0A2CB108A4 /* background_태풍.jpg */,
+				7F6911CA1002A919DCEA1EF1 /* background_폭설.jpg */,
+				F97BF34F90D4A5F117FB7EA7 /* background_한때흐림(낮).jpg */,
+				45C96E164C7F45FE33F2FFE2 /* background_한때흐림(밤).jpg */,
+				E38F7F1D74D62E1DB09CA6AD /* background_호우.jpg */,
+				4B73EF8A78B1263E212D851E /* background_흐림.jpg */,
+			);
+			path = Backgrounds;
 			sourceTree = "<group>";
 		};
 		89FB3AD0D25EEB9854238A75 /* Products */ = {
@@ -155,6 +275,7 @@
 				4CE33AAB206DB50A1B5AE556 /* MananaWidgetBundle.swift */,
 				40F646E7C606AFA3F855DC2A /* WeatherEntryProvider.swift */,
 				53A95758926B97B3C8FDCB53 /* WeatherQuoteWidget.swift */,
+				A3F65A7120BAB03CFAC5C834 /* Backgrounds */,
 			);
 			path = MananaWidget;
 			sourceTree = "<group>";
@@ -163,18 +284,43 @@
 			isa = PBXGroup;
 			children = (
 				EE71493E7991FC7CA0B3510B /* quotes.json */,
+				6CEA3D4B96ADCFD466A187FF /* Backgrounds */,
+				2C3FD9D88C117A21B31D78F2 /* Fonts */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		A3F65A7120BAB03CFAC5C834 /* Backgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				C3D26A21AA1B14F5E598013B /* background_뇌우.jpg */,
+				6FA4BC0F2B14292BC239DF38 /* background_눈.jpg */,
+				CAA1F7234C8E09DA235E3015 /* background_눈비.jpg */,
+				7F0032B4026AB85989BBEDCB /* background_번개.jpg */,
+				74956CEF6A6CA182EC3D36D7 /* background_비(낮).jpg */,
+				5C7F7C49EFCBFE162A109089 /* background_비(밤).jpg */,
+				519A85A346F9B3C8116EAEFF /* background_실안개.jpg */,
+				E28BC10F6F7039E3D9E90FE0 /* background_안개.jpg */,
+				3701D6C2515DE60D74867903 /* background_청명함(낮).jpg */,
+				736DB65D54086B438ACA1A65 /* background_청명함(밤).jpg */,
+				9A51A5876995EADF9409C508 /* background_태풍.jpg */,
+				CD9E175F1784432F14485F2D /* background_폭설.jpg */,
+				FBF23BFB3E9143B95CAADFE6 /* background_한때흐림(낮).jpg */,
+				F9FC25682A71195FC4577D51 /* background_한때흐림(밤).jpg */,
+				88D5371CB1569393622280FA /* background_호우.jpg */,
+				91AC23C0E5DFE8DACD3162C1 /* background_흐림.jpg */,
+			);
+			path = Backgrounds;
 			sourceTree = "<group>";
 		};
 		C05D21019ED5499EA1569698 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				34717ECC27BC5280F6625CA1 /* ArchiveListView.swift */,
+				53FB0CFA9A4427C615C97496 /* DiaryCalendarView.swift */,
 				C10AE92CEFF979F9174033C7 /* DiaryEntryDetailView.swift */,
 				81B5A9C55615F5999B3C5167 /* DrawingCanvasView.swift */,
 				86FF4458BE310E3A1511C588 /* MainView.swift */,
-				24C10AD00672210A5DC56829 /* QuoteAdminView.swift */,
 				B29D77B214B6497C587F83D1 /* SettingsView.swift */,
 			);
 			path = Views;
@@ -191,6 +337,7 @@
 		E973E80C9410437FC60E89DD /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				76A079DCEC25B1A9C47CC9C5 /* Font+Manana.swift */,
 				8CF7112DD17A41EBD802773E /* SharedDrawingStore.swift */,
 				2577C04803329F8E28394181 /* SharedWeatherStore.swift */,
 			);
@@ -205,6 +352,7 @@
 			buildConfigurationList = EF52DFD3F448434D6574FBEC /* Build configuration list for PBXNativeTarget "MananaWidgetExtension" */;
 			buildPhases = (
 				CF76A265EBBA7554890A8951 /* Sources */,
+				121FE491CAB6AD65D3864DC3 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -277,10 +425,56 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		121FE491CAB6AD65D3864DC3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3190F5DC868491EDA323FF53 /* YoonChildfundkoreaDaeHan.ttf in Resources */,
+				A8F0599B74FF5B4F32A9EA9F /* YoonChildfundkoreaManSeh.ttf in Resources */,
+				F2738F50D549B5B8C2B7283E /* YoonChildfundkoreaMinGuk.ttf in Resources */,
+				6DE44AEF163BE90A48D6BE1A /* background_뇌우.jpg in Resources */,
+				CC262AC105504E3FCF6D583F /* background_눈.jpg in Resources */,
+				9AAF618EFE8AEFFE3D4D225C /* background_눈비.jpg in Resources */,
+				5D7BDFB6A7EB81A950EAD10A /* background_번개.jpg in Resources */,
+				FA2E795DEC3CA8B14684E2C8 /* background_비(낮).jpg in Resources */,
+				5889D723C61F35A4EEC8F388 /* background_비(밤).jpg in Resources */,
+				ED36DEA9DAE32321B0C7AD34 /* background_실안개.jpg in Resources */,
+				FBAD343874D22CC4EA48C912 /* background_안개.jpg in Resources */,
+				F0B5F2745D59A5B3C72BEED3 /* background_청명함(낮).jpg in Resources */,
+				9E4AA320BCC45BB0FB518527 /* background_청명함(밤).jpg in Resources */,
+				50E59A0747E1DCA9DFCB5704 /* background_태풍.jpg in Resources */,
+				1634F50444068AB5A7C1592A /* background_폭설.jpg in Resources */,
+				DCB057BD7F3609016AB33A72 /* background_한때흐림(낮).jpg in Resources */,
+				F12AE3ED9571B1F3FF922DB9 /* background_한때흐림(밤).jpg in Resources */,
+				9E673B82E05CF827E6D35290 /* background_호우.jpg in Resources */,
+				45CEE79099A3DC2978CF9F52 /* background_흐림.jpg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69CD941BC03D08128B17581B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				394658F4482306E3D2D86576 /* Assets.xcassets in Resources */,
+				650CD9B6C3B28655BD1951E3 /* YoonChildfundkoreaDaeHan.ttf in Resources */,
+				90B155D6F03028DFA8EAFF36 /* YoonChildfundkoreaManSeh.ttf in Resources */,
+				C3B9D86D1A9B7D1EDD5D1313 /* YoonChildfundkoreaMinGuk.ttf in Resources */,
+				B152CBD39A0E65568D13A022 /* background_뇌우.jpg in Resources */,
+				C90AE672C0E3D42EE82CE755 /* background_눈.jpg in Resources */,
+				988EE80743E36EB8E8067B0B /* background_눈비.jpg in Resources */,
+				F3E5A0A5F2F99250CEE27BA2 /* background_번개.jpg in Resources */,
+				A4842597EF8AE6CE69F0B853 /* background_비(낮).jpg in Resources */,
+				012431919A8B12F3241A4F14 /* background_비(밤).jpg in Resources */,
+				049FF27803C5C162BDB04DA3 /* background_실안개.jpg in Resources */,
+				C239C550CD601CCAA79A56D8 /* background_안개.jpg in Resources */,
+				9FF177393805517733E567FD /* background_청명함(낮).jpg in Resources */,
+				293C8FDEDCA911BE8155F646 /* background_청명함(밤).jpg in Resources */,
+				BAECE7A06BFE80A65304FC36 /* background_태풍.jpg in Resources */,
+				78243E52CEED36EDAB8DE476 /* background_폭설.jpg in Resources */,
+				543C6CA13C9AF52930BA9049 /* background_한때흐림(낮).jpg in Resources */,
+				2AE648D6D6E5DCD1AF0EDA19 /* background_한때흐림(밤).jpg in Resources */,
+				45433B02E401456A4B5654DC /* background_호우.jpg in Resources */,
+				0E5F1A74B5661A35DD2A4DA1 /* background_흐림.jpg in Resources */,
 				EB89EE06B7B014348F8365E5 /* quotes.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,20 +487,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				99A01AF6A1A6A67D92F6C24D /* ArchiveListView.swift in Sources */,
+				FF0C0301E83C9E1FB1DD2BB9 /* DiaryCalendarView.swift in Sources */,
 				6979670F817103818650A7C3 /* DiaryEntry.swift in Sources */,
 				D8E4155F3CFA0B5E37DEE9A8 /* DiaryEntryDetailView.swift in Sources */,
 				9EF7D41D8400071749A7F7DA /* DrawingCanvasView.swift in Sources */,
 				61F05213CCB4AEA3EFB666B1 /* DrawingStorage.swift in Sources */,
+				B97C67F5A4AAFBC4C612E97F /* Font+Manana.swift in Sources */,
+				EA92E4DF7527F13C414FC789 /* KMAGrid.swift in Sources */,
 				DDA7A620A32B4E80354FBEFE /* LocationManager.swift in Sources */,
 				641300AB5ACDFEB60D97BA46 /* MainView.swift in Sources */,
 				1ECC3DB2060585F3D03BE044 /* MananaApp.swift in Sources */,
 				01E683D9543EBF5043EF5645 /* NotificationManager.swift in Sources */,
 				A67CB0964ACFAEEAC13365BC /* Quote.swift in Sources */,
-				39D9F490ECA4ADE0AE4C40FC /* QuoteAdminView.swift in Sources */,
 				72F9B8462B7800E88DFDA46C /* QuoteService.swift in Sources */,
 				D0107FA1301A8C343F0F9E60 /* SettingsView.swift in Sources */,
 				86B91B0BFE27472780F6511D /* SharedDrawingStore.swift in Sources */,
 				1184205FA2DF20C5E7A3EF7D /* SharedWeatherStore.swift in Sources */,
+				A90A406D7B6B333031AD520B /* WeatherBackground.swift in Sources */,
 				55EF6E501968952BC93935F7 /* WeatherCondition.swift in Sources */,
 				3314139DF72FBCAA50BBCD44 /* WeatherService.swift in Sources */,
 			);
@@ -318,6 +515,7 @@
 			files = (
 				3E66DE2E1328A34D0A09827D /* CombinedWidget.swift in Sources */,
 				67864992ED408439EC2A6D27 /* DrawingWidget.swift in Sources */,
+				C3513E227C2E0BC416E1B774 /* Font+Manana.swift in Sources */,
 				AB238B270FB985CAEB1A44CD /* MananaWidgetBundle.swift in Sources */,
 				AC19C8C817BB7D04CA590260 /* SharedDrawingStore.swift in Sources */,
 				AAB7DB3722C1DB87AF439FF9 /* SharedWeatherStore.swift in Sources */,
@@ -343,6 +541,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Manana/Manana.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Manana/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -534,6 +733,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Manana/Manana.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Manana/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

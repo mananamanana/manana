@@ -15,8 +15,14 @@ struct SharedWeatherSnapshot: Codable {
     var backgroundColors: [[Double]]
     var quoteInkColor: [Double]
     var quoteText: String
-    var quoteSource: String?
+    var quoteBookTitle: String?
+    var quoteAuthor: String?
     var updatedAt: Date
+    /// SF Symbol name — matches the icon shown in-app (`WeatherCondition.symbolName`).
+    var symbolName: String = "sun.max.fill"
+    /// Base filename (no extension) of the matching hand-painted background
+    /// in MananaWidget/Backgrounds — matches `WeatherBackground.imageName`.
+    var backgroundImageName: String = "background_청명함(낮)"
 }
 
 enum SharedWeatherStore {

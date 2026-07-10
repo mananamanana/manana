@@ -35,6 +35,14 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.wonji.manana
         TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    info:
+      path: Manana/Info.plist
+      properties:
+        UIAppFonts:
+          - "YoonChildfundkoreaDaeHan.ttf"
+          - "YoonChildfundkoreaManSeh.ttf"
+          - "YoonChildfundkoreaMinGuk.ttf"
     dependencies:
       - target: MananaWidgetExtension
         embed: true
@@ -45,6 +53,7 @@ targets:
     sources:
       - path: MananaWidget
       - path: Manana/Shared
+      - path: Manana/Resources/Fonts
     entitlements:
       path: MananaWidget/MananaWidget.entitlements
       properties:

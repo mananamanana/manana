@@ -18,30 +18,31 @@ struct CombinedWidgetView: View {
             VStack(alignment: .leading, spacing: 6) {
                 if let snapshot = entry.snapshot {
                     HStack(spacing: 4) {
-                        Text(snapshot.emoji)
+                        Image(systemName: snapshot.symbolName)
+                            .font(.system(size: 15))
                         if let temperature = snapshot.temperature {
                             Text("\(Int(temperature.rounded()))°")
-                                .font(.headline)
+                                .font(.manana(.headline))
                         }
                         Text(snapshot.conditionName)
-                            .font(.system(.caption2, design: .rounded))
+                            .font(.manana(.caption2))
                             .foregroundStyle(.secondary)
                     }
 
                     if let detail = WidgetBackground.detailLine(for: snapshot) {
                         Text(detail)
-                            .font(.system(.caption2, design: .rounded))
+                            .font(.manana(.caption2))
                             .foregroundStyle(.secondary)
                     }
 
                     Text(snapshot.quoteText)
-                        .font(.system(.caption, design: .serif).italic())
+                        .font(.mananaQuote(.caption))
                         .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot))
                         .lineLimit(3)
                         .fixedSize(horizontal: false, vertical: true)
                 } else {
                     Text("Mañana 앱을 열어\n오늘의 날씨를 가져와보세요")
-                        .font(.caption2)
+                        .font(.manana(.caption2))
                         .foregroundStyle(.secondary)
                 }
             }
@@ -51,7 +52,7 @@ struct CombinedWidgetView: View {
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         .containerBackground(for: .widget) {
-            LinearGradient(colors: WidgetBackground.colors(for: entry.snapshot), startPoint: .top, endPoint: .bottom)
+            WidgetBackground.art(for: entry.snapshot)
         }
     }
 
