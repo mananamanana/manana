@@ -32,6 +32,7 @@ struct MananaApp: App {
                 .onAppear {
                     notificationManager.requestAuthorization()
                     weatherService.start()
+                    quoteService.refresh()
                 }
         }
         .modelContainer(for: DiaryEntry.self)

@@ -47,6 +47,7 @@
 		9FF177393805517733E567FD /* background_청명함(낮).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18586E5E3461D88CEB8FC12B /* background_청명함(낮).jpg */; };
 		A4842597EF8AE6CE69F0B853 /* background_비(낮).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7613CB916153865F54D1DD36 /* background_비(낮).jpg */; };
 		A67CB0964ACFAEEAC13365BC /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32D375ACBD1925ECC046FC /* Quote.swift */; };
+		A1DF4121CB09803886756E58 /* DailyQuote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E632C0F6CF1748F770ECFF /* DailyQuote.swift */; };
 		A8F0599B74FF5B4F32A9EA9F /* YoonChildfundkoreaManSeh.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAD0F01B6D9D71565807B5B0 /* YoonChildfundkoreaManSeh.ttf */; };
 		A90A406D7B6B333031AD520B /* WeatherBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A2B0C1BCECE05D72E69142 /* WeatherBackground.swift */; };
 		AAB7DB3722C1DB87AF439FF9 /* SharedWeatherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577C04803329F8E28394181 /* SharedWeatherStore.swift */; };
@@ -158,6 +159,7 @@
 		CD9E175F1784432F14485F2D /* background_폭설.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_폭설.jpg"; sourceTree = "<group>"; };
 		D8A2B0C1BCECE05D72E69142 /* WeatherBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherBackground.swift; sourceTree = "<group>"; };
 		DE32D375ACBD1925ECC046FC /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
+		77E632C0F6CF1748F770ECFF /* DailyQuote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuote.swift; sourceTree = "<group>"; };
 		E0B87E859897609DC673F06A /* DrawingStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingStorage.swift; sourceTree = "<group>"; };
 		E20D1E61D5B3DBEF1667FCA7 /* Manana.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Manana.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E28BC10F6F7039E3D9E90FE0 /* background_안개.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_안개.jpg"; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 			children = (
 				B96FF59619FA4B2ACFCCA55F /* DiaryEntry.swift */,
 				DE32D375ACBD1925ECC046FC /* Quote.swift */,
+				77E632C0F6CF1748F770ECFF /* DailyQuote.swift */,
 				D8A2B0C1BCECE05D72E69142 /* WeatherBackground.swift */,
 				9A287B2BDF1709B3B957AAD2 /* WeatherCondition.swift */,
 			);
@@ -499,6 +502,7 @@
 				1ECC3DB2060585F3D03BE044 /* MananaApp.swift in Sources */,
 				01E683D9543EBF5043EF5645 /* NotificationManager.swift in Sources */,
 				A67CB0964ACFAEEAC13365BC /* Quote.swift in Sources */,
+				A1DF4121CB09803886756E58 /* DailyQuote.swift in Sources */,
 				72F9B8462B7800E88DFDA46C /* QuoteService.swift in Sources */,
 				D0107FA1301A8C343F0F9E60 /* SettingsView.swift in Sources */,
 				86B91B0BFE27472780F6511D /* SharedDrawingStore.swift in Sources */,
