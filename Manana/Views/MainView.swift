@@ -259,8 +259,15 @@ struct MainView: View {
                     .ignoresSafeArea()
                     .animation(.easeInOut(duration: 1.2), value: displayedBackground)
             }
-            .overlay(alignment: showExpandedBadge ? .center : .bottom) {
+            .overlay(alignment: showExpandedBadge ? .top : .bottom) {
                 quoteSheet
+                    // Anchored a fixed distance below the badge (its own
+                    // 10pt top padding + its fixed height + a small gap)
+                    // instead of vertically centered in the whole stage —
+                    // centering depended on the badge's height matching the
+                    // quote's measured position, which broke once the badge
+                    // height became a flat constant instead of derived.
+                    .padding(.top, showExpandedBadge ? 10 + Self.expandedBadgeHeight + 20 : 0)
                     .padding(.bottom, showExpandedBadge ? 0 : 40)
                     .animation(.spring(response: 0.4, dampingFraction: 0.8), value: showExpandedBadge)
             }
