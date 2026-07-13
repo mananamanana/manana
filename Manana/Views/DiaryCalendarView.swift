@@ -110,8 +110,8 @@ struct DiaryCalendarView: View {
                 .font(.manana(.footnote, weight: entry != nil ? .semibold : .regular))
                 .foregroundStyle(entry != nil ? MananaTheme.ink : MananaTheme.ink.opacity(0.3))
 
-            Image(systemName: entry?.weatherCondition.symbolName ?? "circle.fill")
-                .font(.system(size: 11))
+            WeatherIcon(name: WeatherBackground(condition: entry?.weatherCondition ?? .clear).iconName)
+                .frame(width: 18, height: 18)
                 .foregroundStyle(entry != nil ? MananaTheme.clay : .clear)
         }
         .frame(maxWidth: .infinity)

@@ -157,6 +157,19 @@ enum WeatherCondition: String, Codable, CaseIterable, Identifiable {
 /// Shared visual language for Mañana: a warm, unhurried "siesta" palette —
 /// paper, clay, ink — paired with literary serif type for anything quoted
 /// and clean rounded type for interface chrome.
+/// Hand-illustrated replacement for `Image(systemName:)` — a plain template
+/// image so callers can tint and size it exactly like an SF Symbol.
+struct WeatherIcon: View {
+    let name: String
+
+    var body: some View {
+        Image(name)
+            .renderingMode(.template)
+            .resizable()
+            .scaledToFit()
+    }
+}
+
 enum MananaTheme {
     static let ink = Color(red: 0.24, green: 0.17, blue: 0.14)
     static let paper = Color(red: 0.98, green: 0.94, blue: 0.86)

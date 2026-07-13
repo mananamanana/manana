@@ -13,8 +13,9 @@ import Foundation
 ///   - 단기예보 (getVilageFcst): sky condition, precipitation probability,
 ///     and today's high/low, published 8x/day.
 ///
-/// Requires a personal, free API key from data.go.kr (공공데이터포털) —
-/// see Settings to enter one. Without a key, `lastError` explains what to do.
+/// Requests go through the `manana-kma-proxy` Cloudflare Worker (see
+/// `worker/`) rather than data.go.kr directly — the real service key lives
+/// only in that Worker's secret store, not inside this shipped app binary.
 struct HourlyForecast: Identifiable {
     let id = UUID()
     let time: Date
@@ -44,20 +45,12 @@ final class WeatherService: ObservableObject {
     @Published var hourlyForecast: [HourlyForecast] = []
     @Published var backgroundCondition: WeatherBackground = .clearDay
 
-    @Published var apiKey: String {
-        didSet { UserDefaults.standard.set(apiKey, forKey: Keys.apiKey) }
-    }
-
     static let refreshInterval: TimeInterval = 60 * 60
-
-    private enum Keys {
-        static let apiKey = "kma.apiKey"
-    }
 
     private let locationManager: LocationManager
     private var timer: Timer?
 
-    private static let baseURL = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0"
+    private static let baseURL = "https://manana-kma-proxy.manana-garden.workers.dev"
 
     private struct KMAResponse: Decodable {
         struct Response: Decodable {
@@ -87,7 +80,6 @@ final class WeatherService: ObservableObject {
 
     init(locationManager: LocationManager) {
         self.locationManager = locationManager
-        self.apiKey = UserDefaults.standard.string(forKey: Keys.apiKey) ?? ""
     }
 
     func start() {
@@ -109,10 +101,6 @@ final class WeatherService: ObservableObject {
     }
 
     private func fetch() async {
-        guard !apiKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            lastError = "설정에서 기상청 API 키를 입력해주세요."
-            return
-        }
         do {
             let location = try await locationManager.requestCurrentLocation()
             let grid = KMAGrid.nxny(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
@@ -357,7 +345,6 @@ final class WeatherService: ObservableObject {
     private func fetchItems(path: String, baseDateTime: (date: String, time: String), grid: (nx: Int, ny: Int)) async throws -> [Item] {
         var components = URLComponents(string: "\(Self.baseURL)/\(path)")!
         components.queryItems = [
-            URLQueryItem(name: "serviceKey", value: apiKey),
             URLQueryItem(name: "pageNo", value: "1"),
             URLQueryItem(name: "numOfRows", value: "100"),
             URLQueryItem(name: "dataType", value: "JSON"),
@@ -366,9 +353,8 @@ final class WeatherService: ObservableObject {
             URLQueryItem(name: "nx", value: String(grid.nx)),
             URLQueryItem(name: "ny", value: String(grid.ny)),
         ]
-        // Use the "Decoding" key from data.go.kr here — URLComponents
-        // already percent-encodes query values, so a pre-encoded
-        // ("Encoding") key would end up double-encoded and rejected.
+        // The Worker injects the real serviceKey server-side — the client
+        // never holds or sends one.
         let (data, _) = try await URLSession.shared.data(from: components.url!)
         let decoded = try JSONDecoder().decode(KMAResponse.self, from: data)
         guard decoded.response.header.resultCode == "00" else {

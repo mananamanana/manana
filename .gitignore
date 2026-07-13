@@ -13,3 +13,7 @@ xcuserdata/
 *.ipa
 *.dSYM.zip
 *.dSYM
+
+# Node (Cloudflare Worker)
+worker/node_modules/
+worker/.wrangler/

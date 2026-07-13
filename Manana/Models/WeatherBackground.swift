@@ -25,6 +25,11 @@ enum WeatherBackground: String, CaseIterable, Hashable {
     /// Base filename in Resources/Backgrounds, without extension.
     var imageName: String { "background_\(rawValue)" }
 
+    /// Hand-illustrated icon asset (Assets.xcassets) shown in the weather
+    /// badge, hourly forecast, archive list, and calendar — replaces the
+    /// system SF Symbol glyphs `WeatherCondition.symbolName` used to provide.
+    var iconName: String { "weathericon_\(rawValue)" }
+
     /// The name shown in the compact weather badge — the raw filename's
     /// label with the day/night qualifier dropped, e.g. "비(낮)" → "비".
     var displayLabel: String {
@@ -94,6 +99,21 @@ extension WeatherBackground {
         case 1: return signals.isDay ? .clearDay : .clearNight
         case 3: return signals.isDay ? .partlyCloudyDay : .partlyCloudyNight
         default: return .overcast
+        }
+    }
+
+    /// Maps down from the coarser 6-value `WeatherCondition` — used wherever
+    /// only that coarser value is available (past diary entries, hourly
+    /// forecast rows), always picking the day-side variant since neither
+    /// source tracks day/night.
+    init(condition: WeatherCondition) {
+        switch condition {
+        case .clear: self = .clearDay
+        case .cloudy: self = .overcast
+        case .fog: self = .fog
+        case .rain: self = .rainDay
+        case .snow: self = .snow
+        case .thunderstorm: self = .thunderstorm
         }
     }
 }

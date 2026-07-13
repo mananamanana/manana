@@ -1,0 +1,6 @@
+name = "manana-kma-proxy"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+# The real data.go.kr service key is never stored here — set it once with:
+#   wrangler secret put KMA_SERVICE_KEY

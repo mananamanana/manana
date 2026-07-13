@@ -94,8 +94,8 @@ struct ArchiveListView: View {
 
             Spacer(minLength: 0)
 
-            Image(systemName: entry.weatherCondition.symbolName)
-                .font(.caption)
+            WeatherIcon(name: WeatherBackground(condition: entry.weatherCondition).iconName)
+                .frame(width: 22, height: 22)
                 .foregroundStyle(MananaTheme.ink.opacity(0.28))
                 .padding(.top, 2)
         }

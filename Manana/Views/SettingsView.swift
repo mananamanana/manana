@@ -25,13 +25,6 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section("날씨 (기상청)") {
-                    TextField("공공데이터포털 인증키", text: $weatherService.apiKey)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
-                        .onSubmit { weatherService.refresh() }
-                    Text("data.go.kr에서 발급받은 \"일반 인증키 (Decoding)\"를 붙여넣어주세요.")
-                        .font(.manana(.caption2))
-                        .foregroundStyle(.secondary)
                     if let lastUpdated = weatherService.lastUpdated {
                         Text("마지막 갱신: \(lastUpdated.formatted(date: .omitted, time: .shortened))")
                             .font(.manana(.caption2))

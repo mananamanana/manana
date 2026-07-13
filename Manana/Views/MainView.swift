@@ -42,9 +42,11 @@ struct MainView: View {
     /// Fixed rather than derived from the quote text's live height — that
     /// used to make the box visibly shrink while the quote was still being
     /// typed out (its measured height grew with every new character/line),
-    /// so the badge kept resizing under the user's eyes. A flat matches the
-    /// Illustrator artwork's expanded artboard exactly.
-    private static let expandedBadgeHeight: CGFloat = 320
+    /// so the badge kept resizing under the user's eyes. Sized against the
+    /// real content (location + big temperature + hourly strip) so the
+    /// bottom padding roughly matches the top, rather than being measured
+    /// against a mock that was missing the temperature row.
+    private static let expandedBadgeHeight: CGFloat = 312
 
     private var todayQuote: Quote? {
         quoteService.quoteForToday(condition: weatherService.condition)
@@ -58,10 +60,9 @@ struct MainView: View {
 
     private var isViewingToday: Bool { dayOffset == 0 }
 
-    /// One step past today — a placeholder page ("아직 미래가 도착하지
-    /// 않았어요") rather than real content, since there's obviously nothing
-    /// recorded yet. Navigation is capped here; there's no point going
-    /// further into the future than that.
+    /// One step past today — a placeholder page rather than real content,
+    /// since there's obviously nothing recorded yet. Navigation is capped
+    /// here; there's no point going further into the future than that.
     private var isFuture: Bool { dayOffset > 0 }
 
     /// The saved diary entry for whatever past day is currently displayed —
@@ -94,15 +95,8 @@ struct MainView: View {
     /// background art for that day.
     private var displayedBackground: WeatherBackground {
         guard !isViewingToday else { return weatherService.backgroundCondition }
-        switch displayedCondition {
-        case .clear: return .clearDay
-        case .cloudy: return .overcast
-        case .fog: return .fog
-        case .rain: return .rainDay
-        case .snow: return .snow
-        case .thunderstorm: return .thunderstorm
-        case nil: return weatherService.backgroundCondition
-        }
+        guard let condition = displayedCondition else { return weatherService.backgroundCondition }
+        return WeatherBackground(condition: condition)
     }
 
     private func navigateDay(by delta: Int) {
@@ -125,7 +119,7 @@ struct MainView: View {
     private var currentDisplayText: String {
         if let info = displayedQuoteInfo { return info.text }
         if isViewingToday { return "문장을 준비 중이에요" }
-        if isFuture { return "아직 미래가 도착하지 않았어요" }
+        if isFuture { return "mañana!는 에스파냐어로 내일 또는 아침이라고 불립니다. 우리는 늘 도착하지 않은 미래에 걱정하지 않은가요? 오늘부터는 한 문장을 기다리며 여유롭고 낙천적으로 살아요." }
         return "이 날은 기록이 없어요"
     }
 
@@ -329,15 +323,13 @@ struct MainView: View {
     }
 
     /// A quiet nudge when weather can't be fetched — shows the real reason
-    /// (missing API key, denied location, etc.) instead of a fixed guess,
-    /// and routes the tap to whichever settings screen actually fixes it.
+    /// (denied location, network/API error, etc.) instead of a fixed guess,
+    /// and routes the tap to the OS Settings app to fix location access.
     @ViewBuilder
     private var locationBanner: some View {
         if weatherService.temperature == nil, let message = weatherService.lastError {
             Button {
-                if weatherService.apiKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    showSettings = true
-                } else if let url = URL(string: UIApplication.openSettingsURLString) {
+                if let url = URL(string: UIApplication.openSettingsURLString) {
                     UIApplication.shared.open(url)
                 }
             } label: {
@@ -421,9 +413,9 @@ struct MainView: View {
 
     private var compactWeatherContent: some View {
         HStack(spacing: 10) {
-            if let condition = displayedCondition {
-                Image(systemName: condition.symbolName)
-                    .font(.system(size: 17))
+            if displayedCondition != nil {
+                WeatherIcon(name: displayedBackground.iconName)
+                    .frame(width: 28, height: 28)
                     .foregroundStyle(MananaTheme.ink.opacity(0.8))
                 if let temperature = displayedTemperature {
                     Text("\(Int(temperature.rounded()))°")
@@ -465,8 +457,8 @@ struct MainView: View {
 
                 Spacer(minLength: 8)
 
-                Image(systemName: weatherService.condition.symbolName)
-                    .font(.system(size: 30))
+                WeatherIcon(name: weatherService.backgroundCondition.iconName)
+                    .frame(width: 58, height: 58)
                     .foregroundStyle(MananaTheme.ink.opacity(0.8))
             }
 
@@ -497,8 +489,8 @@ struct MainView: View {
                             Text(hour.hourLabel)
                                 .font(.manana(.caption2))
                                 .foregroundStyle(MananaTheme.ink.opacity(0.6))
-                            Image(systemName: hour.condition.symbolName)
-                                .font(.system(size: 16))
+                            WeatherIcon(name: WeatherBackground(condition: hour.condition).iconName)
+                                .frame(width: 28, height: 28)
                                 .foregroundStyle(MananaTheme.ink.opacity(0.8))
                             Text("\(hour.temperature)°")
                                 .font(.manana(.footnote, weight: .medium))
