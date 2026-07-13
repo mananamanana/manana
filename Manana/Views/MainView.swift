@@ -569,29 +569,38 @@ struct MainView: View {
     /// read-only render of that day's saved drawing instead — swapping the
     /// live `PKCanvasView`'s content back and forth risked bleeding one
     /// day's edits into another's saved file.
-    @ViewBuilder
     private var paperCanvas: some View {
-        if isViewingToday {
-            DrawingCanvasView(
-                canvasView: $canvasView,
-                canUndo: $canUndo,
-                isErasing: isErasing,
-                inkColor: UIColor(selectedColor)
-            ) { drawing in
-                saveTodayDrawing(drawing)
+        GeometryReader { proxy in
+            Group {
+                if isViewingToday {
+                    DrawingCanvasView(
+                        canvasView: $canvasView,
+                        canUndo: $canUndo,
+                        isErasing: isErasing,
+                        inkColor: UIColor(selectedColor)
+                    ) { drawing in
+                        saveTodayDrawing(drawing)
+                    }
+                    // No drawing while the weather box is pulled open — the
+                    // layout barely leaves room for the canvas at that point
+                    // anyway.
+                    .allowsHitTesting(!showExpandedBadge)
+                } else if let entry = pastEntry,
+                          // Rendered at this exact same size the live canvas
+                          // occupies (rather than a fixed square) — otherwise
+                          // the drawing only fills the square's top-left
+                          // corner at the wrong aspect ratio, and scaling
+                          // that to fit the real portrait frame makes it look
+                          // small and shifted left.
+                          let uiImage = DrawingStorage.shared.image(fileName: entry.drawingFileName, size: proxy.size) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                } else {
+                    Color.clear
+                }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            // No drawing while the weather box is pulled open — the layout
-            // barely leaves room for the canvas at that point anyway.
-            .allowsHitTesting(!showExpandedBadge)
-        } else if let entry = pastEntry,
-                  let uiImage = DrawingStorage.shared.image(fileName: entry.drawingFileName, size: CGSize(width: 1000, height: 1000)) {
-            Image(uiImage: uiImage)
-                .resizable()
-                .scaledToFit()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-        } else {
-            Color.clear.frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(width: proxy.size.width, height: proxy.size.height)
         }
     }
 
