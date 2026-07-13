@@ -377,14 +377,12 @@ struct MainView: View {
         .padding(.vertical, showExpandedBadge ? 28 : 20)
         .frame(maxWidth: .infinity, alignment: .leading)
         .frame(height: showExpandedBadge ? Self.expandedBadgeHeight : nil, alignment: .top)
-        // A sketched outline instead of a filled card — same idea as the
-        // ✏️/📔/⚙️ buttons — so the background art reads through clearly
-        // instead of being covered by an opaque plate.
+        // Hand-illustrated frame (transparent middle) instead of a filled
+        // card — same idea as the ✏️/📔/⚙️ buttons — so the background art
+        // reads through clearly instead of being covered by an opaque plate.
         .background(
-            (showExpandedBadge
-                ? AnyShape(RoundedRectangle(cornerRadius: 36, style: .continuous))
-                : AnyShape(Capsule()))
-                .stroke(Color.white.opacity(0.9), lineWidth: 1.5)
+            Image(showExpandedBadge ? "BigBox" : "MiniBox")
+                .resizable()
         )
         .padding(.horizontal, 16)
         // Since the fill is gone (just an outline now), the empty middle of
