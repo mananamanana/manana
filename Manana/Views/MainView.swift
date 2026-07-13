@@ -539,7 +539,7 @@ struct MainView: View {
             let feedback = UISelectionFeedbackGenerator()
             feedback.prepare()
             for character in text {
-                try? await Task.sleep(nanoseconds: 150_000_000)
+                try? await Task.sleep(nanoseconds: 100_000_000)
                 guard !Task.isCancelled else { return }
                 displayedQuoteText.append(character)
                 feedback.selectionChanged()
