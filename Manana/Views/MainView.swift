@@ -22,8 +22,6 @@ struct MainView: View {
     @State private var isRefreshingWeather = false
     @State private var isWeatherExpanded = false
     @State private var contentAppeared = false
-    @State private var stageHeight: CGFloat = 0
-    @State private var quoteHeight: CGFloat = 0
     @State private var displayedQuoteText = ""
     @State private var showByline = false
     @State private var quoteTypewriterTask: Task<Void, Never>?
@@ -41,11 +39,12 @@ struct MainView: View {
     @State private var todayTemperatureSamples: [Double] = []
 
     private static let paletteColors: [Color] = [.black, .red, .green, .blue, .white]
-    private static let minExpandedBadgeHeight: CGFloat = 160
-    private static let badgeToQuoteGap: CGFloat = 20
-    /// The badge's own top padding within the stage — kept as a constant
-    /// here (rather than measured) since it's fixed by this same layout.
-    private static let badgeTopOffset: CGFloat = 10
+    /// Fixed rather than derived from the quote text's live height — that
+    /// used to make the box visibly shrink while the quote was still being
+    /// typed out (its measured height grew with every new character/line),
+    /// so the badge kept resizing under the user's eyes. A flat matches the
+    /// Illustrator artwork's expanded artboard exactly.
+    private static let expandedBadgeHeight: CGFloat = 320
 
     private var todayQuote: Quote? {
         quoteService.quoteForToday(condition: weatherService.condition)
@@ -193,16 +192,6 @@ struct MainView: View {
         entry.temperature = average
     }
 
-    /// The badge's expanded height so its bottom edge lands just above the
-    /// centered quote — derived from the stage's and quote's own measured
-    /// heights (`quoteTop = stageHeight/2 - quoteHeight/2` when centered)
-    /// rather than a hardcoded number, so it holds up across screen sizes
-    /// and quote lengths.
-    private var expandedBadgeHeight: CGFloat {
-        let quoteTop = stageHeight / 2 - quoteHeight / 2
-        return max(Self.minExpandedBadgeHeight, quoteTop - Self.badgeTopOffset - Self.badgeToQuoteGap)
-    }
-
     /// Loose bundled JPEGs (Resources/Backgrounds), not an asset catalog —
     /// loaded via `Bundle.main` rather than `Image(_:)` so lookup doesn't
     /// depend on asset-catalog-vs-loose-file name resolution, and cached
@@ -259,13 +248,6 @@ struct MainView: View {
             .frame(maxHeight: .infinity)
             .opacity(contentAppeared ? 1 : 0)
             .offset(y: contentAppeared ? 0 : 10)
-            .background(
-                GeometryReader { proxy in
-                    Color.clear
-                        .onAppear { stageHeight = proxy.size.height }
-                        .onChange(of: proxy.size.height) { stageHeight = $1 }
-                }
-            )
             // A dedicated `.background(content:)` (rather than a ZStack
             // sibling with its own `.ignoresSafeArea()`) so the full-bleed
             // art doesn't grow the container's frame and throw off how the
@@ -387,7 +369,7 @@ struct MainView: View {
         .padding(.horizontal, 22)
         .padding(.vertical, showExpandedBadge ? 28 : 20)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .frame(height: showExpandedBadge ? expandedBadgeHeight : nil, alignment: .top)
+        .frame(height: showExpandedBadge ? Self.expandedBadgeHeight : nil, alignment: .top)
         // A sketched outline instead of a filled card — same idea as the
         // ✏️/📔/⚙️ buttons — so the background art reads through clearly
         // instead of being covered by an opaque plate.
@@ -783,13 +765,6 @@ struct MainView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .opacity(contentAppeared ? 1 : 0)
         .offset(y: contentAppeared ? 0 : 16)
-        .background(
-            GeometryReader { proxy in
-                Color.clear
-                    .onAppear { quoteHeight = proxy.size.height }
-                    .onChange(of: proxy.size.height) { quoteHeight = $1 }
-            }
-        )
         // No fill behind the text, so — same as the weather badge — the
         // hit area has to be claimed explicitly for the swipe-day gesture
         // to register anywhere across the block, not just on the glyphs.
