@@ -406,6 +406,11 @@ struct MainView: View {
                     guard isViewingToday else { return }
                     if value.translation.height > 15 {
                         isWeatherExpanded = true
+                        // Drawing is disabled while the box is expanded (see
+                        // paperCanvas/drawTools below), so an already-open
+                        // pen/eraser panel shouldn't linger uselessly either.
+                        showToolPanel = false
+                        showColorPicker = false
                     } else if value.translation.height < -15 {
                         isWeatherExpanded = false
                     }
@@ -576,6 +581,9 @@ struct MainView: View {
                 saveTodayDrawing(drawing)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            // No drawing while the weather box is pulled open — the layout
+            // barely leaves room for the canvas at that point anyway.
+            .allowsHitTesting(!showExpandedBadge)
         } else if let entry = pastEntry,
                   let uiImage = DrawingStorage.shared.image(fileName: entry.drawingFileName, size: CGSize(width: 1000, height: 1000)) {
             Image(uiImage: uiImage)
@@ -592,7 +600,7 @@ struct MainView: View {
     /// slides out the 5-swatch palette instead of showing it up front.
     private var drawTools: some View {
         VStack(alignment: .trailing, spacing: 10) {
-            if showToolPanel && isViewingToday {
+            if showToolPanel && isViewingToday && !showExpandedBadge {
                 VStack(spacing: 10) {
                     if showColorPicker {
                         VStack(spacing: 6) {
@@ -650,7 +658,7 @@ struct MainView: View {
                 .transition(.scale(scale: 0.85, anchor: .bottomTrailing).combined(with: .opacity))
             }
 
-            if isViewingToday {
+            if isViewingToday && !showExpandedBadge {
                 sketchButton("pencil.tip") {
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                         showToolPanel.toggle()
