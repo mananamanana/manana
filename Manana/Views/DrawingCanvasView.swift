@@ -29,7 +29,7 @@ struct DrawingCanvasView: UIViewRepresentable {
     }
 
     private var currentTool: PKTool {
-        isErasing ? PKEraserTool(.bitmap) : PKInkingTool(.crayon, color: inkColor, width: 8)
+        isErasing ? PKEraserTool(.bitmap) : PKInkingTool(.crayon, color: inkColor, width: 6)
     }
 
     final class Coordinator: NSObject, PKCanvasViewDelegate {
