@@ -119,7 +119,7 @@ struct MainView: View {
     private var currentDisplayText: String {
         if let info = displayedQuoteInfo { return info.text }
         if isViewingToday { return "문장을 준비 중이에요" }
-        if isFuture { return "mañana!는 에스파냐어로 내일 또는 아침이라고 불립니다. 우리는 늘 도착하지 않은 미래에 걱정하지 않은가요? 오늘부터는 한 문장을 기다리며 여유롭고 낙천적으로 살아요." }
+        if isFuture { return Self.futurePlaceholderText }
         return "이 날은 기록이 없어요"
     }
 
@@ -140,7 +140,10 @@ struct MainView: View {
             date: yesterday,
             weatherCondition: .rain,
             temperature: 26,
-            quoteText: "어떤 나라에 '눈사람 택배'라는 게 있다 하네요 눈이 내리지 않는 남쪽 지방으로 북쪽 지방 눈사람을 특수포장해 보낸다 해요",
+            // Broken at clause boundaries (subject/verb groups) rather than
+            // left to width-based auto-wrap, for the same reason as
+            // `futurePlaceholderText` above.
+            quoteText: "어떤 나라에 '눈사람 택배'라는 게 있다 하네요\n눈이 내리지 않는 남쪽 지방으로\n북쪽 지방 눈사람을 특수포장해 보낸다 해요",
             quoteBookTitle: "최선은 그런 것이에요",
             quoteAuthor: "이규리",
             drawingFileName: DrawingStorage.shared.fileName(for: yesterday)
@@ -425,7 +428,7 @@ struct MainView: View {
                     .font(.manana(size: 13))
                     .foregroundStyle(MananaTheme.ink.opacity(0.65))
             } else {
-                Text("기록이 없어요")
+                Text(isFuture ? "mañana!" : "기록이 없어요")
                     .font(.manana(size: 13))
                     .foregroundStyle(MananaTheme.ink.opacity(0.5))
             }
@@ -526,11 +529,21 @@ struct MainView: View {
     /// Reveals the quote a character at a time, like it's being handwritten,
     /// with a light haptic tick per character — starts once the rest of the
     /// screen has finished its own fade-in, and the byline fades in after.
+    /// The "미래가 아직 도착하지 않았어요" placeholder reads better a bit
+    /// faster than a real quote — it's much longer, so the standard 110ms
+    /// pace makes it drag.
+    // Broken at sentence boundaries rather than left to width-based
+    // auto-wrap, so it always reads as three clean lines instead of
+    // wherever the screen happens to cut it off.
+    private static let futurePlaceholderText = "mañana!는 에스파냐어로 내일 또는 아침이라고 불립니다.\n우리는 늘 도착하지 않은 미래에 걱정하지 않은가요?\n오늘부터는 한 문장을 기다리며\n여유롭고 낙천적으로 살아요."
+
     private func typeOutQuote(_ text: String) {
         quoteTypewriterTask?.cancel()
         displayedQuoteText = ""
         showByline = false
         guard !text.isEmpty else { return }
+
+        let charDelay: UInt64 = text == Self.futurePlaceholderText ? 85_000_000 : 110_000_000
 
         quoteTypewriterTask = Task { @MainActor in
             try? await Task.sleep(nanoseconds: 500_000_000)
@@ -539,13 +552,13 @@ struct MainView: View {
             let feedback = UISelectionFeedbackGenerator()
             feedback.prepare()
             for character in text {
-                try? await Task.sleep(nanoseconds: 150_000_000)
+                try? await Task.sleep(nanoseconds: charDelay)
                 guard !Task.isCancelled else { return }
                 displayedQuoteText.append(character)
                 feedback.selectionChanged()
             }
 
-            try? await Task.sleep(nanoseconds: 150_000_000)
+            try? await Task.sleep(nanoseconds: charDelay)
             guard !Task.isCancelled else { return }
             withAnimation(.easeOut(duration: 0.35)) {
                 showByline = true
