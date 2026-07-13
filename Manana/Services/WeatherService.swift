@@ -100,7 +100,7 @@ final class WeatherService: ObservableObject {
         Task { await fetch() }
     }
 
-    private func fetch() async {
+    private func fetch(isRetry: Bool = false) async {
         do {
             let location = try await locationManager.requestCurrentLocation()
             let grid = KMAGrid.nxny(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
@@ -142,7 +142,16 @@ final class WeatherService: ObservableObject {
                 locationName = name
             }
         } catch {
-            lastError = error.localizedDescription
+            // KMA occasionally rejects a request right at its publish-time
+            // boundary (e.g. the top-of-hour nowcast isn't live yet) — a
+            // single retry a few seconds later almost always succeeds, so
+            // this only surfaces to the user if that retry fails too.
+            guard !isRetry else {
+                lastError = error.localizedDescription
+                return
+            }
+            try? await Task.sleep(nanoseconds: 3_000_000_000)
+            await fetch(isRetry: true)
         }
     }
 
