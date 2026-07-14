@@ -7,7 +7,6 @@ import WidgetKit
 struct MainView: View {
     @EnvironmentObject private var weatherService: WeatherService
     @EnvironmentObject private var quoteService: QuoteService
-    @EnvironmentObject private var notificationManager: NotificationManager
     @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
 
@@ -18,7 +17,7 @@ struct MainView: View {
     @State private var showColorPicker = false
     @State private var selectedColor: Color = .black
     @State private var showArchive = false
-    @State private var showSettings = false
+    @State private var shareImage: UIImage?
     @State private var isRefreshingWeather = false
     @State private var isWeatherExpanded = false
     @State private var contentAppeared = false
@@ -275,7 +274,14 @@ struct MainView: View {
                     .opacity(contentAppeared ? 1 : 0)
             }
             .sheet(isPresented: $showArchive) { ArchiveListView() }
-            .sheet(isPresented: $showSettings) { SettingsView() }
+            .sheet(isPresented: Binding(
+                get: { shareImage != nil },
+                set: { isPresented in if !isPresented { shareImage = nil } }
+            )) {
+                if let shareImage {
+                    ActivityView(activityItems: [shareImage])
+                }
+            }
             .onAppear {
                 checkForDayRollover()
                 seedYesterdayEntryIfNeeded()
@@ -288,7 +294,6 @@ struct MainView: View {
             }
             .onChange(of: weatherService.condition) { _, _ in
                 upsertTodayEntry()
-                refreshNotificationCopy()
                 syncWidgets()
             }
             .onChange(of: weatherService.lastUpdated) { _, _ in
@@ -607,6 +612,63 @@ struct MainView: View {
         }
     }
 
+    private static let shareCardSize = CGSize(width: 360, height: 440)
+
+    /// A standalone card for the share sheet — mirrors the on-screen scene
+    /// (weather background, drawing, quote) but as one flattened image
+    /// rather than the live interactive layout.
+    private var shareCard: some View {
+        ZStack {
+            backgroundArt
+
+            if !canvasView.drawing.bounds.isEmpty {
+                Image(uiImage: canvasView.drawing.image(from: canvasView.bounds, scale: UIScreen.main.scale))
+                    .resizable()
+                    .scaledToFit()
+            }
+
+            VStack {
+                Spacer()
+                VStack(spacing: 8) {
+                    Text(dateLine)
+                        .font(.manana(size: 13, weight: .semibold))
+                        .foregroundStyle(quoteInkColor.opacity(0.6))
+                    if let info = displayedQuoteInfo {
+                        Text(info.text)
+                            .font(.mananaQuote(.body))
+                            .foregroundStyle(quoteInkColor)
+                            .multilineTextAlignment(.center)
+                            .lineSpacing(4)
+                        if let byline = byline(bookTitle: info.bookTitle, author: info.author) {
+                            Text(byline)
+                                .font(.manana(.caption2))
+                                .foregroundStyle(quoteInkColor.opacity(0.75))
+                        }
+                    }
+                }
+                .padding(.horizontal, 24)
+                .padding(.vertical, 22)
+                .frame(maxWidth: .infinity)
+                .background(
+                    LinearGradient(
+                        colors: [MananaTheme.paper.opacity(0), MananaTheme.paper.opacity(0.85)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+            }
+        }
+        .frame(width: Self.shareCardSize.width, height: Self.shareCardSize.height)
+        .clipShape(RoundedRectangle(cornerRadius: 24))
+    }
+
+    @MainActor
+    private func renderShareImage() -> UIImage? {
+        let renderer = ImageRenderer(content: shareCard)
+        renderer.scale = UIScreen.main.scale
+        return renderer.uiImage
+    }
+
     /// A single pencil button that expands into a small pen/eraser/undo
     /// stack. Colors are a second, nested reveal — tapping the pen again
     /// slides out the 5-swatch palette instead of showing it up front.
@@ -685,10 +747,10 @@ struct MainView: View {
             }
             .accessibilityLabel("보관함 열기")
 
-            sketchButton("gearshape") {
-                showSettings = true
+            sketchButton("square.and.arrow.up") {
+                shareImage = renderShareImage()
             }
-            .accessibilityLabel("설정 열기")
+            .accessibilityLabel("오늘의 기록 공유하기")
         }
     }
 
@@ -866,12 +928,6 @@ struct MainView: View {
                 drawingFileName: fileName
             )
             modelContext.insert(entry)
-        }
-    }
-
-    private func refreshNotificationCopy() {
-        notificationManager.rescheduleForNextOccurrence {
-            todayQuote?.text ?? "오늘의 문장을 확인해보세요."
         }
     }
 

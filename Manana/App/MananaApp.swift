@@ -7,7 +7,6 @@ struct MananaApp: App {
     @StateObject private var locationManager: LocationManager
     @StateObject private var weatherService: WeatherService
     @StateObject private var quoteService = QuoteService()
-    @StateObject private var notificationManager = NotificationManager()
 
     init() {
         let location = LocationManager()
@@ -28,9 +27,7 @@ struct MananaApp: App {
                 .environmentObject(locationManager)
                 .environmentObject(weatherService)
                 .environmentObject(quoteService)
-                .environmentObject(notificationManager)
                 .onAppear {
-                    notificationManager.requestAuthorization()
                     weatherService.start()
                     quoteService.refresh()
                 }
