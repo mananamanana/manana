@@ -18,6 +18,10 @@ struct MainView: View {
     @State private var selectedColor: Color = .black
     @State private var showArchive = false
     @State private var shareImage: UIImage?
+    /// Hides the weather badge and floating buttons for the moment it takes
+    /// to snapshot the screen, so the shared image is just the drawing and
+    /// quote rather than every bit of on-screen chrome.
+    @State private var isCapturingShare = false
     @State private var isRefreshingWeather = false
     @State private var isWeatherExpanded = false
     @State private var contentAppeared = false
@@ -231,9 +235,11 @@ struct MainView: View {
             VStack(spacing: 0) {
                 weatherBadge
                     .padding(.top, 10)
+                    .opacity(isCapturingShare ? 0 : 1)
 
                 locationBanner
                     .padding(.top, 10)
+                    .opacity(isCapturingShare ? 0 : 1)
 
                 Spacer(minLength: 16)
 
@@ -271,7 +277,7 @@ struct MainView: View {
                 drawTools
                     .padding(.trailing, 20)
                     .padding(.bottom, 40)
-                    .opacity(contentAppeared ? 1 : 0)
+                    .opacity(contentAppeared && !isCapturingShare ? 1 : 0)
             }
             .sheet(isPresented: $showArchive) { ArchiveListView() }
             .sheet(isPresented: Binding(
@@ -612,61 +618,21 @@ struct MainView: View {
         }
     }
 
-    private static let shareCardSize = CGSize(width: 360, height: 440)
-
-    /// A standalone card for the share sheet — mirrors the on-screen scene
-    /// (weather background, drawing, quote) but as one flattened image
-    /// rather than the live interactive layout.
-    private var shareCard: some View {
-        ZStack {
-            backgroundArt
-
-            if !canvasView.drawing.bounds.isEmpty {
-                Image(uiImage: canvasView.drawing.image(from: canvasView.bounds, scale: UIScreen.main.scale))
-                    .resizable()
-                    .scaledToFit()
-            }
-
-            VStack {
-                Spacer()
-                VStack(spacing: 8) {
-                    Text(dateLine)
-                        .font(.manana(size: 13, weight: .semibold))
-                        .foregroundStyle(quoteInkColor.opacity(0.6))
-                    if let info = displayedQuoteInfo {
-                        Text(info.text)
-                            .font(.mananaQuote(.body))
-                            .foregroundStyle(quoteInkColor)
-                            .multilineTextAlignment(.center)
-                            .lineSpacing(4)
-                        if let byline = byline(bookTitle: info.bookTitle, author: info.author) {
-                            Text(byline)
-                                .font(.manana(.caption2))
-                                .foregroundStyle(quoteInkColor.opacity(0.75))
-                        }
-                    }
-                }
-                .padding(.horizontal, 24)
-                .padding(.vertical, 22)
-                .frame(maxWidth: .infinity)
-                .background(
-                    LinearGradient(
-                        colors: [MananaTheme.paper.opacity(0), MananaTheme.paper.opacity(0.85)],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-            }
-        }
-        .frame(width: Self.shareCardSize.width, height: Self.shareCardSize.height)
-        .clipShape(RoundedRectangle(cornerRadius: 24))
-    }
-
+    /// Captures the actual on-screen pixels (whatever's currently visible —
+    /// weather box, drawing, quote, buttons) rather than recomposing a
+    /// separate flattened card, so what's shared matches what was seen.
     @MainActor
     private func renderShareImage() -> UIImage? {
-        let renderer = ImageRenderer(content: shareCard)
-        renderer.scale = UIScreen.main.scale
-        return renderer.uiImage
+        guard let window = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .flatMap(\.windows)
+            .first(where: \.isKeyWindow)
+        else { return nil }
+
+        let renderer = UIGraphicsImageRenderer(bounds: window.bounds)
+        return renderer.image { _ in
+            window.drawHierarchy(in: window.bounds, afterScreenUpdates: true)
+        }
     }
 
     /// A single pencil button that expands into a small pen/eraser/undo
@@ -748,7 +714,14 @@ struct MainView: View {
             .accessibilityLabel("보관함 열기")
 
             sketchButton("square.and.arrow.up") {
-                shareImage = renderShareImage()
+                isCapturingShare = true
+                Task { @MainActor in
+                    // A beat for SwiftUI to actually redraw with the badge
+                    // and buttons hidden before the snapshot is taken.
+                    try? await Task.sleep(nanoseconds: 100_000_000)
+                    shareImage = renderShareImage()
+                    isCapturingShare = false
+                }
             }
             .accessibilityLabel("오늘의 기록 공유하기")
         }

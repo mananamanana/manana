@@ -15,6 +15,11 @@ struct DrawingCanvasView: UIViewRepresentable {
         canvasView.backgroundColor = .clear
         canvasView.isOpaque = false
         canvasView.drawingPolicy = .anyInput
+        // PencilKit auto-flips pure black/white ink to keep it visible
+        // against a dark-mode canvas — without this, picking black in
+        // system Dark Mode silently draws white instead (and vice versa).
+        // Forcing light style keeps the picked color literal.
+        canvasView.overrideUserInterfaceStyle = .light
         canvasView.tool = currentTool
         canvasView.delegate = context.coordinator
         return canvasView

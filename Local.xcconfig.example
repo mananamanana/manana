@@ -1,0 +1,6 @@
+// Copy this file to Local.xcconfig (gitignored) and fill in your own
+// Apple ID's team, so the project builds to a real device on your machine.
+// Find your team ID in Xcode > Settings > Apple Accounts > (your account) >
+// click into "Personal Team" — or just leave this value in place if you're
+// only ever running in the Simulator, which doesn't need a team at all.
+DEVELOPMENT_TEAM =

@@ -5,10 +5,17 @@ options:
     iOS: "17.0"
   createIntermediateGroups: true
 
+# DEVELOPMENT_TEAM intentionally lives in Local.xcconfig (gitignored) rather
+# than here — it's a per-developer Apple ID/team, not something to commit
+# and hand to every clone of this repo. Copy Local.xcconfig.example to
+# Local.xcconfig and fill in your own team ID to build to a real device.
+configFiles:
+  Debug: Local.xcconfig
+  Release: Local.xcconfig
+
 settings:
   base:
     SWIFT_VERSION: "5.0"
-    DEVELOPMENT_TEAM: ""
     CODE_SIGN_STYLE: Automatic
     GENERATE_INFOPLIST_FILE: YES
     INFOPLIST_KEY_UILaunchScreen_Generation: YES

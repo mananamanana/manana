@@ -172,6 +172,7 @@
 		F97BF34F90D4A5F117FB7EA7 /* background_한때흐림(낮).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_한때흐림(낮).jpg"; sourceTree = "<group>"; };
 		F9FC25682A71195FC4577D51 /* background_한때흐림(밤).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_한때흐림(밤).jpg"; sourceTree = "<group>"; };
 		FBF23BFB3E9143B95CAADFE6 /* background_한때흐림(낮).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_한때흐림(낮).jpg"; sourceTree = "<group>"; };
+		"TEMP_4639630E-707D-4C64-9DC0-593B53AEA246" /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -345,6 +346,14 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		"TEMP_6E4226DC-535C-42FD-83A1-820F4F663960" /* Manana */ = {
+			isa = PBXGroup;
+			children = (
+				"TEMP_4639630E-707D-4C64-9DC0-593B53AEA246" /* Local.xcconfig */,
+			);
+			path = Manana;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -396,11 +405,9 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					01547B8A9D3552F412090BC8 = {
-						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 					3B7833C7E100856BE232CF1D = {
-						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -573,6 +580,7 @@
 		};
 		400D05013B397F7D6AFBD774 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = "TEMP_4639630E-707D-4C64-9DC0-593B53AEA246" /* Local.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -608,7 +616,6 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -657,6 +664,7 @@
 		};
 		DF652D2A720EB7CDC4D9E883 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = "TEMP_4639630E-707D-4C64-9DC0-593B53AEA246" /* Local.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -692,7 +700,6 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

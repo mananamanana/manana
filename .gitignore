@@ -17,3 +17,6 @@ xcuserdata/
 # Node (Cloudflare Worker)
 worker/node_modules/
 worker/.wrangler/
+
+# Per-developer signing team — see Local.xcconfig.example
+Local.xcconfig
