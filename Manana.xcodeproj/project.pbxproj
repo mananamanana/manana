@@ -20,6 +20,7 @@
 		3190F5DC868491EDA323FF53 /* YoonChildfundkoreaDaeHan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87D9C2A0B9756ABAFD754629 /* YoonChildfundkoreaDaeHan.ttf */; };
 		3314139DF72FBCAA50BBCD44 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20261B8294262233F291DA72 /* WeatherService.swift */; };
 		394658F4482306E3D2D86576 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A02F2CDBA472DED63FCB424D /* Assets.xcassets */; };
+		3BE4A12939D2B39D53BB98B0 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 216265BDE9B39FBDAE9A877F /* PrivacyInfo.xcprivacy */; };
 		3E66DE2E1328A34D0A09827D /* CombinedWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B62450300842B089222BAF /* CombinedWidget.swift */; };
 		45433B02E401456A4B5654DC /* background_호우.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E38F7F1D74D62E1DB09CA6AD /* background_호우.jpg */; };
 		45CEE79099A3DC2978CF9F52 /* background_흐림.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 91AC23C0E5DFE8DACD3162C1 /* background_흐림.jpg */; };
@@ -73,6 +74,7 @@
 		ED36DEA9DAE32321B0C7AD34 /* background_실안개.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 519A85A346F9B3C8116EAEFF /* background_실안개.jpg */; };
 		F0B5F2745D59A5B3C72BEED3 /* background_청명함(낮).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3701D6C2515DE60D74867903 /* background_청명함(낮).jpg */; };
 		F12AE3ED9571B1F3FF922DB9 /* background_한때흐림(밤).jpg in Resources */ = {isa = PBXBuildFile; fileRef = F9FC25682A71195FC4577D51 /* background_한때흐림(밤).jpg */; };
+		F26D859A5AD9BE5BE71E6603 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = DA7443B76D4F532D7D7E946B /* PrivacyInfo.xcprivacy */; };
 		F2738F50D549B5B8C2B7283E /* YoonChildfundkoreaMinGuk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8890D146342692911F53D84 /* YoonChildfundkoreaMinGuk.ttf */; };
 		F3E5A0A5F2F99250CEE27BA2 /* background_번개.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E70B6593C1BF4D40C28D46E1 /* background_번개.jpg */; };
 		F68616936C1AEE977261B30C /* WeatherQuoteWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A95758926B97B3C8FDCB53 /* WeatherQuoteWidget.swift */; };
@@ -109,6 +111,7 @@
 		0AA8FF4960F511B9CA9CBE00 /* DailyQuote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuote.swift; sourceTree = "<group>"; };
 		18586E5E3461D88CEB8FC12B /* background_청명함(낮).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_청명함(낮).jpg"; sourceTree = "<group>"; };
 		20261B8294262233F291DA72 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		216265BDE9B39FBDAE9A877F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		2577C04803329F8E28394181 /* SharedWeatherStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedWeatherStore.swift; sourceTree = "<group>"; };
 		25B5F57386541A623188EA56 /* MananaWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MananaWidget.entitlements; sourceTree = "<group>"; };
 		29C471F1423E4C7D5BB51DA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -162,6 +165,7 @@
 		CD9E175F1784432F14485F2D /* background_폭설.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_폭설.jpg"; sourceTree = "<group>"; };
 		D17F589B6B9571CAAB1929CD /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		D8A2B0C1BCECE05D72E69142 /* WeatherBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherBackground.swift; sourceTree = "<group>"; };
+		DA7443B76D4F532D7D7E946B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		DE32D375ACBD1925ECC046FC /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
 		E0B87E859897609DC673F06A /* DrawingStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingStorage.swift; sourceTree = "<group>"; };
 		E20D1E61D5B3DBEF1667FCA7 /* Manana.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Manana.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,7 +180,7 @@
 		F97BF34F90D4A5F117FB7EA7 /* background_한때흐림(낮).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_한때흐림(낮).jpg"; sourceTree = "<group>"; };
 		F9FC25682A71195FC4577D51 /* background_한때흐림(밤).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_한때흐림(밤).jpg"; sourceTree = "<group>"; };
 		FBF23BFB3E9143B95CAADFE6 /* background_한때흐림(낮).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_한때흐림(낮).jpg"; sourceTree = "<group>"; };
-		"TEMP_9B952A4A-EA08-422F-A153-E18C3DFD3168" /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
+		TEMP_9B952A4A-EA08-422F-A153-E18C3DFD3168 /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -226,6 +230,7 @@
 				1CDD0224E2FE656BE98523E4 /* Services */,
 				E973E80C9410437FC60E89DD /* Shared */,
 				C05D21019ED5499EA1569698 /* Views */,
+				216265BDE9B39FBDAE9A877F /* PrivacyInfo.xcprivacy */,
 			);
 			path = Manana;
 			sourceTree = "<group>";
@@ -284,6 +289,7 @@
 				40F646E7C606AFA3F855DC2A /* WeatherEntryProvider.swift */,
 				53A95758926B97B3C8FDCB53 /* WeatherQuoteWidget.swift */,
 				A3F65A7120BAB03CFAC5C834 /* Backgrounds */,
+				DA7443B76D4F532D7D7E946B /* PrivacyInfo.xcprivacy */,
 			);
 			path = MananaWidget;
 			sourceTree = "<group>";
@@ -352,14 +358,6 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		"TEMP_C33119B3-1751-4187-B1D2-B9588B05EAF0" /* Manana */ = {
-			isa = PBXGroup;
-			children = (
-				"TEMP_9B952A4A-EA08-422F-A153-E18C3DFD3168" /* Local.xcconfig */,
-			);
-			path = Manana;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -375,8 +373,6 @@
 			dependencies = (
 			);
 			name = MananaWidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = MananaWidgetExtension;
 			productReference = F2583ADEAF4F0227B3AF139A /* MananaWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -395,8 +391,6 @@
 				153142990B8D26FEE8E2BD0E /* PBXTargetDependency */,
 			);
 			name = Manana;
-			packageProductDependencies = (
-			);
 			productName = Manana;
 			productReference = E20D1E61D5B3DBEF1667FCA7 /* Manana.app */;
 			productType = "com.apple.product-type.application";
@@ -462,6 +456,7 @@
 				F12AE3ED9571B1F3FF922DB9 /* background_한때흐림(밤).jpg in Resources */,
 				9E673B82E05CF827E6D35290 /* background_호우.jpg in Resources */,
 				45CEE79099A3DC2978CF9F52 /* background_흐림.jpg in Resources */,
+				F26D859A5AD9BE5BE71E6603 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,6 +485,7 @@
 				45433B02E401456A4B5654DC /* background_호우.jpg in Resources */,
 				0E5F1A74B5661A35DD2A4DA1 /* background_흐림.jpg in Resources */,
 				EB89EE06B7B014348F8365E5 /* quotes.json in Resources */,
+				3BE4A12939D2B39D53BB98B0 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,6 +554,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Manana/Manana.entitlements;
 				INFOPLIST_FILE = Manana/Info.plist;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -569,6 +566,7 @@
 				CODE_SIGN_ENTITLEMENTS = MananaWidget/MananaWidget.entitlements;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MananaWidget/Info.plist;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana.widget;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -576,7 +574,7 @@
 		};
 		400D05013B397F7D6AFBD774 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = "TEMP_9B952A4A-EA08-422F-A153-E18C3DFD3168" /* Local.xcconfig */;
+			baseConfigurationReference = TEMP_9B952A4A-EA08-422F-A153-E18C3DFD3168 /* Local.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -601,6 +599,7 @@
 				CODE_SIGN_ENTITLEMENTS = MananaWidget/MananaWidget.entitlements;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MananaWidget/Info.plist;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana.widget;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -608,7 +607,7 @@
 		};
 		DF652D2A720EB7CDC4D9E883 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = "TEMP_9B952A4A-EA08-422F-A153-E18C3DFD3168" /* Local.xcconfig */;
+			baseConfigurationReference = TEMP_9B952A4A-EA08-422F-A153-E18C3DFD3168 /* Local.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -633,6 +632,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Manana/Manana.entitlements;
 				INFOPLIST_FILE = Manana/Info.plist;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

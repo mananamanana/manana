@@ -25,6 +25,10 @@ settings:
     INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: "오늘의 날씨에 맞는 배경과 문장을 보여주기 위해 위치 정보가 필요해요."
     INFOPLIST_KEY_UIUserInterfaceStyle: Automatic
     INFOPLIST_KEY_CFBundleDisplayName: "Mañana"
+    # Only ever calls HTTPS endpoints (Cloudflare Worker weather proxy, Google
+    # Sheets CSV export) — no custom/non-exempt crypto — so this answers the
+    # Export Compliance question at upload time instead of asking every build.
+    INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
     MARKETING_VERSION: "0.1.0"
     CURRENT_PROJECT_VERSION: "1"
 
