@@ -14,6 +14,13 @@ extension Font {
         .custom(mananaFontName(for: weight), fixedSize: size)
     }
 
+    /// A custom base size that still scales with Dynamic Type (unlike the
+    /// `fixedSize` overload above) — for cases like a widget's quote text
+    /// where none of the built-in `TextStyle` base sizes match what's wanted.
+    static func manana(size: CGFloat, relativeTo textStyle: Font.TextStyle, weight: Font.Weight = .regular) -> Font {
+        .custom(mananaFontName(for: weight), size: size, relativeTo: textStyle)
+    }
+
     /// Serif-quote replacement — matches the old `.system(_, design: .serif).italic()`
     /// call sites so quote text still reads as a "borrowed sentence".
     static func mananaQuote(_ style: Font.TextStyle) -> Font {

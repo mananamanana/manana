@@ -17,28 +17,35 @@ struct CombinedWidgetView: View {
 
             VStack(alignment: .leading, spacing: 6) {
                 if let snapshot = entry.snapshot {
-                    HStack(spacing: 4) {
+                    // Solid ink color + noticeably bigger type instead of
+                    // `.secondary` gray at caption-size — against busy
+                    // background art, the dimmed small text was reading as
+                    // basically invisible.
+                    HStack(spacing: 6) {
                         Image(systemName: snapshot.symbolName)
-                            .font(.system(size: 15))
+                            .font(.system(size: 26))
+                            .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot))
                         if let temperature = snapshot.temperature {
                             Text("\(Int(temperature.rounded()))°")
-                                .font(.manana(.headline))
+                                .font(.manana(.title2))
+                                .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot))
                         }
                         Text(snapshot.conditionName)
-                            .font(.manana(.caption2))
-                            .foregroundStyle(.secondary)
+                            .font(.manana(.subheadline))
+                            .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot).opacity(0.75))
                     }
 
                     if let detail = WidgetBackground.detailLine(for: snapshot) {
                         Text(detail)
-                            .font(.manana(.caption2))
-                            .foregroundStyle(.secondary)
+                            .font(.manana(.footnote))
+                            .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot).opacity(0.65))
                     }
 
                     Text(snapshot.quoteText)
-                        .font(.mananaQuote(.caption))
+                        .font(.manana(size: 20, relativeTo: .caption, weight: .semibold).italic())
                         .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot))
                         .lineLimit(3)
+                        .minimumScaleFactor(0.6)
                         .fixedSize(horizontal: false, vertical: true)
                 } else {
                     Text("Mañana 앱을 열어\n오늘의 날씨를 가져와보세요")
