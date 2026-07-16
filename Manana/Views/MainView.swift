@@ -729,7 +729,7 @@ struct MainView: View {
             }
 
             if isViewingToday && !showExpandedBadge {
-                sketchButton("IconPencil", tint: selectedColor == .white ? nil : selectedColor) {
+                sketchPencilButton(tint: selectedColor == .white ? nil : selectedColor) {
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                         showToolPanel.toggle()
                         if !showToolPanel { showColorPicker = false }
@@ -774,6 +774,37 @@ struct MainView: View {
                 .foregroundStyle(tint ?? MananaTheme.ink)
                 .shadow(color: MananaTheme.paper.opacity(0.6), radius: 2, y: 1)
                 .contentShape(Rectangle())
+        }
+    }
+
+    /// The pencil toggle button is drawn from three pre-split layers —
+    /// "IconPencilTipFill" (a solid triangle behind the linework, so the
+    /// nib reads as a filled colored tip rather than just a colored
+    /// outline), "IconPencilTip" (the nib's sketchy outline on top of that
+    /// fill), and "IconPencilBody" (the crossbar and legs below, always
+    /// left in the artwork's own color) — like a ballpoint actually
+    /// changing color at the tip while the barrel stays put.
+    private func sketchPencilButton(tint: Color?, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            ZStack {
+                Image("IconPencilTipFill")
+                    .resizable()
+                    .renderingMode(tint == nil ? .original : .template)
+                    .scaledToFit()
+                    .foregroundStyle(tint ?? MananaTheme.ink)
+                Image("IconPencilBody")
+                    .resizable()
+                    .scaledToFit()
+                Image("IconPencilTip")
+                    .resizable()
+                    .renderingMode(tint == nil ? .original : .template)
+                    .scaledToFit()
+                    .foregroundStyle(tint ?? MananaTheme.ink)
+            }
+            .frame(width: 36, height: 36)
+            .frame(width: 48, height: 48)
+            .shadow(color: MananaTheme.paper.opacity(0.6), radius: 2, y: 1)
+            .contentShape(Rectangle())
         }
     }
 
