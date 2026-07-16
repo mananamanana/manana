@@ -49,4 +49,15 @@ final class DrawingStorage {
         let bounds = CGRect(origin: .zero, size: size)
         return drawing.image(from: bounds, scale: scale)
     }
+
+    /// Cropped to just the ink itself rather than the full canvas — a small
+    /// doodle drawn in a corner of a much larger canvas would otherwise
+    /// render as mostly transparent space around a tiny mark, which reads
+    /// as an awkward gap wherever this image gets placed next to other
+    /// content (e.g. the archive detail view's drawing-above-quote layout).
+    func tightImage(fileName: String, scale: CGFloat = UIScreen.main.scale) -> UIImage? {
+        let drawing = load(fileName: fileName)
+        guard !drawing.bounds.isEmpty else { return nil }
+        return drawing.image(from: drawing.bounds, scale: scale)
+    }
 }

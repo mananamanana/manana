@@ -46,21 +46,25 @@ struct DiaryCalendarView: View {
                 }
                 Spacer()
                 Text(monthTitle)
-                    .font(.manana(.headline, weight: .semibold))
+                    .font(.manana(size: 22, weight: .semibold))
                 Spacer()
                 Button { shiftMonth(by: 1) } label: {
                     Image(systemName: "chevron.right")
                 }
             }
-            .foregroundStyle(MananaTheme.ink)
+            // `.primary` rather than the fixed ink-brown — the calendar's
+            // background tint is faint enough that the system's own dark
+            // background shows through in Dark Mode, and the dark ink was
+            // nearly invisible against it. `.primary` adapts automatically.
+            .foregroundStyle(.primary)
             .padding(.horizontal, 24)
             .padding(.top, 12)
 
             HStack {
                 ForEach(weekdaySymbols, id: \.self) { symbol in
                     Text(symbol)
-                        .font(.manana(.caption2))
-                        .foregroundStyle(MananaTheme.ink.opacity(0.45))
+                        .font(.manana(size: 16))
+                        .foregroundStyle(.primary.opacity(0.45))
                         .frame(maxWidth: .infinity)
                 }
             }
@@ -79,7 +83,12 @@ struct DiaryCalendarView: View {
 
             Spacer(minLength: 0)
         }
-        .background(MananaTheme.paper.opacity(0.2))
+        .background {
+            Image("CalendarBackground")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+        }
     }
 
     private func shiftMonth(by value: Int) {
@@ -107,12 +116,12 @@ struct DiaryCalendarView: View {
     private func dayContent(date: Date, entry: DiaryEntry?) -> some View {
         VStack(spacing: 5) {
             Text("\(calendar.component(.day, from: date))")
-                .font(.manana(.footnote, weight: entry != nil ? .semibold : .regular))
-                .foregroundStyle(entry != nil ? MananaTheme.ink : MananaTheme.ink.opacity(0.3))
+                .font(.manana(size: 18, weight: entry != nil ? .semibold : .regular))
+                .foregroundStyle(.primary)
 
             WeatherIcon(name: WeatherBackground(condition: entry?.weatherCondition ?? .clear).iconName)
                 .frame(width: 18, height: 18)
-                .foregroundStyle(entry != nil ? MananaTheme.clay : .clear)
+                .foregroundStyle(entry != nil ? Color.primary : Color.clear)
         }
         .frame(maxWidth: .infinity)
         .frame(height: 54)

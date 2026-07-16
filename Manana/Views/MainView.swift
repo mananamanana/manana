@@ -102,6 +102,16 @@ struct MainView: View {
         return WeatherBackground(condition: condition)
     }
 
+    /// Shared by the drag-to-expand gesture and the chevron's own tap
+    /// target — either way, an already-open pen/eraser panel shouldn't
+    /// linger uselessly once drawing is disabled by the expanded box (see
+    /// paperCanvas/drawTools below).
+    private func expandWeatherBadge() {
+        isWeatherExpanded = true
+        showToolPanel = false
+        showColorPicker = false
+    }
+
     private func navigateDay(by delta: Int) {
         let newOffset = min(1, dayOffset + delta)
         guard newOffset != dayOffset else { return }
@@ -235,11 +245,15 @@ struct MainView: View {
             VStack(spacing: 0) {
                 weatherBadge
                     .padding(.top, 10)
-                    .opacity(isCapturingShare ? 0 : 1)
+                    // Hidden for the share snapshot in the compact state
+                    // (just drawing + quote), but kept visible when the box
+                    // is pulled open — the user wants weather included in
+                    // the shared image specifically when it's expanded.
+                    .opacity(isCapturingShare && !showExpandedBadge ? 0 : 1)
 
                 locationBanner
                     .padding(.top, 10)
-                    .opacity(isCapturingShare ? 0 : 1)
+                    .opacity(isCapturingShare && !showExpandedBadge ? 0 : 1)
 
                 Spacer(minLength: 16)
 
@@ -409,12 +423,7 @@ struct MainView: View {
                 .onEnded { value in
                     guard isViewingToday else { return }
                     if value.translation.height > 15 {
-                        isWeatherExpanded = true
-                        // Drawing is disabled while the box is expanded (see
-                        // paperCanvas/drawTools below), so an already-open
-                        // pen/eraser panel shouldn't linger uselessly either.
-                        showToolPanel = false
-                        showColorPicker = false
+                        expandWeatherBadge()
                     } else if value.translation.height < -15 {
                         isWeatherExpanded = false
                     }
@@ -450,6 +459,14 @@ struct MainView: View {
                 Image(systemName: "chevron.down")
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundStyle(MananaTheme.ink.opacity(0.4))
+                    // A bit of extra padding around the small glyph so
+                    // there's an actually comfortable tap target, not just
+                    // the icon's own tight bounds.
+                    .padding(8)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        expandWeatherBadge()
+                    }
             }
         }
         .foregroundStyle(MananaTheme.ink)

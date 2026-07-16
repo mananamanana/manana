@@ -22,7 +22,7 @@ struct ArchiveListView: View {
                         description: Text("오늘 화면에 그림을 그리면 여기에 쌓여요.")
                     )
                     .tint(MananaTheme.clay)
-                    .background(MananaTheme.paper.opacity(0.2))
+                    .background(archiveBackground)
                 } else {
                     switch viewMode {
                     case .calendar:
@@ -61,12 +61,19 @@ struct ArchiveListView: View {
                 row(for: entry)
             }
             .listRowBackground(Color.clear)
-            .listRowSeparatorTint(MananaTheme.ink.opacity(0.12))
+            .listRowSeparatorTint(.primary.opacity(0.12))
             .listRowInsets(EdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16))
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
-        .background(MananaTheme.paper.opacity(0.2))
+        .background(archiveBackground)
+    }
+
+    private var archiveBackground: some View {
+        Image("CalendarBackground")
+            .resizable()
+            .scaledToFill()
+            .ignoresSafeArea()
     }
 
     /// Styled like an anthology's table of contents — a folio number
@@ -75,28 +82,30 @@ struct ArchiveListView: View {
     private func row(for entry: DiaryEntry) -> some View {
         HStack(alignment: .top, spacing: 14) {
             Text(folio(for: entry.date))
-                .font(.manana(.caption2, weight: .semibold))
+                .font(.manana(size: 15, weight: .semibold))
                 .monospacedDigit()
                 .tracking(0.5)
-                .foregroundStyle(MananaTheme.clay)
+                .foregroundStyle(.primary.opacity(0.7))
                 .frame(width: 32, alignment: .leading)
                 .padding(.top, 2)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(entry.date, format: .dateTime.year().month().day())
-                    .font(.manana(.subheadline, weight: .semibold))
-                    .foregroundStyle(MananaTheme.ink)
+                    .font(.manana(size: 19, weight: .semibold))
+                    // `.primary` rather than the fixed ink-brown, which was
+                    // nearly invisible against Dark Mode's system background
+                    // showing through this view's faint paper tint.
+                    .foregroundStyle(.primary)
                 Text(entry.quoteText)
-                    .font(.mananaQuote(.footnote))
-                    .foregroundStyle(entry.weatherCondition.quoteInkColor(isDay: true).opacity(0.85))
-                    .lineLimit(2)
+                    .font(.manana(size: 15).italic())
+                    .foregroundStyle(.primary.opacity(0.85))
             }
 
             Spacer(minLength: 0)
 
             WeatherIcon(name: WeatherBackground(condition: entry.weatherCondition).iconName)
                 .frame(width: 22, height: 22)
-                .foregroundStyle(MananaTheme.ink.opacity(0.28))
+                .foregroundStyle(.primary.opacity(0.28))
                 .padding(.top, 2)
         }
     }
