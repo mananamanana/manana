@@ -534,6 +534,22 @@ struct MainView: View {
 
             Spacer(minLength: 0)
         }
+        // Mirrors the compact box's own chevron — same tap target styling,
+        // just pointing the other way and living bottom-trailing here so it
+        // doesn't collide with the hourly strip above it.
+        .overlay(alignment: .bottomTrailing) {
+            Image(systemName: "chevron.up")
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundStyle(MananaTheme.ink.opacity(0.4))
+                .padding(8)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
+                        isWeatherExpanded = false
+                    }
+                }
+                .accessibilityLabel("날씨 박스 접기")
+        }
     }
 
     private var weatherAccessibilityLabel: String {
@@ -686,7 +702,7 @@ struct MainView: View {
                             .frame(width: 20, height: 1)
                     }
 
-                    drawToolButton(systemName: "pencil", isActive: !isErasing) {
+                    drawToolButton("IconPen", isActive: !isErasing, tint: selectedColor == .white ? nil : selectedColor) {
                         isErasing = false
                         withAnimation(.spring(response: 0.25, dampingFraction: 0.7)) {
                             showColorPicker.toggle()
@@ -694,7 +710,7 @@ struct MainView: View {
                     }
                     .accessibilityLabel("펜, 다시 누르면 색상 선택")
 
-                    drawToolButton(systemName: "eraser", isActive: isErasing) {
+                    drawToolButton("IconEraser", isActive: isErasing) {
                         isErasing = true
                         withAnimation(.spring(response: 0.25, dampingFraction: 0.7)) {
                             showColorPicker = false
@@ -702,21 +718,18 @@ struct MainView: View {
                     }
                     .accessibilityLabel("지우개")
 
-                    drawToolButton(systemName: "arrow.uturn.backward", isActive: false) {
+                    drawToolButton("IconUndo", isActive: false) {
                         canvasView.undoManager?.undo()
                     }
                     .accessibilityLabel("실행 취소")
                     .disabled(!canUndo)
                     .opacity(canUndo ? 1 : 0.35)
                 }
-                .padding(8)
-                .background(MananaTheme.paper.opacity(0.95), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-                .shadow(color: MananaTheme.ink.opacity(0.2), radius: 8, y: 3)
                 .transition(.scale(scale: 0.85, anchor: .bottomTrailing).combined(with: .opacity))
             }
 
             if isViewingToday && !showExpandedBadge {
-                sketchButton("pencil.tip") {
+                sketchButton("IconPencil", tint: selectedColor == .white ? nil : selectedColor) {
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                         showToolPanel.toggle()
                         if !showToolPanel { showColorPicker = false }
@@ -725,12 +738,12 @@ struct MainView: View {
                 .accessibilityLabel(showToolPanel ? "그리기 도구 닫기" : "그리기 도구 열기")
             }
 
-            sketchButton("book.closed") {
+            sketchButton("IconCalendar") {
                 showArchive = true
             }
             .accessibilityLabel("보관함 열기")
 
-            sketchButton("square.and.arrow.up") {
+            sketchButton("IconShare") {
                 isCapturingShare = true
                 Task { @MainActor in
                     // A beat for SwiftUI to actually redraw with the badge
@@ -744,31 +757,43 @@ struct MainView: View {
         }
     }
 
-    /// A hand-drawn-looking control: a thin ink outline and a line icon,
-    /// no filled card behind it — so it reads as a doodle on the sketchbook
-    /// background instead of a glossy sticker floating on top of it.
-    private func sketchButton(_ systemName: String, action: @escaping () -> Void) -> some View {
+    /// A hand-drawn-looking control: just the hand-drawn icon itself (from
+    /// Assets.xcassets, e.g. "IconPencil") — no outline or card behind it,
+    /// so it reads as a doodle directly on the sketchbook background. `tint`,
+    /// when given, recolors the icon via template rendering (e.g. IconPencil
+    /// matching the currently selected ink color); nil keeps the artwork's
+    /// own colors.
+    private func sketchButton(_ imageName: String, tint: Color? = nil, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            Image(systemName: systemName)
-                .font(.system(size: 19, weight: .regular))
-                .foregroundStyle(MananaTheme.ink.opacity(0.75))
+            Image(imageName)
+                .resizable()
+                .renderingMode(tint == nil ? .original : .template)
+                .scaledToFit()
+                .frame(width: 36, height: 36)
                 .frame(width: 48, height: 48)
-                .background(
-                    Circle()
-                        .strokeBorder(MananaTheme.ink.opacity(0.32), lineWidth: 1.2)
-                )
+                .foregroundStyle(tint ?? MananaTheme.ink)
                 .shadow(color: MananaTheme.paper.opacity(0.6), radius: 2, y: 1)
-                .contentShape(Circle())
+                .contentShape(Rectangle())
         }
     }
 
-    private func drawToolButton(systemName: String, isActive: Bool, action: @escaping () -> Void) -> some View {
+    /// Same treatment as `sketchButton`: just the hand-drawn icon, no card
+    /// or circle behind it. Active/inactive is shown with opacity alone
+    /// now that the tinted circle background is gone. `tint`, when given,
+    /// recolors the icon (e.g. the pen matching the currently selected ink
+    /// color) via template rendering; nil keeps the artwork's own colors.
+    private func drawToolButton(_ imageName: String, isActive: Bool, tint: Color? = nil, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            Image(systemName: systemName)
-                .font(.system(size: 13, weight: .semibold))
-                .frame(width: 28, height: 28)
-                .foregroundStyle(isActive ? MananaTheme.paper : MananaTheme.ink.opacity(0.75))
-                .background(isActive ? MananaTheme.clay : Color.clear, in: Circle())
+            Image(imageName)
+                .resizable()
+                .renderingMode(tint == nil ? .original : .template)
+                .scaledToFit()
+                .frame(width: 30, height: 30)
+                .frame(width: 40, height: 40)
+                .foregroundStyle(tint ?? MananaTheme.ink)
+                .opacity(isActive ? 1 : 0.5)
+                .shadow(color: MananaTheme.paper.opacity(0.6), radius: 2, y: 1)
+                .contentShape(Rectangle())
         }
     }
 
