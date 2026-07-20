@@ -7,7 +7,7 @@ struct WeatherEntry: TimelineEntry {
     let snapshot: SharedWeatherSnapshot?
 }
 
-/// Shared by all three widgets — they all read the same App Group snapshot,
+/// Shared by all five widgets — they all read the same App Group snapshot,
 /// only the view differs. iOS controls widget refresh cadence for battery
 /// reasons, so this can't truly match the in-app 5-minute cycle: it re-reads
 /// whatever the app most recently wrote and asks for another look in 15
@@ -21,10 +21,31 @@ struct MananaWidgetProvider: TimelineProvider {
         completion(WeatherEntry(date: Date(), snapshot: SharedWeatherStore.load()))
     }
 
+    /// Two entries when a same-day precomputed next quote is on hand: "now"
+    /// with today's snapshot as-is, and one dated at the next KST midnight
+    /// with just its quote fields swapped in. Weather/background carry over
+    /// unchanged into that second entry — the real forecast for the new day
+    /// isn't known until the app reopens and refreshes, so this only makes
+    /// the one thing that *can* be known ahead of time (the quote) flip
+    /// exactly on time, entirely on WidgetKit's own clock.
     func getTimeline(in context: Context, completion: @escaping (Timeline<WeatherEntry>) -> Void) {
-        let entry = WeatherEntry(date: Date(), snapshot: SharedWeatherStore.load())
-        let nextRefresh = Calendar.current.date(byAdding: .minute, value: 15, to: Date()) ?? Date().addingTimeInterval(15 * 60)
-        completion(Timeline(entries: [entry], policy: .after(nextRefresh)))
+        let now = Date()
+        let snapshot = SharedWeatherStore.load()
+        var entries = [WeatherEntry(date: now, snapshot: snapshot)]
+
+        let midnight = SharedWeatherStore.nextMidnight(after: now)
+        if var tomorrowSnapshot = snapshot,
+           let nextQuote = SharedWeatherStore.loadNextDayQuote(),
+           nextQuote.dateKey == SharedWeatherStore.dayKey(midnight) {
+            tomorrowSnapshot.quoteText = nextQuote.quoteText
+            tomorrowSnapshot.quoteBookTitle = nextQuote.quoteBookTitle
+            tomorrowSnapshot.quoteAuthor = nextQuote.quoteAuthor
+            entries.append(WeatherEntry(date: midnight, snapshot: tomorrowSnapshot))
+        }
+
+        let refreshAnchor = entries.last?.date ?? now
+        let nextRefresh = Calendar.current.date(byAdding: .minute, value: 15, to: refreshAnchor) ?? refreshAnchor.addingTimeInterval(15 * 60)
+        completion(Timeline(entries: entries, policy: .after(nextRefresh)))
     }
 }
 

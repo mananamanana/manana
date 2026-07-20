@@ -1018,6 +1018,21 @@ struct MainView: View {
         )
         SharedWeatherStore.save(snapshot)
 
+        // Precomputed so the widget can flip to it right at midnight KST on
+        // its own — the widget extension has no access to `QuoteService`,
+        // so this is the only way it learns tomorrow's quote ahead of time.
+        let tomorrowMidnight = SharedWeatherStore.nextMidnight(after: Date())
+        if let tomorrowQuote = quoteService.quoteForToday(condition: weatherService.condition, date: tomorrowMidnight) {
+            SharedWeatherStore.saveNextDayQuote(
+                NextDayQuote(
+                    dateKey: SharedWeatherStore.dayKey(tomorrowMidnight),
+                    quoteText: tomorrowQuote.text,
+                    quoteBookTitle: tomorrowQuote.bookTitle,
+                    quoteAuthor: tomorrowQuote.author
+                )
+            )
+        }
+
         let drawing = canvasView.drawing
         if !drawing.bounds.isEmpty {
             let image = drawing.image(from: drawing.bounds, scale: 2)
