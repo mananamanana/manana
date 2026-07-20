@@ -41,7 +41,7 @@ struct MainView: View {
     /// happened to be.
     @State private var todayTemperatureSamples: [Double] = []
 
-    private static let paletteColors: [Color] = [.black, .red, .green, .blue, .white]
+    private static let paletteColors: [Color] = [.black, .red, .yellow, .green, .blue, .white]
     /// Fixed rather than derived from the quote text's live height — that
     /// used to make the box visibly shrink while the quote was still being
     /// typed out (its measured height grew with every new character/line),
@@ -682,14 +682,21 @@ struct MainView: View {
                                     selectedColor = color
                                     isErasing = false
                                 } label: {
-                                    Circle()
-                                        .fill(color)
-                                        .frame(width: 18, height: 18)
-                                        .overlay(Circle().strokeBorder(MananaTheme.ink.opacity(0.25), lineWidth: 1))
+                                    Image(paletteCrayonImageName(for: color))
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 22, height: 22)
+                                        .background(
+                                            // Faint circle so the white swatch (barely visible
+                                            // ink on paper) still reads as a tappable chip.
+                                            Circle()
+                                                .strokeBorder(MananaTheme.ink.opacity(0.15), lineWidth: 1)
+                                                .padding(-2)
+                                        )
                                         .overlay(
                                             Circle()
                                                 .strokeBorder(MananaTheme.clay, lineWidth: 2)
-                                                .padding(-3)
+                                                .padding(-4)
                                                 .opacity(!isErasing && selectedColor == color ? 1 : 0)
                                         )
                                 }
@@ -729,7 +736,7 @@ struct MainView: View {
             }
 
             if isViewingToday && !showExpandedBadge {
-                sketchPencilButton(tint: selectedColor == .white ? nil : selectedColor) {
+                sketchCrayonButton(tint: selectedColor == .white ? nil : selectedColor) {
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                         showToolPanel.toggle()
                         if !showToolPanel { showColorPicker = false }
@@ -757,10 +764,23 @@ struct MainView: View {
         }
     }
 
+    /// Maps a palette color to its pre-colored hand-drawn crayon-stroke
+    /// asset (e.g. "IconCrayonRed") used in the color picker swatches.
+    private func paletteCrayonImageName(for color: Color) -> String {
+        switch color {
+        case .red: return "IconCrayonRed"
+        case .yellow: return "IconCrayonYellow"
+        case .green: return "IconCrayonGreen"
+        case .blue: return "IconCrayonBlue"
+        case .white: return "IconCrayonWhite"
+        default: return "IconCrayonBlack"
+        }
+    }
+
     /// A hand-drawn-looking control: just the hand-drawn icon itself (from
-    /// Assets.xcassets, e.g. "IconPencil") — no outline or card behind it,
+    /// Assets.xcassets, e.g. "IconCrayon") — no outline or card behind it,
     /// so it reads as a doodle directly on the sketchbook background. `tint`,
-    /// when given, recolors the icon via template rendering (e.g. IconPencil
+    /// when given, recolors the icon via template rendering (e.g. IconCrayon
     /// matching the currently selected ink color); nil keeps the artwork's
     /// own colors.
     private func sketchButton(_ imageName: String, tint: Color? = nil, action: @escaping () -> Void) -> some View {
@@ -777,25 +797,25 @@ struct MainView: View {
         }
     }
 
-    /// The pencil toggle button is drawn from three pre-split layers —
-    /// "IconPencilTipFill" (a solid triangle behind the linework, so the
-    /// nib reads as a filled colored tip rather than just a colored
-    /// outline), "IconPencilTip" (the nib's sketchy outline on top of that
-    /// fill), and "IconPencilBody" (the crossbar and legs below, always
-    /// left in the artwork's own color) — like a ballpoint actually
-    /// changing color at the tip while the barrel stays put.
-    private func sketchPencilButton(tint: Color?, action: @escaping () -> Void) -> some View {
+    /// The crayon toggle button, like `sketchButton` but with an extra
+    /// "IconCrayonFill" layer behind the linework — a solid silhouette of
+    /// just the tip's enclosed window (the one area in the artwork fully
+    /// closed off by ink on every side). Tinting only the outline leaves
+    /// that window empty/see-through, so a selected ink color reads as a
+    /// colored outline around a hole rather than a filled-in crayon tip;
+    /// the fill layer solves that without touching the body/legs, which
+    /// have no enclosed area and stay linework-only same as before.
+    private func sketchCrayonButton(tint: Color?, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             ZStack {
-                Image("IconPencilTipFill")
-                    .resizable()
-                    .renderingMode(tint == nil ? .original : .template)
-                    .scaledToFit()
-                    .foregroundStyle(tint ?? MananaTheme.ink)
-                Image("IconPencilBody")
-                    .resizable()
-                    .scaledToFit()
-                Image("IconPencilTip")
+                if let tint {
+                    Image("IconCrayonFill")
+                        .resizable()
+                        .renderingMode(.template)
+                        .scaledToFit()
+                        .foregroundStyle(tint)
+                }
+                Image("IconCrayon")
                     .resizable()
                     .renderingMode(tint == nil ? .original : .template)
                     .scaledToFit()
