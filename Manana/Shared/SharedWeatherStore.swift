@@ -25,15 +25,15 @@ struct SharedWeatherSnapshot: Codable {
     var backgroundImageName: String = "background_청명함(낮)"
 }
 
-/// Tomorrow's quote, precomputed and cached by the main app ahead of time.
-/// The widget extension can't compute this itself — `QuoteService` and the
-/// daily-quote sheet it reads aren't part of that target — so this is the
-/// only way a widget's timeline can flip to the right quote exactly at
-/// midnight without the app needing to be open right then.
-struct NextDayQuote: Codable {
-    /// KST day (yyyy-MM-dd) this quote is FOR. Checked against the actual
-    /// date before use, so a stale cache (app not opened in a day or more)
-    /// gets dropped instead of showing the wrong day's quote.
+/// A single day's quote, keyed by the KST day it belongs to. The main app
+/// precomputes a window of these ahead of time and shares them, because the
+/// widget extension can't resolve quotes itself (`QuoteService` and the
+/// daily-quote sheet it reads aren't part of that target). With a whole
+/// window on hand, the widget's timeline can flip to the correct quote at
+/// every upcoming midnight entirely on WidgetKit's own clock — even if the
+/// app isn't opened for several days.
+struct DatedQuote: Codable {
+    /// KST day (yyyy-MM-dd) this quote is FOR.
     var dateKey: String
     var quoteText: String
     var quoteBookTitle: String?
@@ -41,9 +41,12 @@ struct NextDayQuote: Codable {
 }
 
 enum SharedWeatherStore {
-    static let appGroupID = "group.com.wonji.manana"
+    /// Resolved at runtime so AltStore-rewritten group ids still match — see
+    /// `AppGroup`. Was a hardcoded string, which broke widget data sharing
+    /// after sideloading.
+    static var appGroupID: String { AppGroup.identifier }
     private static let key = "weatherSnapshot"
-    private static let nextDayQuoteKey = "nextDayQuote"
+    private static let upcomingQuotesKey = "upcomingQuotes"
 
     static func save(_ snapshot: SharedWeatherSnapshot) {
         guard let defaults = UserDefaults(suiteName: appGroupID),
@@ -59,18 +62,21 @@ enum SharedWeatherStore {
         return try? JSONDecoder().decode(SharedWeatherSnapshot.self, from: data)
     }
 
-    static func saveNextDayQuote(_ quote: NextDayQuote) {
+    /// The main app's precomputed window of upcoming quotes (today + the next
+    /// couple of weeks), keyed by KST day.
+    static func saveUpcomingQuotes(_ quotes: [DatedQuote]) {
         guard let defaults = UserDefaults(suiteName: appGroupID),
-              let data = try? JSONEncoder().encode(quote)
+              let data = try? JSONEncoder().encode(quotes)
         else { return }
-        defaults.set(data, forKey: nextDayQuoteKey)
+        defaults.set(data, forKey: upcomingQuotesKey)
     }
 
-    static func loadNextDayQuote() -> NextDayQuote? {
+    static func loadUpcomingQuotes() -> [DatedQuote] {
         guard let defaults = UserDefaults(suiteName: appGroupID),
-              let data = defaults.data(forKey: nextDayQuoteKey)
-        else { return nil }
-        return try? JSONDecoder().decode(NextDayQuote.self, from: data)
+              let data = defaults.data(forKey: upcomingQuotesKey),
+              let quotes = try? JSONDecoder().decode([DatedQuote].self, from: data)
+        else { return [] }
+        return quotes
     }
 
     // MARK: - KST day math
@@ -101,5 +107,11 @@ enum SharedWeatherStore {
         let startOfDay = kstCalendar.startOfDay(for: date)
         if startOfDay > date { return startOfDay }
         return kstCalendar.date(byAdding: .day, value: 1, to: startOfDay) ?? date.addingTimeInterval(86400)
+    }
+
+    /// `n` KST days ahead of `date` (keeping the same wall-clock time). Used
+    /// by the app to precompute a window of upcoming daily quotes.
+    static func date(daysAhead n: Int, from date: Date = Date()) -> Date {
+        kstCalendar.date(byAdding: .day, value: n, to: date) ?? date.addingTimeInterval(Double(n) * 86400)
     }
 }

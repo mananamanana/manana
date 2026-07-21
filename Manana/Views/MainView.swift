@@ -1018,20 +1018,25 @@ struct MainView: View {
         )
         SharedWeatherStore.save(snapshot)
 
-        // Precomputed so the widget can flip to it right at midnight KST on
-        // its own — the widget extension has no access to `QuoteService`,
-        // so this is the only way it learns tomorrow's quote ahead of time.
-        let tomorrowMidnight = SharedWeatherStore.nextMidnight(after: Date())
-        if let tomorrowQuote = quoteService.quoteForToday(condition: weatherService.condition, date: tomorrowMidnight) {
-            SharedWeatherStore.saveNextDayQuote(
-                NextDayQuote(
-                    dateKey: SharedWeatherStore.dayKey(tomorrowMidnight),
-                    quoteText: tomorrowQuote.text,
-                    quoteBookTitle: tomorrowQuote.bookTitle,
-                    quoteAuthor: tomorrowQuote.author
+        // Precompute a window of upcoming daily quotes (today + two weeks) so
+        // the widget can flip to the correct quote at each midnight on its
+        // own — the widget extension has no access to `QuoteService`, so this
+        // is the only way it can advance day by day without the app running.
+        let now = Date()
+        var upcoming: [DatedQuote] = []
+        for offset in 0...14 {
+            let day = SharedWeatherStore.date(daysAhead: offset, from: now)
+            guard let dayQuote = quoteService.quoteForToday(condition: weatherService.condition, date: day) else { continue }
+            upcoming.append(
+                DatedQuote(
+                    dateKey: SharedWeatherStore.dayKey(day),
+                    quoteText: dayQuote.text,
+                    quoteBookTitle: dayQuote.bookTitle,
+                    quoteAuthor: dayQuote.author
                 )
             )
         }
+        SharedWeatherStore.saveUpcomingQuotes(upcoming)
 
         let drawing = canvasView.drawing
         if !drawing.bounds.isEmpty {

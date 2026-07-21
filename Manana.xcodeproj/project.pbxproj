@@ -30,6 +30,7 @@
 		55EF6E501968952BC93935F7 /* WeatherCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A287B2BDF1709B3B957AAD2 /* WeatherCondition.swift */; };
 		5889D723C61F35A4EEC8F388 /* background_비(밤).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F7C49EFCBFE162A109089 /* background_비(밤).jpg */; };
 		5D7BDFB6A7EB81A950EAD10A /* background_번개.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F0032B4026AB85989BBEDCB /* background_번개.jpg */; };
+		5E13A9485C123AAB53F298A0 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7865A9F622701C3624860A /* AppGroup.swift */; };
 		61F05213CCB4AEA3EFB666B1 /* DrawingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B87E859897609DC673F06A /* DrawingStorage.swift */; };
 		63CA265BD29C2879BFBC5689 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F589B6B9571CAAB1929CD /* ActivityView.swift */; };
 		641300AB5ACDFEB60D97BA46 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FF4458BE310E3A1511C588 /* MainView.swift */; };
@@ -69,6 +70,7 @@
 		D8E4155F3CFA0B5E37DEE9A8 /* DiaryEntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AE92CEFF979F9174033C7 /* DiaryEntryDetailView.swift */; };
 		DCB057BD7F3609016AB33A72 /* background_한때흐림(낮).jpg in Resources */ = {isa = PBXBuildFile; fileRef = FBF23BFB3E9143B95CAADFE6 /* background_한때흐림(낮).jpg */; };
 		DDA7A620A32B4E80354FBEFE /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C1A302F4FB9F7ED3178FD /* LocationManager.swift */; };
+		E896870A78F6C0E2E80E5352 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7865A9F622701C3624860A /* AppGroup.swift */; };
 		EA92E4DF7527F13C414FC789 /* KMAGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C2115C93A4FEB346FB5535 /* KMAGrid.swift */; };
 		EB89EE06B7B014348F8365E5 /* quotes.json in Resources */ = {isa = PBXBuildFile; fileRef = EE71493E7991FC7CA0B3510B /* quotes.json */; };
 		ED36DEA9DAE32321B0C7AD34 /* background_실안개.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 519A85A346F9B3C8116EAEFF /* background_실안개.jpg */; };
@@ -126,6 +128,7 @@
 		4B73EF8A78B1263E212D851E /* background_흐림.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_흐림.jpg"; sourceTree = "<group>"; };
 		4CE33AAB206DB50A1B5AE556 /* MananaWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MananaWidgetBundle.swift; sourceTree = "<group>"; };
 		4E244FED6E722AE4866BCEEC /* Manana.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Manana.entitlements; sourceTree = "<group>"; };
+		4E7865A9F622701C3624860A /* AppGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
 		4FECE30ACAAD3292CEE5E8D3 /* QuoteLockScreenWideWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteLockScreenWideWidget.swift; sourceTree = "<group>"; };
 		519A85A346F9B3C8116EAEFF /* background_실안개.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_실안개.jpg"; sourceTree = "<group>"; };
 		53A95758926B97B3C8FDCB53 /* WeatherQuoteWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherQuoteWidget.swift; sourceTree = "<group>"; };
@@ -354,6 +357,7 @@
 				76A079DCEC25B1A9C47CC9C5 /* Font+Manana.swift */,
 				8CF7112DD17A41EBD802773E /* SharedDrawingStore.swift */,
 				2577C04803329F8E28394181 /* SharedWeatherStore.swift */,
+				4E7865A9F622701C3624860A /* AppGroup.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -516,6 +520,7 @@
 				A90A406D7B6B333031AD520B /* WeatherBackground.swift in Sources */,
 				55EF6E501968952BC93935F7 /* WeatherCondition.swift in Sources */,
 				3314139DF72FBCAA50BBCD44 /* WeatherService.swift in Sources */,
+				5E13A9485C123AAB53F298A0 /* AppGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,6 +539,7 @@
 				AAB7DB3722C1DB87AF439FF9 /* SharedWeatherStore.swift in Sources */,
 				BAEDC42850845C0C2F9A413E /* WeatherEntryProvider.swift in Sources */,
 				F68616936C1AEE977261B30C /* WeatherQuoteWidget.swift in Sources */,
+				E896870A78F6C0E2E80E5352 /* AppGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,7 +583,7 @@
 			baseConfigurationReference = TEMP_9B952A4A-EA08-422F-A153-E18C3DFD3168 /* Local.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Mañana";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "오늘의 날씨에 맞는 배경과 문장을 보여주기 위해 위치 정보가 필요해요.";
@@ -586,7 +592,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.1.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -610,7 +616,7 @@
 			baseConfigurationReference = TEMP_9B952A4A-EA08-422F-A153-E18C3DFD3168 /* Local.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Mañana";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "오늘의 날씨에 맞는 배경과 문장을 보여주기 위해 위치 정보가 필요해요.";
@@ -619,7 +625,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.1.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;

@@ -21,31 +21,50 @@ struct MananaWidgetProvider: TimelineProvider {
         completion(WeatherEntry(date: Date(), snapshot: SharedWeatherStore.load()))
     }
 
-    /// Two entries when a same-day precomputed next quote is on hand: "now"
-    /// with today's snapshot as-is, and one dated at the next KST midnight
-    /// with just its quote fields swapped in. Weather/background carry over
-    /// unchanged into that second entry — the real forecast for the new day
-    /// isn't known until the app reopens and refreshes, so this only makes
-    /// the one thing that *can* be known ahead of time (the quote) flip
-    /// exactly on time, entirely on WidgetKit's own clock.
+    /// One entry per day across the app's precomputed quote window: a "now"
+    /// entry for today, then one dated at each upcoming KST midnight with that
+    /// day's quote swapped into the last-known snapshot. Weather/background
+    /// carry over unchanged — the real forecast for a future day isn't known
+    /// until the app reopens — but the *quote* flips exactly on time at every
+    /// midnight, entirely on WidgetKit's own clock, so the widget keeps
+    /// advancing for the whole window even if the app is never opened. The
+    /// quote is always resolved from the window (never left as the snapshot's
+    /// own stale field), which is what fixes "still shows yesterday's quote".
     func getTimeline(in context: Context, completion: @escaping (Timeline<WeatherEntry>) -> Void) {
         let now = Date()
-        let snapshot = SharedWeatherStore.load()
-        var entries = [WeatherEntry(date: now, snapshot: snapshot)]
-
-        let midnight = SharedWeatherStore.nextMidnight(after: now)
-        if var tomorrowSnapshot = snapshot,
-           let nextQuote = SharedWeatherStore.loadNextDayQuote(),
-           nextQuote.dateKey == SharedWeatherStore.dayKey(midnight) {
-            tomorrowSnapshot.quoteText = nextQuote.quoteText
-            tomorrowSnapshot.quoteBookTitle = nextQuote.quoteBookTitle
-            tomorrowSnapshot.quoteAuthor = nextQuote.quoteAuthor
-            entries.append(WeatherEntry(date: midnight, snapshot: tomorrowSnapshot))
+        guard let base = SharedWeatherStore.load() else {
+            let retry = Calendar.current.date(byAdding: .minute, value: 15, to: now) ?? now.addingTimeInterval(900)
+            completion(Timeline(entries: [WeatherEntry(date: now, snapshot: nil)], policy: .after(retry)))
+            return
         }
 
-        let refreshAnchor = entries.last?.date ?? now
-        let nextRefresh = Calendar.current.date(byAdding: .minute, value: 15, to: refreshAnchor) ?? refreshAnchor.addingTimeInterval(15 * 60)
-        completion(Timeline(entries: entries, policy: .after(nextRefresh)))
+        let upcoming = SharedWeatherStore.loadUpcomingQuotes()
+        func snapshot(forDayKey key: String) -> SharedWeatherSnapshot {
+            guard let quote = upcoming.first(where: { $0.dateKey == key }) else { return base }
+            var snap = base
+            snap.quoteText = quote.quoteText
+            snap.quoteBookTitle = quote.quoteBookTitle
+            snap.quoteAuthor = quote.quoteAuthor
+            return snap
+        }
+
+        // Today, effective immediately.
+        var entries = [WeatherEntry(date: now, snapshot: snapshot(forDayKey: SharedWeatherStore.dayKey(now)))]
+
+        // Each upcoming midnight in the window gets its own entry, so the
+        // quote advances day by day with no app involvement.
+        var midnight = SharedWeatherStore.nextMidnight(after: now)
+        for _ in 0..<14 {
+            let key = SharedWeatherStore.dayKey(midnight)
+            guard upcoming.contains(where: { $0.dateKey == key }) else { break }
+            entries.append(WeatherEntry(date: midnight, snapshot: snapshot(forDayKey: key)))
+            midnight = SharedWeatherStore.nextMidnight(after: midnight)
+        }
+
+        // `.atEnd` asks WidgetKit for a fresh timeline only once the last
+        // entry's day arrives — no premature mid-day refresh that would revert
+        // to a stale snapshot before the next midnight.
+        completion(Timeline(entries: entries, policy: .atEnd))
     }
 }
 
