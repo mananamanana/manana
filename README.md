@@ -108,39 +108,39 @@ Mañana는 스페인어로 '내일' 또는 '아침'을 뜻합니다. 오늘 마�
 
 **☁️ iOS App**
 
-![Swift](https://img.shields.io/badge/SWIFT-F4794F?style=for-the-badge&logo=swift&logoColor=white)
-![SwiftUI](https://img.shields.io/badge/SWIFTUI-1C86FF?style=for-the-badge&logo=swift&logoColor=white)
-![UIKit](https://img.shields.io/badge/UIKIT-46464E?style=for-the-badge)
-![PencilKit](https://img.shields.io/badge/PENCILKIT-B15FF0?style=for-the-badge)
-![WidgetKit](https://img.shields.io/badge/WIDGETKIT-4FA8DA?style=for-the-badge)
-![SwiftData](https://img.shields.io/badge/SWIFTDATA-6366F1?style=for-the-badge)
-![Core Location](https://img.shields.io/badge/CORE%20LOCATION-2BB6C4?style=for-the-badge)
-
-**☁️ Widget Extension**
-
-![WidgetKit](https://img.shields.io/badge/WIDGETKIT-4FA8DA?style=for-the-badge)
-![App Group](https://img.shields.io/badge/APP%20GROUP-6E7580?style=for-the-badge)
+![Swift](https://img.shields.io/badge/SWIFT-FF6F40?style=for-the-badge&logo=swift&logoColor=white)
+![SwiftUI](https://img.shields.io/badge/SWIFTUI-007ACC?style=for-the-badge&logo=swift&logoColor=white)
+![PencilKit](https://img.shields.io/badge/PENCILKIT-AF52DE?style=for-the-badge&logo=apple&logoColor=white)
+![WidgetKit](https://img.shields.io/badge/WIDGETKIT-30B0C7?style=for-the-badge&logo=apple&logoColor=white)
+![SwiftData](https://img.shields.io/badge/SWIFTDATA-5856D6?style=for-the-badge&logo=swift&logoColor=white)
+![Core Location](https://img.shields.io/badge/CORE_LOCATION-28CDD1?style=for-the-badge&logo=apple&logoColor=white)
+![UIKit](https://img.shields.io/badge/UIKIT-48484A?style=for-the-badge&logo=apple&logoColor=white)
 
 **☁️ 외부 연동**
 
-![Weather API](https://img.shields.io/badge/기상청%20단기예보%20API-3A82F0?style=for-the-badge)
-![Cloudflare Workers](https://img.shields.io/badge/CLOUDFLARE%20WORKERS-F38121?style=for-the-badge&logo=cloudflareworkers&logoColor=white)
-![Google Sheets](https://img.shields.io/badge/GOOGLE%20SHEETS-34A853?style=for-the-badge&logo=googlesheets&logoColor=white)
+![Cloudflare Workers](https://img.shields.io/badge/CLOUDFLARE_WORKERS-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)
+![기상청 단기예보 API](https://img.shields.io/badge/기상청_단기예보_API-4285F4?style=for-the-badge&logo=icloud&logoColor=white)
+![Google Sheets](https://img.shields.io/badge/GOOGLE_SHEETS-34A853?style=for-the-badge&logo=googlesheets&logoColor=white)
 
-**☁️ 배포 / 서명**
+**☁️ 저장소**
 
-![Xcode](https://img.shields.io/badge/XCODE-157EFB?style=for-the-badge&logo=xcode&logoColor=white)
-![XcodeGen](https://img.shields.io/badge/XCODEGEN-8A8A90?style=for-the-badge)
-![Git](https://img.shields.io/badge/GIT-F1502F?style=for-the-badge&logo=git&logoColor=white)
-![GitHub](https://img.shields.io/badge/GITHUB-1B1F27?style=for-the-badge&logo=github&logoColor=white)
-![devicectl](https://img.shields.io/badge/DEVICECTL-111111?style=for-the-badge)
-![AltStore](https://img.shields.io/badge/ALTSTORE-2E958D?style=for-the-badge)
-![AltServer](https://img.shields.io/badge/ALTSERVER-1D6F68?style=for-the-badge)
+![SwiftData](https://img.shields.io/badge/SWIFTDATA-5856D6?style=for-the-badge&logo=swift&logoColor=white)
+![App Group](https://img.shields.io/badge/APP_GROUP-636366?style=for-the-badge&logo=apple&logoColor=white)
+
+**☁️ 개발 · 배포**
+
+![Xcode](https://img.shields.io/badge/XCODE-147EFB?style=for-the-badge&logo=xcode&logoColor=white)
+![XcodeGen](https://img.shields.io/badge/XCODEGEN-8E8E93?style=for-the-badge&logo=xcode&logoColor=white)
+![Git](https://img.shields.io/badge/GIT-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GITHUB-24292E?style=for-the-badge&logo=github&logoColor=white)
+![devicectl](https://img.shields.io/badge/DEVICECTL-000000?style=for-the-badge&logo=apple&logoColor=white)
+![AltStore](https://img.shields.io/badge/ALTSTORE-2BB19B?style=for-the-badge&logo=altstore&logoColor=white)
+![AltServer](https://img.shields.io/badge/ALTSERVER-1E8276?style=for-the-badge&logo=altstore&logoColor=white)
 
 **☁️ 에셋 제작 도구**
 
-![Python (PIL)](https://img.shields.io/badge/PYTHON%20%28PIL%29-FFD34D?style=for-the-badge&logo=python&logoColor=black)
-![CoreText](https://img.shields.io/badge/CORETEXT-0D0D0D?style=for-the-badge)
+![Python (PIL)](https://img.shields.io/badge/PYTHON_(PIL)-3776AB?style=for-the-badge&logo=python&logoColor=yellow)
+![CoreText](https://img.shields.io/badge/CORETEXT-000000?style=for-the-badge&logo=apple&logoColor=white)
 
 ### ☁️ 주요 기술
 
