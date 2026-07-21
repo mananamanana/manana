@@ -47,7 +47,16 @@ final class DrawingStorage {
         let drawing = load(fileName: fileName)
         guard !drawing.bounds.isEmpty else { return nil }
         let bounds = CGRect(origin: .zero, size: size)
-        return drawing.image(from: bounds, scale: scale)
+        // PencilKit's pure black/white ink is "adaptive" — it renders
+        // according to whatever interface style is current at the moment of
+        // rasterization, flipping black to white in Dark Mode, same as the
+        // live canvas would without its own `.light` override. Forcing it
+        // here keeps every exported image matching what was actually drawn.
+        var rendered: UIImage?
+        UITraitCollection(userInterfaceStyle: .light).performAsCurrent {
+            rendered = drawing.image(from: bounds, scale: scale)
+        }
+        return rendered
     }
 
     /// Cropped to just the ink itself rather than the full canvas — a small
@@ -58,6 +67,10 @@ final class DrawingStorage {
     func tightImage(fileName: String, scale: CGFloat = UIScreen.main.scale) -> UIImage? {
         let drawing = load(fileName: fileName)
         guard !drawing.bounds.isEmpty else { return nil }
-        return drawing.image(from: drawing.bounds, scale: scale)
+        var rendered: UIImage?
+        UITraitCollection(userInterfaceStyle: .light).performAsCurrent {
+            rendered = drawing.image(from: drawing.bounds, scale: scale)
+        }
+        return rendered
     }
 }

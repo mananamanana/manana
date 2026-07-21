@@ -1035,7 +1035,15 @@ struct MainView: View {
 
         let drawing = canvasView.drawing
         if !drawing.bounds.isEmpty {
-            let image = drawing.image(from: drawing.bounds, scale: 2)
+            // PencilKit's pure black/white ink is "adaptive" and renders
+            // according to whatever interface style is current at the
+            // moment of rasterization — without forcing light mode here,
+            // black ink drawn in the (also light-forced) canvas came out
+            // white in the widget whenever the device was in Dark Mode.
+            var image: UIImage!
+            UITraitCollection(userInterfaceStyle: .light).performAsCurrent {
+                image = drawing.image(from: drawing.bounds, scale: 2)
+            }
             SharedDrawingStore.save(image)
         }
 
