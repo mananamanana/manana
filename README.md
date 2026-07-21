@@ -312,15 +312,8 @@ manana-releases                    (AltStore 배포 전용 공개 저장소 — 
 
 <br/>
 
-## ☀️ 개발 환경 실행
+## ☀️ 팀원 소개
 ---
-```bash
-# 1. Xcode 프로젝트 생성 (XcodeGen)
-xcodegen generate
-
-# 2. 개인 서명 설정 (최초 1회)
-cp Local.xcconfig.example Local.xcconfig
-# Local.xcconfig에 본인 Apple Developer Team ID 입력
-
-# 3. Xcode에서 Manana.xcodeproj 열고 실기기/시뮬레이터로 빌드
-```
+- 이찬영
+- 추원지
+- 이성재
