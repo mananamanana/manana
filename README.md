@@ -1,4 +1,4 @@
-# 🌤️ Mañana(마냐나) - 날씨와 문장, 손그림으로 기록하는 하루
+# ☀️☁️ Mañana(마냐나) - 날씨와 문장, 손그림으로 기록하는 하루
 
 <p align="center">
   <img src="./docs/images/logo.png" width="160"/>
