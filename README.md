@@ -353,6 +353,7 @@ manana-releases                    (AltStore 배포 전용 공개 저장소 — 
 <br/>
 
 ## ☀️ 팀원 소개
-- [이찬영](https://github.com/jamong558-collab)
-- [추원지](https://github.com/wonjichu)
-- [이성재](https://github.com/SJLee0316)
+
+<a href="https://github.com/mananamanana/manana/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=mananamanana/manana" />
+</a>
