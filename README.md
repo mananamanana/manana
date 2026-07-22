@@ -354,5 +354,5 @@ manana-releases                    (AltStore 배포 전용 공개 저장소 — 
 
 ## ☀️ 팀원 소개
 - [이찬영](https://github.com/jamong558-collab)
-- 추원지
-- 이성재
+- [추원지](https://github.com/wonjichu)
+- [이성재](https://github.com/SJLee0316)
