@@ -354,6 +354,8 @@ manana-releases                    (AltStore 배포 전용 공개 저장소 — 
 
 ## ☀️ 팀원 소개
 
-<a href="https://github.com/mananamanana/manana/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=mananamanana/manana" alt="Contributors" />
-</a>
+<p align="center">
+  <a href="https://github.com/mananamanana/manana/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=mananamanana/manana" alt="Contributors" />
+  </a>
+</p>
