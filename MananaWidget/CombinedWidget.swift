@@ -6,7 +6,7 @@ struct CombinedWidgetView: View {
     var entry: WeatherEntry
 
     private var drawingImage: UIImage? {
-        SharedDrawingStore.loadImage()
+        SharedDrawingStore.loadImage(forDayKey: SharedWeatherStore.dayKey(entry.date))
     }
 
     var body: some View {
@@ -66,9 +66,12 @@ struct CombinedWidgetView: View {
     @ViewBuilder
     private var drawingThumbnail: some View {
         if let uiImage = drawingImage {
-            Image(uiImage: uiImage)
-                .resizable()
-                .scaledToFill()
+            ZStack {
+                Rectangle().fill(.white.opacity(0.25))
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+            }
         } else {
             RoundedRectangle(cornerRadius: 14)
                 .fill(.white.opacity(0.25))

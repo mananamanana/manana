@@ -579,7 +579,7 @@ struct MainView: View {
     // Broken at sentence boundaries rather than left to width-based
     // auto-wrap, so it always reads as three clean lines instead of
     // wherever the screen happens to cut it off.
-    private static let futurePlaceholderText = "mañana!는 에스파냐어로\n내일 또는 아침이라고 불립니다.\n우리는 늘 도착하지 않은 미래에 걱정하지 않은가요?\n오늘부터는 한 문장을 기다리며\n여유롭고 낙천적으로 살아요."
+    private static let futurePlaceholderText = "mañana!는 에스파냐어로\n내일 또는 아침이라고 불립니다.\n우리는 늘 도착하지 않은 미래를\n걱정하고 있지 않나요?\n오늘부터는 한 문장을 기다리며\n여유롭고 낙천적으로 살아요."
 
     private func typeOutQuote(_ text: String) {
         quoteTypewriterTask?.cancel()
@@ -1049,7 +1049,7 @@ struct MainView: View {
             UITraitCollection(userInterfaceStyle: .light).performAsCurrent {
                 image = drawing.image(from: drawing.bounds, scale: 2)
             }
-            SharedDrawingStore.save(image)
+            SharedDrawingStore.save(image, dateKey: SharedWeatherStore.dayKey(now))
         }
 
         WidgetCenter.shared.reloadAllTimelines()

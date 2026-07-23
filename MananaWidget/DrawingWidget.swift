@@ -6,7 +6,7 @@ struct DrawingWidgetView: View {
     var entry: WeatherEntry
 
     private var drawingImage: UIImage? {
-        SharedDrawingStore.loadImage()
+        SharedDrawingStore.loadImage(forDayKey: SharedWeatherStore.dayKey(entry.date))
     }
 
     var body: some View {
@@ -14,7 +14,7 @@ struct DrawingWidgetView: View {
             if let uiImage = drawingImage {
                 Image(uiImage: uiImage)
                     .resizable()
-                    .scaledToFill()
+                    .scaledToFit()
             } else {
                 Text("아직 그린 그림이 없어요")
                     .font(.manana(.caption2))
