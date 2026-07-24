@@ -252,11 +252,14 @@ struct MainView: View {
                     .opacity(isCapturingShare && !showExpandedBadge ? 0 : 1)
 
                 locationBanner
-                    .padding(.top, 10)
                     .opacity(isCapturingShare && !showExpandedBadge ? 0 : 1)
 
-                Spacer(minLength: 16)
-
+                // No gap here: the drawing canvas begins immediately below the
+                // weather box so the user can draw right up to the box's
+                // bottom line. (The old Spacer left a non-drawable band under
+                // the box.) locationBanner carries its own top padding only
+                // when it actually shows an error, so it adds nothing here in
+                // the normal case.
                 paperCanvas
 
                 Spacer(minLength: 40)
@@ -372,6 +375,7 @@ struct MainView: View {
             .buttonStyle(.plain)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 24)
+            .padding(.top, 10)
         }
     }
 
@@ -1014,7 +1018,8 @@ struct MainView: View {
             quoteAuthor: quote?.author,
             updatedAt: Date(),
             symbolName: weatherService.condition.symbolName,
-            backgroundImageName: weatherService.backgroundCondition.imageName
+            backgroundImageName: weatherService.backgroundCondition.imageName,
+            weatherIconName: weatherService.backgroundCondition.iconName
         )
         SharedWeatherStore.save(snapshot)
 

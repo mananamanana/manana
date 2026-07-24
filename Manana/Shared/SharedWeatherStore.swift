@@ -23,6 +23,11 @@ struct SharedWeatherSnapshot: Codable {
     /// Base filename (no extension) of the matching hand-painted background
     /// in MananaWidget/Backgrounds — matches `WeatherBackground.imageName`.
     var backgroundImageName: String = "background_청명함(낮)"
+    /// Asset name of the matching hand-drawn weather icon, bundled in the
+    /// widget's own WidgetIcons.xcassets (template-rendering) — matches
+    /// `WeatherBackground.iconName`. Lets the widget show the same hand-drawn
+    /// outline icon as the app instead of a system SF Symbol.
+    var weatherIconName: String = "weathericon_청명함(낮)"
 }
 
 /// A single day's quote, keyed by the KST day it belongs to. The main app

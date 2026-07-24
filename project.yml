@@ -29,8 +29,8 @@ settings:
     # Sheets CSV export) — no custom/non-exempt crypto — so this answers the
     # Export Compliance question at upload time instead of asking every build.
     INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
-    MARKETING_VERSION: "0.1.2"
-    CURRENT_PROJECT_VERSION: "3"
+    MARKETING_VERSION: "0.1.3"
+    CURRENT_PROJECT_VERSION: "4"
 
 targets:
   Manana:

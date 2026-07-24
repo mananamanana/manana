@@ -22,9 +22,17 @@ struct CombinedWidgetView: View {
                     // background art, the dimmed small text was reading as
                     // basically invisible.
                     HStack(spacing: 6) {
-                        Image(systemName: snapshot.symbolName)
-                            .font(.system(size: 26))
-                            .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot))
+                        if let icon = WidgetBackground.icon(for: entry.snapshot) {
+                            icon
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 26, height: 26)
+                                .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot))
+                        } else {
+                            Image(systemName: snapshot.symbolName)
+                                .font(.system(size: 26))
+                                .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot))
+                        }
                         if let temperature = snapshot.temperature {
                             Text("\(Int(temperature.rounded()))°")
                                 .font(.manana(.title2))
@@ -66,15 +74,16 @@ struct CombinedWidgetView: View {
     @ViewBuilder
     private var drawingThumbnail: some View {
         if let uiImage = drawingImage {
-            ZStack {
-                Rectangle().fill(.white.opacity(0.25))
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFit()
-            }
+            // No backing fill — the drawing sits directly on the widget's own
+            // background so the scaledToFit letterbox margins blend in instead
+            // of showing as a lighter box.
+            Image(uiImage: uiImage)
+                .resizable()
+                .scaledToFit()
         } else {
-            RoundedRectangle(cornerRadius: 14)
-                .fill(.white.opacity(0.25))
+            // Transparent (not a tinted box) so an empty drawing slot is
+            // indistinguishable from the background.
+            Color.clear
         }
     }
 }
