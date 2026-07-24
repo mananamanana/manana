@@ -348,11 +348,28 @@ manana-releases                    (AltStore 배포 전용 공개 저장소 — 
 
 ## ☀️ 팀원 소개
 
-<p align="center">
-  <a href="https://github.com/mananamanana/manana/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=mananamanana/manana&v=2" alt="Contributors" />
-  </a>
-</p>
+<table align="center">
+  <tr>
+    <td align="center">
+      <a href="https://github.com/iamyeongah">
+        <img src="https://github.com/iamyeongah.png" width="110" alt="이찬영"/><br/>
+        <sub><b>이찬영</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/wonjichu">
+        <img src="https://github.com/wonjichu.png" width="110" alt="추원지"/><br/>
+        <sub><b>추원지</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/SJLee0316">
+        <img src="https://github.com/SJLee0316.png" width="110" alt="이성재"/><br/>
+        <sub><b>이성재</b></sub>
+      </a>
+    </td>
+  </tr>
+</table>
 
 <br/>
 
