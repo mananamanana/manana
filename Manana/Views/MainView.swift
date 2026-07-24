@@ -1018,8 +1018,7 @@ struct MainView: View {
             quoteAuthor: quote?.author,
             updatedAt: Date(),
             symbolName: weatherService.condition.symbolName,
-            backgroundImageName: weatherService.backgroundCondition.imageName,
-            weatherIconName: weatherService.backgroundCondition.iconName
+            backgroundImageName: weatherService.backgroundCondition.imageName
         )
         SharedWeatherStore.save(snapshot)
 

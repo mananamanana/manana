@@ -86,12 +86,16 @@ enum WidgetBackground {
     }
 
     /// The hand-drawn weather icon matching the app's own badge, loaded from
-    /// the widget's WidgetIcons.xcassets. An asset-catalog lookup (not a raw
-    /// bundled PNG) so it renders as a proper template image the caller can
-    /// tint — returns nil if the asset is missing so the caller can fall back
-    /// to the SF Symbol.
+    /// the widget's WidgetIcons.xcassets (template-rendering so the caller can
+    /// tint it). The asset name is derived from the existing
+    /// `backgroundImageName` (`background_…` → `weathericon_…`) rather than a
+    /// dedicated snapshot field — a new field would break decoding of
+    /// snapshots written by older app versions. Returns nil if the asset is
+    /// missing so the caller can fall back to the SF Symbol.
     static func icon(for snapshot: SharedWeatherSnapshot?) -> Image? {
-        guard let name = snapshot?.weatherIconName, UIImage(named: name) != nil else { return nil }
+        guard let background = snapshot?.backgroundImageName else { return nil }
+        let name = background.replacingOccurrences(of: "background_", with: "weathericon_")
+        guard UIImage(named: name) != nil else { return nil }
         return Image(name).renderingMode(.template)
     }
 
