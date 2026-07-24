@@ -351,6 +351,12 @@ manana-releases                    (AltStore 배포 전용 공개 저장소 — 
 <table align="center">
   <tr>
     <td align="center">
+      <a href="https://github.com/mananamanana">
+        <img src="https://github.com/mananamanana.png" width="110" alt="마나나"/><br/>
+        <sub><b>마나나</b></sub>
+      </a>
+    </td>
+    <td align="center">
       <a href="https://github.com/iamyeongah">
         <img src="https://github.com/iamyeongah.png" width="110" alt="이찬영"/><br/>
         <sub><b>이찬영</b></sub>
