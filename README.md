@@ -1,6 +1,6 @@
 # 📖 Mañana - 오늘의 날씨에 문학 한 구절을 그려내다
 
-![마냐나 배너](./docs/images/logo.png)
+![마나나 배너](./docs/images/logo.png)
 
 <br/>
 
