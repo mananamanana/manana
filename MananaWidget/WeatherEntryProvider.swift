@@ -85,18 +85,27 @@ enum WidgetBackground {
         return image
     }
 
-    /// The hand-drawn weather icon matching the app's own badge, loaded from
-    /// the widget's WidgetIcons.xcassets (template-rendering so the caller can
-    /// tint it). The asset name is derived from the existing
-    /// `backgroundImageName` (`background_…` → `weathericon_…`) rather than a
-    /// dedicated snapshot field — a new field would break decoding of
-    /// snapshots written by older app versions. Returns nil if the asset is
-    /// missing so the caller can fall back to the SF Symbol.
+    private static var iconCache: [String: UIImage] = [:]
+
+    /// The hand-drawn weather icon matching the app's own badge. Bundled as a
+    /// loose file (like the backgrounds) rather than an asset catalog: the
+    /// catalog compiled fine for the simulator but was silently dropped from
+    /// the device archive, so on-device the icon never loaded and fell back to
+    /// the SF Symbol. The name is derived from the existing `backgroundImageName`
+    /// (`background_…` → `weathericon_…`) so no new snapshot field is needed
+    /// (which would break decoding of older snapshots). `.iconpng`, not `.png`,
+    /// so Xcode's PNG "crush" step leaves the alpha intact. Rendered as a
+    /// template image so the caller can tint it; nil → SF Symbol fallback.
     static func icon(for snapshot: SharedWeatherSnapshot?) -> Image? {
         guard let background = snapshot?.backgroundImageName else { return nil }
         let name = background.replacingOccurrences(of: "background_", with: "weathericon_")
-        guard UIImage(named: name) != nil else { return nil }
-        return Image(name).renderingMode(.template)
+        if let cached = iconCache[name] { return Image(uiImage: cached) }
+        guard let url = Bundle.main.url(forResource: name, withExtension: "iconpng"),
+              let loaded = UIImage(contentsOfFile: url.path)
+        else { return nil }
+        let image = loaded.withRenderingMode(.alwaysTemplate)
+        iconCache[name] = image
+        return Image(uiImage: image)
     }
 
     static func colors(for snapshot: SharedWeatherSnapshot?) -> [Color] {

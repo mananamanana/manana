@@ -9,14 +9,16 @@
 /* Begin PBXBuildFile section */
 		012431919A8B12F3241A4F14 /* background_비(밤).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 38FEA2019DB84A28561DCFDD /* background_비(밤).jpg */; };
 		049FF27803C5C162BDB04DA3 /* background_실안개.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 99341FD45B3B90CABB9024D6 /* background_실안개.jpg */; };
+		08C763B5B4BE651A600C4461 /* weathericon_폭설.iconpng in Resources */ = {isa = PBXBuildFile; fileRef = A59BB7DDC70DD02B0FFA465C /* weathericon_폭설.iconpng */; };
 		0E5F1A74B5661A35DD2A4DA1 /* background_흐림.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4B73EF8A78B1263E212D851E /* background_흐림.jpg */; };
 		1184205FA2DF20C5E7A3EF7D /* SharedWeatherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577C04803329F8E28394181 /* SharedWeatherStore.swift */; };
-		148D0D0B050D253ACC6F4C20 /* WidgetIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DA18D272643A41D9F950E2E /* WidgetIcons.xcassets */; };
 		1634F50444068AB5A7C1592A /* background_폭설.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD9E175F1784432F14485F2D /* background_폭설.jpg */; };
 		18480E18BECA4543CFC227B2 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17F589B6B9571CAAB1929CD /* ActivityView.swift */; };
 		1CA5454455A19DBB82A6E3CF /* DailyQuote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA8FF4960F511B9CA9CBE00 /* DailyQuote.swift */; };
 		1ECC3DB2060585F3D03BE044 /* MananaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FFF886B8594EC330112B5B /* MananaApp.swift */; };
+		2505155FE1980568480E2B5B /* weathericon_호우.iconpng in Resources */ = {isa = PBXBuildFile; fileRef = 69490D8B5E2F2E64DF44BE5A /* weathericon_호우.iconpng */; };
 		293C8FDEDCA911BE8155F646 /* background_청명함(밤).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B4E0982FCC2E20B45ED7A2E /* background_청명함(밤).jpg */; };
+		2A09F741C4EEA6D84709E728 /* weathericon_비(밤).iconpng in Resources */ = {isa = PBXBuildFile; fileRef = F50A26E858E2B2974F4D89DF /* weathericon_비(밤).iconpng */; };
 		2AE648D6D6E5DCD1AF0EDA19 /* background_한때흐림(밤).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 45C96E164C7F45FE33F2FFE2 /* background_한때흐림(밤).jpg */; };
 		3190F5DC868491EDA323FF53 /* YoonChildfundkoreaDaeHan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87D9C2A0B9756ABAFD754629 /* YoonChildfundkoreaDaeHan.ttf */; };
 		3314139DF72FBCAA50BBCD44 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20261B8294262233F291DA72 /* WeatherService.swift */; };
@@ -29,7 +31,9 @@
 		543C6CA13C9AF52930BA9049 /* background_한때흐림(낮).jpg in Resources */ = {isa = PBXBuildFile; fileRef = F97BF34F90D4A5F117FB7EA7 /* background_한때흐림(낮).jpg */; };
 		54B63E4C5BD1D00ECFC42D22 /* MananaWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F2583ADEAF4F0227B3AF139A /* MananaWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		55EF6E501968952BC93935F7 /* WeatherCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A287B2BDF1709B3B957AAD2 /* WeatherCondition.swift */; };
+		57EB91D3A2AA9A8D0991F05E /* weathericon_실안개.iconpng in Resources */ = {isa = PBXBuildFile; fileRef = B440420C5CB113BB7D97E20D /* weathericon_실안개.iconpng */; };
 		5889D723C61F35A4EEC8F388 /* background_비(밤).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F7C49EFCBFE162A109089 /* background_비(밤).jpg */; };
+		5B22DACE854F30D5CCDFB56E /* weathericon_청명함(밤).iconpng in Resources */ = {isa = PBXBuildFile; fileRef = 50AE583AA27E6A6936C6FDAE /* weathericon_청명함(밤).iconpng */; };
 		5D7BDFB6A7EB81A950EAD10A /* background_번개.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F0032B4026AB85989BBEDCB /* background_번개.jpg */; };
 		5E13A9485C123AAB53F298A0 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7865A9F622701C3624860A /* AppGroup.swift */; };
 		61F05213CCB4AEA3EFB666B1 /* DrawingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B87E859897609DC673F06A /* DrawingStorage.swift */; };
@@ -37,17 +41,25 @@
 		641300AB5ACDFEB60D97BA46 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FF4458BE310E3A1511C588 /* MainView.swift */; };
 		650CD9B6C3B28655BD1951E3 /* YoonChildfundkoreaDaeHan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87D9C2A0B9756ABAFD754629 /* YoonChildfundkoreaDaeHan.ttf */; };
 		67864992ED408439EC2A6D27 /* DrawingWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4137B54FFC1DE66A34F3B96C /* DrawingWidget.swift */; };
+		67D70EB8E13C86CE7E78ED33 /* weathericon_한때흐림(낮).iconpng in Resources */ = {isa = PBXBuildFile; fileRef = B7106AE0946C0EB2F6FD64E4 /* weathericon_한때흐림(낮).iconpng */; };
+		68F843EBE2A3B889F40CA322 /* weathericon_비(낮).iconpng in Resources */ = {isa = PBXBuildFile; fileRef = A8ECF84FE9638167D455B6BB /* weathericon_비(낮).iconpng */; };
 		6979670F817103818650A7C3 /* DiaryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96FF59619FA4B2ACFCCA55F /* DiaryEntry.swift */; };
 		6DE44AEF163BE90A48D6BE1A /* background_뇌우.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3D26A21AA1B14F5E598013B /* background_뇌우.jpg */; };
+		6E047FA36B1DFA929F7929FB /* weathericon_태풍.iconpng in Resources */ = {isa = PBXBuildFile; fileRef = 9A4665F7A0A3D52DD26253F7 /* weathericon_태풍.iconpng */; };
 		6F160A5EB04DB3954F0D613A /* QuoteLockScreenWideWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FECE30ACAAD3292CEE5E8D3 /* QuoteLockScreenWideWidget.swift */; };
 		72F9B8462B7800E88DFDA46C /* QuoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81165CF98FDF9A0F715555E4 /* QuoteService.swift */; };
+		751CA700833A53A135FC26E5 /* weathericon_한때흐림(밤).iconpng in Resources */ = {isa = PBXBuildFile; fileRef = 18D2D45EA3D9056B3372028E /* weathericon_한때흐림(밤).iconpng */; };
 		78243E52CEED36EDAB8DE476 /* background_폭설.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F6911CA1002A919DCEA1EF1 /* background_폭설.jpg */; };
+		86B88225A1935C6E324780CC /* weathericon_뇌우.iconpng in Resources */ = {isa = PBXBuildFile; fileRef = 886A4C3677B72DEE80AF8E5A /* weathericon_뇌우.iconpng */; };
 		86B91B0BFE27472780F6511D /* SharedDrawingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7112DD17A41EBD802773E /* SharedDrawingStore.swift */; };
 		90B155D6F03028DFA8EAFF36 /* YoonChildfundkoreaManSeh.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAD0F01B6D9D71565807B5B0 /* YoonChildfundkoreaManSeh.ttf */; };
 		9401C1026840BF9CA00F0D84 /* QuoteLockScreenWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BECC04E20C6236FBAB6C6E /* QuoteLockScreenWidget.swift */; };
+		96E0452A96F91995F904BDDE /* weathericon_번개.iconpng in Resources */ = {isa = PBXBuildFile; fileRef = 9942D2DB450C01DC80D506DC /* weathericon_번개.iconpng */; };
 		988EE80743E36EB8E8067B0B /* background_눈비.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E5E3637C47336144934F3ED /* background_눈비.jpg */; };
+		9995ACDAE5A802A72BF1E142 /* weathericon_청명함(낮).iconpng in Resources */ = {isa = PBXBuildFile; fileRef = 1D5757C75CC3CE6E2DC1B3E7 /* weathericon_청명함(낮).iconpng */; };
 		99A01AF6A1A6A67D92F6C24D /* ArchiveListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34717ECC27BC5280F6625CA1 /* ArchiveListView.swift */; };
 		9AAF618EFE8AEFFE3D4D225C /* background_눈비.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CAA1F7234C8E09DA235E3015 /* background_눈비.jpg */; };
+		9D5CE3FE7C33333F41945889 /* weathericon_안개.iconpng in Resources */ = {isa = PBXBuildFile; fileRef = 138CC86E1F1C6AA2C92D9955 /* weathericon_안개.iconpng */; };
 		9E4AA320BCC45BB0FB518527 /* background_청명함(밤).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 736DB65D54086B438ACA1A65 /* background_청명함(밤).jpg */; };
 		9E673B82E05CF827E6D35290 /* background_호우.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 88D5371CB1569393622280FA /* background_호우.jpg */; };
 		9EF7D41D8400071749A7F7DA /* DrawingCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B5A9C55615F5999B3C5167 /* DrawingCanvasView.swift */; };
@@ -60,6 +72,8 @@
 		AB238B270FB985CAEB1A44CD /* MananaWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE33AAB206DB50A1B5AE556 /* MananaWidgetBundle.swift */; };
 		AC19C8C817BB7D04CA590260 /* SharedDrawingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7112DD17A41EBD802773E /* SharedDrawingStore.swift */; };
 		B152CBD39A0E65568D13A022 /* background_뇌우.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7E5CB21C65B2CA8425F18315 /* background_뇌우.jpg */; };
+		B2DE8D7DF3C84D6550998FFF /* weathericon_눈.iconpng in Resources */ = {isa = PBXBuildFile; fileRef = 7EFC1F0486E53B8F282860F3 /* weathericon_눈.iconpng */; };
+		B3ECBFDBD1F32C429267D5B1 /* weathericon_눈비.iconpng in Resources */ = {isa = PBXBuildFile; fileRef = 53B3128CEC2AE788038A3222 /* weathericon_눈비.iconpng */; };
 		B97C67F5A4AAFBC4C612E97F /* Font+Manana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A079DCEC25B1A9C47CC9C5 /* Font+Manana.swift */; };
 		BAECE7A06BFE80A65304FC36 /* background_태풍.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B1C853AB470CC0A2CB108A4 /* background_태풍.jpg */; };
 		BAEDC42850845C0C2F9A413E /* WeatherEntryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F646E7C606AFA3F855DC2A /* WeatherEntryProvider.swift */; };
@@ -68,6 +82,7 @@
 		C3B9D86D1A9B7D1EDD5D1313 /* YoonChildfundkoreaMinGuk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8890D146342692911F53D84 /* YoonChildfundkoreaMinGuk.ttf */; };
 		C90AE672C0E3D42EE82CE755 /* background_눈.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4310EB53921BBD28251C2717 /* background_눈.jpg */; };
 		CC262AC105504E3FCF6D583F /* background_눈.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6FA4BC0F2B14292BC239DF38 /* background_눈.jpg */; };
+		D025E2FF3280D925CA6D42C5 /* weathericon_흐림.iconpng in Resources */ = {isa = PBXBuildFile; fileRef = 6372EB05F8C6266EBF1AA030 /* weathericon_흐림.iconpng */; };
 		D8E4155F3CFA0B5E37DEE9A8 /* DiaryEntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10AE92CEFF979F9174033C7 /* DiaryEntryDetailView.swift */; };
 		DCB057BD7F3609016AB33A72 /* background_한때흐림(낮).jpg in Resources */ = {isa = PBXBuildFile; fileRef = FBF23BFB3E9143B95CAADFE6 /* background_한때흐림(낮).jpg */; };
 		DDA7A620A32B4E80354FBEFE /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C1A302F4FB9F7ED3178FD /* LocationManager.swift */; };
@@ -112,7 +127,10 @@
 
 /* Begin PBXFileReference section */
 		0AA8FF4960F511B9CA9CBE00 /* DailyQuote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuote.swift; sourceTree = "<group>"; };
+		138CC86E1F1C6AA2C92D9955 /* weathericon_안개.iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_안개.iconpng"; sourceTree = "<group>"; };
 		18586E5E3461D88CEB8FC12B /* background_청명함(낮).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_청명함(낮).jpg"; sourceTree = "<group>"; };
+		18D2D45EA3D9056B3372028E /* weathericon_한때흐림(밤).iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_한때흐림(밤).iconpng"; sourceTree = "<group>"; };
+		1D5757C75CC3CE6E2DC1B3E7 /* weathericon_청명함(낮).iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_청명함(낮).iconpng"; sourceTree = "<group>"; };
 		20261B8294262233F291DA72 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		216265BDE9B39FBDAE9A877F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		2577C04803329F8E28394181 /* SharedWeatherStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedWeatherStore.swift; sourceTree = "<group>"; };
@@ -121,7 +139,6 @@
 		34717ECC27BC5280F6625CA1 /* ArchiveListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveListView.swift; sourceTree = "<group>"; };
 		3701D6C2515DE60D74867903 /* background_청명함(낮).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_청명함(낮).jpg"; sourceTree = "<group>"; };
 		38FEA2019DB84A28561DCFDD /* background_비(밤).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_비(밤).jpg"; sourceTree = "<group>"; };
-		3DA18D272643A41D9F950E2E /* WidgetIcons.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = WidgetIcons.xcassets; sourceTree = "<group>"; };
 		40F646E7C606AFA3F855DC2A /* WeatherEntryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherEntryProvider.swift; sourceTree = "<group>"; };
 		4137B54FFC1DE66A34F3B96C /* DrawingWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingWidget.swift; sourceTree = "<group>"; };
 		42BECC04E20C6236FBAB6C6E /* QuoteLockScreenWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteLockScreenWidget.swift; sourceTree = "<group>"; };
@@ -132,12 +149,16 @@
 		4E244FED6E722AE4866BCEEC /* Manana.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Manana.entitlements; sourceTree = "<group>"; };
 		4E7865A9F622701C3624860A /* AppGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
 		4FECE30ACAAD3292CEE5E8D3 /* QuoteLockScreenWideWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteLockScreenWideWidget.swift; sourceTree = "<group>"; };
+		50AE583AA27E6A6936C6FDAE /* weathericon_청명함(밤).iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_청명함(밤).iconpng"; sourceTree = "<group>"; };
 		519A85A346F9B3C8116EAEFF /* background_실안개.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_실안개.jpg"; sourceTree = "<group>"; };
 		53A95758926B97B3C8FDCB53 /* WeatherQuoteWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherQuoteWidget.swift; sourceTree = "<group>"; };
+		53B3128CEC2AE788038A3222 /* weathericon_눈비.iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_눈비.iconpng"; sourceTree = "<group>"; };
 		53FB0CFA9A4427C615C97496 /* DiaryCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCalendarView.swift; sourceTree = "<group>"; };
 		5B1C1A302F4FB9F7ED3178FD /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		5C7F7C49EFCBFE162A109089 /* background_비(밤).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_비(밤).jpg"; sourceTree = "<group>"; };
 		61FFF886B8594EC330112B5B /* MananaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MananaApp.swift; sourceTree = "<group>"; };
+		6372EB05F8C6266EBF1AA030 /* weathericon_흐림.iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_흐림.iconpng"; sourceTree = "<group>"; };
+		69490D8B5E2F2E64DF44BE5A /* weathericon_호우.iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_호우.iconpng"; sourceTree = "<group>"; };
 		6E5E3637C47336144934F3ED /* background_눈비.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_눈비.jpg"; sourceTree = "<group>"; };
 		6FA4BC0F2B14292BC239DF38 /* background_눈.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_눈.jpg"; sourceTree = "<group>"; };
 		736DB65D54086B438ACA1A65 /* background_청명함(밤).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_청명함(밤).jpg"; sourceTree = "<group>"; };
@@ -148,20 +169,28 @@
 		7B4E0982FCC2E20B45ED7A2E /* background_청명함(밤).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_청명함(밤).jpg"; sourceTree = "<group>"; };
 		7D87CC544AB997711D88B8B0 /* background_안개.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_안개.jpg"; sourceTree = "<group>"; };
 		7E5CB21C65B2CA8425F18315 /* background_뇌우.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_뇌우.jpg"; sourceTree = "<group>"; };
+		7EFC1F0486E53B8F282860F3 /* weathericon_눈.iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_눈.iconpng"; sourceTree = "<group>"; };
 		7F0032B4026AB85989BBEDCB /* background_번개.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_번개.jpg"; sourceTree = "<group>"; };
 		7F6911CA1002A919DCEA1EF1 /* background_폭설.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_폭설.jpg"; sourceTree = "<group>"; };
 		81165CF98FDF9A0F715555E4 /* QuoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteService.swift; sourceTree = "<group>"; };
 		81B5A9C55615F5999B3C5167 /* DrawingCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvasView.swift; sourceTree = "<group>"; };
 		86FF4458BE310E3A1511C588 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		87D9C2A0B9756ABAFD754629 /* YoonChildfundkoreaDaeHan.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = YoonChildfundkoreaDaeHan.ttf; sourceTree = "<group>"; };
+		886A4C3677B72DEE80AF8E5A /* weathericon_뇌우.iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_뇌우.iconpng"; sourceTree = "<group>"; };
 		88D5371CB1569393622280FA /* background_호우.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_호우.jpg"; sourceTree = "<group>"; };
 		8CF7112DD17A41EBD802773E /* SharedDrawingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDrawingStore.swift; sourceTree = "<group>"; };
 		91AC23C0E5DFE8DACD3162C1 /* background_흐림.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_흐림.jpg"; sourceTree = "<group>"; };
 		97B62450300842B089222BAF /* CombinedWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedWidget.swift; sourceTree = "<group>"; };
 		99341FD45B3B90CABB9024D6 /* background_실안개.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_실안개.jpg"; sourceTree = "<group>"; };
+		9942D2DB450C01DC80D506DC /* weathericon_번개.iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_번개.iconpng"; sourceTree = "<group>"; };
 		9A287B2BDF1709B3B957AAD2 /* WeatherCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCondition.swift; sourceTree = "<group>"; };
+		9A4665F7A0A3D52DD26253F7 /* weathericon_태풍.iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_태풍.iconpng"; sourceTree = "<group>"; };
 		9A51A5876995EADF9409C508 /* background_태풍.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_태풍.jpg"; sourceTree = "<group>"; };
 		A02F2CDBA472DED63FCB424D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A59BB7DDC70DD02B0FFA465C /* weathericon_폭설.iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_폭설.iconpng"; sourceTree = "<group>"; };
+		A8ECF84FE9638167D455B6BB /* weathericon_비(낮).iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_비(낮).iconpng"; sourceTree = "<group>"; };
+		B440420C5CB113BB7D97E20D /* weathericon_실안개.iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_실안개.iconpng"; sourceTree = "<group>"; };
+		B7106AE0946C0EB2F6FD64E4 /* weathericon_한때흐림(낮).iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_한때흐림(낮).iconpng"; sourceTree = "<group>"; };
 		B96FF59619FA4B2ACFCCA55F /* DiaryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntry.swift; sourceTree = "<group>"; };
 		C10AE92CEFF979F9174033C7 /* DiaryEntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntryDetailView.swift; sourceTree = "<group>"; };
 		C3D26A21AA1B14F5E598013B /* background_뇌우.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_뇌우.jpg"; sourceTree = "<group>"; };
@@ -182,6 +211,7 @@
 		EAD0F01B6D9D71565807B5B0 /* YoonChildfundkoreaManSeh.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = YoonChildfundkoreaManSeh.ttf; sourceTree = "<group>"; };
 		EE71493E7991FC7CA0B3510B /* quotes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = quotes.json; sourceTree = "<group>"; };
 		F2583ADEAF4F0227B3AF139A /* MananaWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MananaWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F50A26E858E2B2974F4D89DF /* weathericon_비(밤).iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_비(밤).iconpng"; sourceTree = "<group>"; };
 		F97BF34F90D4A5F117FB7EA7 /* background_한때흐림(낮).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_한때흐림(낮).jpg"; sourceTree = "<group>"; };
 		F9FC25682A71195FC4577D51 /* background_한때흐림(밤).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_한때흐림(밤).jpg"; sourceTree = "<group>"; };
 		FBF23BFB3E9143B95CAADFE6 /* background_한때흐림(낮).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_한때흐림(낮).jpg"; sourceTree = "<group>"; };
@@ -295,7 +325,7 @@
 				53A95758926B97B3C8FDCB53 /* WeatherQuoteWidget.swift */,
 				A3F65A7120BAB03CFAC5C834 /* Backgrounds */,
 				DA7443B76D4F532D7D7E946B /* PrivacyInfo.xcprivacy */,
-				3DA18D272643A41D9F950E2E /* WidgetIcons.xcassets */,
+				B4D46F85E995D308C4E9FE79 /* WeatherIcons */,
 			);
 			path = MananaWidget;
 			sourceTree = "<group>";
@@ -331,6 +361,30 @@
 				91AC23C0E5DFE8DACD3162C1 /* background_흐림.jpg */,
 			);
 			path = Backgrounds;
+			sourceTree = "<group>";
+		};
+		B4D46F85E995D308C4E9FE79 /* WeatherIcons */ = {
+			isa = PBXGroup;
+			children = (
+				886A4C3677B72DEE80AF8E5A /* weathericon_뇌우.iconpng */,
+				7EFC1F0486E53B8F282860F3 /* weathericon_눈.iconpng */,
+				53B3128CEC2AE788038A3222 /* weathericon_눈비.iconpng */,
+				9942D2DB450C01DC80D506DC /* weathericon_번개.iconpng */,
+				A8ECF84FE9638167D455B6BB /* weathericon_비(낮).iconpng */,
+				F50A26E858E2B2974F4D89DF /* weathericon_비(밤).iconpng */,
+				B440420C5CB113BB7D97E20D /* weathericon_실안개.iconpng */,
+				138CC86E1F1C6AA2C92D9955 /* weathericon_안개.iconpng */,
+				1D5757C75CC3CE6E2DC1B3E7 /* weathericon_청명함(낮).iconpng */,
+				50AE583AA27E6A6936C6FDAE /* weathericon_청명함(밤).iconpng */,
+				A59BB7DDC70DD02B0FFA465C /* weathericon_폭설.iconpng */,
+				B7106AE0946C0EB2F6FD64E4 /* weathericon_한때흐림(낮).iconpng */,
+				18D2D45EA3D9056B3372028E /* weathericon_한때흐림(밤).iconpng */,
+				69490D8B5E2F2E64DF44BE5A /* weathericon_호우.iconpng */,
+				6372EB05F8C6266EBF1AA030 /* weathericon_흐림.iconpng */,
+				9A4665F7A0A3D52DD26253F7 /* weathericon_태풍.iconpng */,
+			);
+			name = WeatherIcons;
+			path = WeatherIcons;
 			sourceTree = "<group>";
 		};
 		C05D21019ED5499EA1569698 /* Views */ = {
@@ -464,7 +518,22 @@
 				9E673B82E05CF827E6D35290 /* background_호우.jpg in Resources */,
 				45CEE79099A3DC2978CF9F52 /* background_흐림.jpg in Resources */,
 				F26D859A5AD9BE5BE71E6603 /* PrivacyInfo.xcprivacy in Resources */,
-				148D0D0B050D253ACC6F4C20 /* WidgetIcons.xcassets in Resources */,
+				86B88225A1935C6E324780CC /* weathericon_뇌우.iconpng in Resources */,
+				B2DE8D7DF3C84D6550998FFF /* weathericon_눈.iconpng in Resources */,
+				B3ECBFDBD1F32C429267D5B1 /* weathericon_눈비.iconpng in Resources */,
+				96E0452A96F91995F904BDDE /* weathericon_번개.iconpng in Resources */,
+				68F843EBE2A3B889F40CA322 /* weathericon_비(낮).iconpng in Resources */,
+				2A09F741C4EEA6D84709E728 /* weathericon_비(밤).iconpng in Resources */,
+				57EB91D3A2AA9A8D0991F05E /* weathericon_실안개.iconpng in Resources */,
+				9D5CE3FE7C33333F41945889 /* weathericon_안개.iconpng in Resources */,
+				9995ACDAE5A802A72BF1E142 /* weathericon_청명함(낮).iconpng in Resources */,
+				5B22DACE854F30D5CCDFB56E /* weathericon_청명함(밤).iconpng in Resources */,
+				08C763B5B4BE651A600C4461 /* weathericon_폭설.iconpng in Resources */,
+				67D70EB8E13C86CE7E78ED33 /* weathericon_한때흐림(낮).iconpng in Resources */,
+				751CA700833A53A135FC26E5 /* weathericon_한때흐림(밤).iconpng in Resources */,
+				2505155FE1980568480E2B5B /* weathericon_호우.iconpng in Resources */,
+				D025E2FF3280D925CA6D42C5 /* weathericon_흐림.iconpng in Resources */,
+				6E047FA36B1DFA929F7929FB /* weathericon_태풍.iconpng in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,10 +632,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Manana/Manana.entitlements;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				INFOPLIST_FILE = Manana/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				MARKETING_VERSION = 0.1.5;
+				MARKETING_VERSION = 0.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -576,11 +645,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MananaWidget/MananaWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MananaWidget/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				MARKETING_VERSION = 0.1.5;
+				MARKETING_VERSION = 0.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana.widget;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -611,11 +680,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MananaWidget/MananaWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MananaWidget/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				MARKETING_VERSION = 0.1.5;
+				MARKETING_VERSION = 0.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana.widget;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -647,10 +716,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Manana/Manana.entitlements;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				INFOPLIST_FILE = Manana/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				MARKETING_VERSION = 0.1.5;
+				MARKETING_VERSION = 0.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
