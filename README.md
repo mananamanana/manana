@@ -4,6 +4,7 @@
 
 <br/>
 
+오늘의 날씨에 문학 한 구절을 그려내다
 📲 **[설치 가이드 바로가기](./docs/INSTALL.md)** — App Store 출시 전, AltStore로 무료 설치하는 방법
 
 <br/>
