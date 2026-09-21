@@ -78,6 +78,12 @@ struct MainView: View {
     /// here; there's no point going further into the future than that.
     private var isFuture: Bool { dayOffset > 0 }
 
+    /// A day whose drawing can be edited directly on the home canvas: today
+    /// always, plus any past day that already has a saved entry (swipe back
+    /// to it and just keep drawing). Past days with no record and the future
+    /// placeholder stay read-only.
+    private var isEditableDay: Bool { isViewingToday || pastEntry != nil }
+
     /// The saved diary entry for whatever past day is currently displayed —
     /// nil when viewing today (live data is used instead) or when that day
     /// simply has no record.
@@ -130,9 +136,26 @@ struct MainView: View {
             dayOffset = newOffset
             isWeatherExpanded = false
         }
-        if isViewingToday {
-            loadTodayDrawing()
+        // Load whichever day we landed on into the live canvas so it can be
+        // drawn on directly — today or a past day with a record. (A no-record
+        // past day or the future page loads an empty canvas that stays hidden.)
+        loadDrawing(for: displayedDate)
+    }
+
+    /// Jumps the home page straight to a specific date (used by the calendar's
+    /// edit pencil: close the archive and land on that day's editable canvas,
+    /// rather than opening a separate editor page).
+    private func goToDate(_ date: Date) {
+        showArchive = false
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let target = calendar.startOfDay(for: date)
+        let days = calendar.dateComponents([.day], from: today, to: target).day ?? 0
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+            dayOffset = min(1, days)
+            isWeatherExpanded = false
         }
+        loadDrawing(for: displayedDate)
     }
 
     /// Whatever the quote block should be typing out right now — today's
@@ -311,7 +334,13 @@ struct MainView: View {
                     .ignoresSafeArea()
                     .animation(.easeInOut(duration: 1.2), value: displayedBackground)
             }
-            .sheet(isPresented: $showArchive) { ArchiveListView() }
+            .sheet(isPresented: $showArchive) {
+                ArchiveListView { date in
+                    // Edit pencil in the calendar/detail → jump the home page
+                    // to that day's editable canvas instead of a modal editor.
+                    goToDate(date)
+                }
+            }
             .sheet(isPresented: Binding(
                 get: { shareImage != nil },
                 set: { isPresented in if !isPresented { shareImage = nil } }
@@ -638,32 +667,30 @@ struct MainView: View {
     private var paperCanvas: some View {
         GeometryReader { proxy in
             Group {
-                if isViewingToday {
+                if isEditableDay {
+                    // The same live canvas for today and for any past day with
+                    // a record — so a past day can be drawn on directly in
+                    // place (its drawing is loaded/saved by day; see
+                    // `loadDrawing(for:)` / `saveDrawing`). PencilKit renders
+                    // the saved vector strokes at the canvas's own size, so no
+                    // separate image scaling is needed.
                     DrawingCanvasView(
                         canvasView: $canvasView,
                         canUndo: $canUndo,
                         canRedo: $canRedo,
                         isErasing: isErasing,
-                        inkColor: UIColor(selectedColor)
-                    ) { drawing in
-                        saveTodayDrawing(drawing)
+                        inkColor: UIColor(selectedColor),
+                        targetDate: displayedDate
+                    ) { drawing, date in
+                        saveDrawing(drawing, for: date)
                     }
                     // No drawing while the weather box is pulled open — the
                     // layout barely leaves room for the canvas at that point
                     // anyway.
                     .allowsHitTesting(!showExpandedBadge)
-                } else if let entry = pastEntry,
-                          // Rendered at this exact same size the live canvas
-                          // occupies (rather than a fixed square) — otherwise
-                          // the drawing only fills the square's top-left
-                          // corner at the wrong aspect ratio, and scaling
-                          // that to fit the real portrait frame makes it look
-                          // small and shifted left.
-                          let uiImage = DrawingStorage.shared.image(fileName: entry.drawingFileName, size: proxy.size) {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .scaledToFit()
                 } else {
+                    // A no-record past day or the future placeholder — nothing
+                    // to draw on.
                     Color.clear
                 }
             }
@@ -693,7 +720,7 @@ struct MainView: View {
     /// slides out the 5-swatch palette instead of showing it up front.
     private var drawTools: some View {
         VStack(alignment: .trailing, spacing: 10) {
-            if showToolPanel && isViewingToday && !showExpandedBadge {
+            if showToolPanel && isEditableDay && !showExpandedBadge {
                 VStack(spacing: 10) {
                     if showColorPicker {
                         VStack(spacing: 6) {
@@ -763,7 +790,9 @@ struct MainView: View {
                 .transition(.scale(scale: 0.85, anchor: .bottomTrailing).combined(with: .opacity))
             }
 
-            if isViewingToday && !showExpandedBadge {
+            // The drawing-tools toggle shows for today and for any past day
+            // with a record, so a swiped-back past day can be edited in place.
+            if isEditableDay && !showExpandedBadge {
                 sketchCrayonButton(tint: selectedColor == .white ? nil : selectedColor) {
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                         showToolPanel.toggle()
@@ -903,6 +932,12 @@ struct MainView: View {
             return (quote.text, quote.bookTitle, quote.author)
         }
         guard let entry = pastEntry else { return nil }
+        // Prefer the sheet's quote for that day so a swiped-back past day
+        // matches the archive/calendar (and the corrected sheet) rather than
+        // whatever was saved when the day was first recorded.
+        if let sheet = QuoteService.sheetQuote(for: displayedDate) {
+            return sheet
+        }
         return (entry.quoteText, entry.quoteBookTitle, entry.quoteAuthor)
     }
 
@@ -971,15 +1006,35 @@ struct MainView: View {
     }
 
     private func loadTodayDrawing() {
-        let fileName = DrawingStorage.shared.fileName(for: Date())
+        loadDrawing(for: Date())
+    }
+
+    /// Loads the given day's saved drawing into the live canvas so it can be
+    /// viewed and edited in place. Resets the undo history — loading a saved
+    /// drawing shouldn't itself count as an undoable step; undo only appears
+    /// once the user actually draws something new this session.
+    private func loadDrawing(for date: Date) {
+        let fileName = DrawingStorage.shared.fileName(for: date)
         canvasView.drawing = DrawingStorage.shared.load(fileName: fileName)
-        // Loading a saved drawing shouldn't itself count as an undoable
-        // step — undo should only appear once the user actually draws
-        // something new this session.
         canvasView.undoManager?.removeAllActions()
         canUndo = false
         canRedo = false
-        selectedColor = weatherService.isDay ? .black : .white
+        // Past entries don't record day/night, so they assume the day palette
+        // (black ink); today follows the live day/night.
+        let isToday = Calendar.current.isDateInToday(date)
+        selectedColor = (isToday ? weatherService.isDay : true) ? .black : .white
+    }
+
+    /// Persists an edit to whichever day is currently on screen: today goes
+    /// through the full live path (widget sync included); a past day just
+    /// updates its own on-disk drawing and diary entry — the widget only ever
+    /// shows today, so past edits don't touch it.
+    private func saveDrawing(_ drawing: PKDrawing, for date: Date) {
+        if Calendar.current.isDateInToday(date) {
+            saveTodayDrawing(drawing)
+        } else {
+            savePastDrawing(drawing, for: date)
+        }
     }
 
     private func saveTodayDrawing(_ drawing: PKDrawing) {
@@ -987,6 +1042,20 @@ struct MainView: View {
         DrawingStorage.shared.save(drawing, fileName: fileName)
         upsertTodayEntry(drawingFileName: fileName)
         syncWidgets()
+    }
+
+    private func savePastDrawing(_ drawing: PKDrawing, for date: Date) {
+        let fileName = DrawingStorage.shared.fileName(for: date)
+        DrawingStorage.shared.save(drawing, fileName: fileName)
+        // Keep the day's existing entry pointed at its drawing file (it always
+        // is, but this also covers the seeded yesterday whose file may not
+        // have existed on disk yet). No widget sync — past days aren't shown
+        // in the widget.
+        let dayKey = DrawingStorage.dateKey(date)
+        let descriptor = FetchDescriptor<DiaryEntry>(predicate: #Predicate { $0.dayKey == dayKey })
+        if let entry = try? modelContext.fetch(descriptor).first {
+            entry.drawingFileName = fileName
+        }
     }
 
     /// Selects the eraser, and on the third consecutive tap wipes the whole
@@ -1008,15 +1077,15 @@ struct MainView: View {
         }
     }
 
-    /// Wipes today's canvas and every saved copy of it (on-disk drawing,
-    /// diary entry, and the widget's shared image), and clears the undo
-    /// history so it's a clean slate.
+    /// Wipes the currently displayed day's canvas and its saved copies (on-disk
+    /// drawing, and — for today — the widget's shared image), and clears the
+    /// undo history so it's a clean slate.
     private func clearDrawing() {
         canvasView.drawing = PKDrawing()
         canvasView.undoManager?.removeAllActions()
         canUndo = false
         canRedo = false
-        saveTodayDrawing(PKDrawing())
+        saveDrawing(PKDrawing(), for: displayedDate)
         UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
 

@@ -7,11 +7,12 @@ import UIKit
 /// the same screenshot-style scene as sharing from the live screen does.
 struct DiaryEntryDetailView: View {
     let entry: DiaryEntry
+    /// Called with this entry's date when the edit pencil is tapped — the home
+    /// screen jumps to that day's editable canvas (and this archive sheet
+    /// closes), rather than a separate editor opening on top.
+    var onEditInHome: ((Date) -> Void)? = nil
 
     @State private var shareImage: UIImage?
-    @State private var isEditing = false
-    /// Bumped after an edit so the scene re-reads the (now changed) drawing.
-    @State private var refreshID = UUID()
     /// The full screen size, used for both the live scene and the shared
     /// image so they always match exactly. A GeometryReader here measured
     /// the safe-area-respecting size instead (nav bar/home indicator insets
@@ -57,7 +58,6 @@ struct DiaryEntryDetailView: View {
 
     var body: some View {
         scene(size: sceneSize)
-        .id(refreshID)
         .ignoresSafeArea()
         .navigationTitle(entry.date.formatted(date: .abbreviated, time: .omitted))
         .navigationBarTitleDisplayMode(.inline)
@@ -70,11 +70,6 @@ struct DiaryEntryDetailView: View {
                     editButton
                     shareButton
                 }
-            }
-        }
-        .fullScreenCover(isPresented: $isEditing) {
-            DiaryEntryEditView(entry: entry) {
-                refreshID = UUID()
             }
         }
         .sheet(isPresented: Binding(
@@ -175,9 +170,16 @@ struct DiaryEntryDetailView: View {
 
     private var editButton: some View {
         Button {
-            isEditing = true
+            onEditInHome?(entry.date)
         } label: {
-            Image(systemName: "pencil")
+            // The app's own hand-drawn pencil (same artwork as the drawing
+            // tools) rather than the SF Symbol "pencil", so the edit
+            // affordance matches the rest of the app's illustrated style.
+            Image("IconPen")
+                .resizable()
+                .renderingMode(.original)
+                .scaledToFit()
+                .frame(width: 24, height: 24)
         }
         .accessibilityLabel("그림 수정")
     }

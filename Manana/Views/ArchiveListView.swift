@@ -2,6 +2,11 @@ import SwiftData
 import SwiftUI
 
 struct ArchiveListView: View {
+    /// Called with a day when the user taps the edit pencil on that day's
+    /// detail page — the home screen jumps to that day's editable canvas
+    /// instead of a separate editor opening here.
+    var onEditInHome: ((Date) -> Void)? = nil
+
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \DiaryEntry.date, order: .reverse) private var entries: [DiaryEntry]
     @State private var viewMode: ViewMode = .calendar
@@ -26,7 +31,7 @@ struct ArchiveListView: View {
                 } else {
                     switch viewMode {
                     case .calendar:
-                        DiaryCalendarView(entries: entries)
+                        DiaryCalendarView(entries: entries, onEditInHome: onEditInHome)
                     case .list:
                         listContent
                     }
@@ -56,7 +61,7 @@ struct ArchiveListView: View {
     private var listContent: some View {
         List(entries) { entry in
             NavigationLink {
-                DiaryEntryDetailView(entry: entry)
+                DiaryEntryDetailView(entry: entry, onEditInHome: onEditInHome)
             } label: {
                 row(for: entry)
             }

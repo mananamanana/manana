@@ -66,7 +66,6 @@
 		9FF177393805517733E567FD /* background_청명함(낮).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18586E5E3461D88CEB8FC12B /* background_청명함(낮).jpg */; };
 		A4842597EF8AE6CE69F0B853 /* background_비(낮).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7613CB916153865F54D1DD36 /* background_비(낮).jpg */; };
 		A67CB0964ACFAEEAC13365BC /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE32D375ACBD1925ECC046FC /* Quote.swift */; };
-		A8126678CA02AB63E91E7254 /* DiaryEntryEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4580D02A307D522CE1C051 /* DiaryEntryEditView.swift */; };
 		A8F0599B74FF5B4F32A9EA9F /* YoonChildfundkoreaManSeh.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAD0F01B6D9D71565807B5B0 /* YoonChildfundkoreaManSeh.ttf */; };
 		A90A406D7B6B333031AD520B /* WeatherBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A2B0C1BCECE05D72E69142 /* WeatherBackground.swift */; };
 		AAB7DB3722C1DB87AF439FF9 /* SharedWeatherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577C04803329F8E28394181 /* SharedWeatherStore.swift */; };
@@ -78,6 +77,7 @@
 		B97C67F5A4AAFBC4C612E97F /* Font+Manana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A079DCEC25B1A9C47CC9C5 /* Font+Manana.swift */; };
 		BAECE7A06BFE80A65304FC36 /* background_태풍.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B1C853AB470CC0A2CB108A4 /* background_태풍.jpg */; };
 		BAEDC42850845C0C2F9A413E /* WeatherEntryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F646E7C606AFA3F855DC2A /* WeatherEntryProvider.swift */; };
+		C225B932DBF32F5576C3E23F /* DayQuoteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E802B0C693EA06C496BD01 /* DayQuoteDetailView.swift */; };
 		C239C550CD601CCAA79A56D8 /* background_안개.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7D87CC544AB997711D88B8B0 /* background_안개.jpg */; };
 		C3513E227C2E0BC416E1B774 /* Font+Manana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A079DCEC25B1A9C47CC9C5 /* Font+Manana.swift */; };
 		C3B9D86D1A9B7D1EDD5D1313 /* YoonChildfundkoreaMinGuk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8890D146342692911F53D84 /* YoonChildfundkoreaMinGuk.ttf */; };
@@ -168,7 +168,6 @@
 		76A079DCEC25B1A9C47CC9C5 /* Font+Manana.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Manana.swift"; sourceTree = "<group>"; };
 		7B1C853AB470CC0A2CB108A4 /* background_태풍.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_태풍.jpg"; sourceTree = "<group>"; };
 		7B4E0982FCC2E20B45ED7A2E /* background_청명함(밤).jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_청명함(밤).jpg"; sourceTree = "<group>"; };
-		7C4580D02A307D522CE1C051 /* DiaryEntryEditView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DiaryEntryEditView.swift; sourceTree = "<group>"; };
 		7D87CC544AB997711D88B8B0 /* background_안개.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_안개.jpg"; sourceTree = "<group>"; };
 		7E5CB21C65B2CA8425F18315 /* background_뇌우.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_뇌우.jpg"; sourceTree = "<group>"; };
 		7EFC1F0486E53B8F282860F3 /* weathericon_눈.iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_눈.iconpng"; sourceTree = "<group>"; };
@@ -176,6 +175,7 @@
 		7F6911CA1002A919DCEA1EF1 /* background_폭설.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_폭설.jpg"; sourceTree = "<group>"; };
 		81165CF98FDF9A0F715555E4 /* QuoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteService.swift; sourceTree = "<group>"; };
 		81B5A9C55615F5999B3C5167 /* DrawingCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvasView.swift; sourceTree = "<group>"; };
+		81E802B0C693EA06C496BD01 /* DayQuoteDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DayQuoteDetailView.swift; sourceTree = "<group>"; };
 		86FF4458BE310E3A1511C588 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		87D9C2A0B9756ABAFD754629 /* YoonChildfundkoreaDaeHan.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = YoonChildfundkoreaDaeHan.ttf; sourceTree = "<group>"; };
 		886A4C3677B72DEE80AF8E5A /* weathericon_뇌우.iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_뇌우.iconpng"; sourceTree = "<group>"; };
@@ -397,7 +397,7 @@
 				C10AE92CEFF979F9174033C7 /* DiaryEntryDetailView.swift */,
 				81B5A9C55615F5999B3C5167 /* DrawingCanvasView.swift */,
 				86FF4458BE310E3A1511C588 /* MainView.swift */,
-				7C4580D02A307D522CE1C051 /* DiaryEntryEditView.swift */,
+				81E802B0C693EA06C496BD01 /* DayQuoteDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -597,7 +597,7 @@
 				55EF6E501968952BC93935F7 /* WeatherCondition.swift in Sources */,
 				3314139DF72FBCAA50BBCD44 /* WeatherService.swift in Sources */,
 				5E13A9485C123AAB53F298A0 /* AppGroup.swift in Sources */,
-				A8126678CA02AB63E91E7254 /* DiaryEntryEditView.swift in Sources */,
+				C225B932DBF32F5576C3E23F /* DayQuoteDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,10 +636,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Manana/Manana.entitlements;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				INFOPLIST_FILE = Manana/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				MARKETING_VERSION = 0.1.10;
+				MARKETING_VERSION = 0.1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -649,11 +649,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MananaWidget/MananaWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MananaWidget/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				MARKETING_VERSION = 0.1.10;
+				MARKETING_VERSION = 0.1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana.widget;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -684,11 +684,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MananaWidget/MananaWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MananaWidget/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				MARKETING_VERSION = 0.1.10;
+				MARKETING_VERSION = 0.1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana.widget;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -720,10 +720,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Manana/Manana.entitlements;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				INFOPLIST_FILE = Manana/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				MARKETING_VERSION = 0.1.10;
+				MARKETING_VERSION = 0.1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

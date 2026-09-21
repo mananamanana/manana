@@ -5,6 +5,7 @@ import SwiftUI
 /// without one are shown dimmed and unselectable.
 struct DiaryCalendarView: View {
     let entries: [DiaryEntry]
+    var onEditInHome: ((Date) -> Void)? = nil
 
     @State private var displayedMonth: Date = Calendar.current.startOfDay(for: Date())
 
@@ -103,14 +104,29 @@ struct DiaryCalendarView: View {
 
         if let entry {
             NavigationLink {
-                DiaryEntryDetailView(entry: entry)
+                DiaryEntryDetailView(entry: entry, onEditInHome: onEditInHome)
             } label: {
                 dayContent(date: date, entry: entry)
+            }
+            .buttonStyle(.plain)
+        } else if isPastOrToday(date), QuoteService.sheetQuote(for: date) != nil {
+            // Days the user never drew on still have a curated sheet quote —
+            // let those be tapped to read that day's quote, instead of being
+            // silently unselectable. Future days are left alone so tomorrow's
+            // quote isn't spoiled.
+            NavigationLink {
+                DayQuoteDetailView(date: date)
+            } label: {
+                dayContent(date: date, entry: nil)
             }
             .buttonStyle(.plain)
         } else {
             dayContent(date: date, entry: nil)
         }
+    }
+
+    private func isPastOrToday(_ date: Date) -> Bool {
+        calendar.compare(date, to: Date(), toGranularity: .day) != .orderedDescending
     }
 
     private func dayContent(date: Date, entry: DiaryEntry?) -> some View {

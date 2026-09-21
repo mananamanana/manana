@@ -10,7 +10,13 @@ struct DrawingCanvasView: UIViewRepresentable {
     @Binding var canRedo: Bool
     var isErasing: Bool
     var inkColor: UIColor
-    var onDrawingChanged: (PKDrawing) -> Void
+    /// The day this canvas is currently showing. Captured at the moment a
+    /// stroke changes (not at save time) so that if the user swipes to another
+    /// day within the save debounce window, the edit still lands on the day it
+    /// was actually drawn on rather than whatever day is on screen when the
+    /// debounce fires.
+    var targetDate: Date
+    var onDrawingChanged: (PKDrawing, Date) -> Void
 
     func makeUIView(context: Context) -> PKCanvasView {
         canvasView.backgroundColor = .clear
@@ -23,15 +29,19 @@ struct DrawingCanvasView: UIViewRepresentable {
         canvasView.overrideUserInterfaceStyle = .light
         canvasView.tool = currentTool
         canvasView.delegate = context.coordinator
+        context.coordinator.targetDate = targetDate
         return canvasView
     }
 
     func updateUIView(_ uiView: PKCanvasView, context: Context) {
         uiView.tool = currentTool
+        // Keep the coordinator's notion of "which day" in sync as the home
+        // page swipes between days.
+        context.coordinator.targetDate = targetDate
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(onDrawingChanged: onDrawingChanged, canUndo: $canUndo, canRedo: $canRedo)
+        Coordinator(onDrawingChanged: onDrawingChanged, canUndo: $canUndo, canRedo: $canRedo, targetDate: targetDate)
     }
 
     private var currentTool: PKTool {
@@ -39,15 +49,17 @@ struct DrawingCanvasView: UIViewRepresentable {
     }
 
     final class Coordinator: NSObject, PKCanvasViewDelegate {
-        let onDrawingChanged: (PKDrawing) -> Void
+        let onDrawingChanged: (PKDrawing, Date) -> Void
         let canUndo: Binding<Bool>
         let canRedo: Binding<Bool>
+        var targetDate: Date
         private var debounceTask: Task<Void, Never>?
 
-        init(onDrawingChanged: @escaping (PKDrawing) -> Void, canUndo: Binding<Bool>, canRedo: Binding<Bool>) {
+        init(onDrawingChanged: @escaping (PKDrawing, Date) -> Void, canUndo: Binding<Bool>, canRedo: Binding<Bool>, targetDate: Date) {
             self.onDrawingChanged = onDrawingChanged
             self.canUndo = canUndo
             self.canRedo = canRedo
+            self.targetDate = targetDate
         }
 
         func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
@@ -55,11 +67,13 @@ struct DrawingCanvasView: UIViewRepresentable {
             canRedo.wrappedValue = canvasView.undoManager?.canRedo ?? false
 
             let drawing = canvasView.drawing
+            // Snapshot the day now, so a later day-swipe can't misroute this save.
+            let date = targetDate
             debounceTask?.cancel()
             debounceTask = Task {
                 try? await Task.sleep(nanoseconds: 500_000_000)
                 guard !Task.isCancelled else { return }
-                await MainActor.run { onDrawingChanged(drawing) }
+                await MainActor.run { onDrawingChanged(drawing, date) }
             }
         }
     }
