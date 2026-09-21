@@ -12,6 +12,7 @@ struct MainView: View {
 
     @State private var canvasView = PKCanvasView()
     @State private var canUndo = false
+    @State private var canRedo = false
     @State private var isErasing = false
     @State private var showToolPanel = false
     @State private var showColorPicker = false
@@ -637,6 +638,7 @@ struct MainView: View {
                     DrawingCanvasView(
                         canvasView: $canvasView,
                         canUndo: $canUndo,
+                        canRedo: $canRedo,
                         isErasing: isErasing,
                         inkColor: UIColor(selectedColor)
                     ) { drawing in
@@ -745,6 +747,13 @@ struct MainView: View {
                     .accessibilityLabel("실행 취소")
                     .disabled(!canUndo)
                     .opacity(canUndo ? 1 : 0.35)
+
+                    drawToolButton("IconRedo", isActive: false) {
+                        canvasView.undoManager?.redo()
+                    }
+                    .accessibilityLabel("다시 실행")
+                    .disabled(!canRedo)
+                    .opacity(canRedo ? 1 : 0.35)
                 }
                 .transition(.scale(scale: 0.85, anchor: .bottomTrailing).combined(with: .opacity))
             }
@@ -964,6 +973,7 @@ struct MainView: View {
         // something new this session.
         canvasView.undoManager?.removeAllActions()
         canUndo = false
+        canRedo = false
         selectedColor = weatherService.isDay ? .black : .white
     }
 

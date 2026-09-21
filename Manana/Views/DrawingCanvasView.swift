@@ -7,6 +7,7 @@ import SwiftUI
 struct DrawingCanvasView: UIViewRepresentable {
     @Binding var canvasView: PKCanvasView
     @Binding var canUndo: Bool
+    @Binding var canRedo: Bool
     var isErasing: Bool
     var inkColor: UIColor
     var onDrawingChanged: (PKDrawing) -> Void
@@ -30,7 +31,7 @@ struct DrawingCanvasView: UIViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(onDrawingChanged: onDrawingChanged, canUndo: $canUndo)
+        Coordinator(onDrawingChanged: onDrawingChanged, canUndo: $canUndo, canRedo: $canRedo)
     }
 
     private var currentTool: PKTool {
@@ -40,15 +41,18 @@ struct DrawingCanvasView: UIViewRepresentable {
     final class Coordinator: NSObject, PKCanvasViewDelegate {
         let onDrawingChanged: (PKDrawing) -> Void
         let canUndo: Binding<Bool>
+        let canRedo: Binding<Bool>
         private var debounceTask: Task<Void, Never>?
 
-        init(onDrawingChanged: @escaping (PKDrawing) -> Void, canUndo: Binding<Bool>) {
+        init(onDrawingChanged: @escaping (PKDrawing) -> Void, canUndo: Binding<Bool>, canRedo: Binding<Bool>) {
             self.onDrawingChanged = onDrawingChanged
             self.canUndo = canUndo
+            self.canRedo = canRedo
         }
 
         func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
             canUndo.wrappedValue = canvasView.undoManager?.canUndo ?? false
+            canRedo.wrappedValue = canvasView.undoManager?.canRedo ?? false
 
             let drawing = canvasView.drawing
             debounceTask?.cancel()
