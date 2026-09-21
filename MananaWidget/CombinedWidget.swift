@@ -10,10 +10,18 @@ struct CombinedWidgetView: View {
     }
 
     var body: some View {
-        HStack(spacing: 12) {
-            drawingThumbnail
-                .frame(width: 96, height: 96)
-                .clipShape(RoundedRectangle(cornerRadius: 14))
+        let drawing = drawingImage
+        // Only reserve the left drawing slot when there's actually a drawing;
+        // otherwise the weather + quote fill the full widget width with no
+        // empty left margin.
+        HStack(spacing: drawing == nil ? 0 : 12) {
+            if let drawing {
+                Image(uiImage: drawing)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 96, height: 96)
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+            }
 
             VStack(alignment: .leading, spacing: 6) {
                 if let snapshot = entry.snapshot {
@@ -68,22 +76,6 @@ struct CombinedWidgetView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         .containerBackground(for: .widget) {
             WidgetBackground.art(for: entry.snapshot)
-        }
-    }
-
-    @ViewBuilder
-    private var drawingThumbnail: some View {
-        if let uiImage = drawingImage {
-            // No backing fill — the drawing sits directly on the widget's own
-            // background so the scaledToFit letterbox margins blend in instead
-            // of showing as a lighter box.
-            Image(uiImage: uiImage)
-                .resizable()
-                .scaledToFit()
-        } else {
-            // Transparent (not a tinted box) so an empty drawing slot is
-            // indistinguishable from the background.
-            Color.clear
         }
     }
 }

@@ -632,10 +632,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Manana/Manana.entitlements;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				INFOPLIST_FILE = Manana/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				MARKETING_VERSION = 0.1.8;
+				MARKETING_VERSION = 0.1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -645,11 +645,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MananaWidget/MananaWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MananaWidget/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				MARKETING_VERSION = 0.1.8;
+				MARKETING_VERSION = 0.1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana.widget;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -680,11 +680,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MananaWidget/MananaWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MananaWidget/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				MARKETING_VERSION = 0.1.8;
+				MARKETING_VERSION = 0.1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana.widget;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -716,10 +716,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Manana/Manana.entitlements;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				INFOPLIST_FILE = Manana/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				MARKETING_VERSION = 0.1.8;
+				MARKETING_VERSION = 0.1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
