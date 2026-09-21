@@ -179,7 +179,7 @@ struct DiaryEntryDetailView: View {
                 .resizable()
                 .renderingMode(.original)
                 .scaledToFit()
-                .frame(width: 24, height: 24)
+                .frame(width: 36, height: 36)
         }
         .accessibilityLabel("그림 수정")
     }
@@ -194,7 +194,7 @@ struct DiaryEntryDetailView: View {
                 .resizable()
                 .renderingMode(.original)
                 .scaledToFit()
-                .frame(width: 24, height: 24)
+                .frame(width: 36, height: 36)
         }
         .accessibilityLabel("공유하기")
     }
