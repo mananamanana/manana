@@ -188,7 +188,13 @@ struct DiaryEntryDetailView: View {
         Button {
             shareImage = renderShareImage()
         } label: {
-            Image(systemName: "square.and.arrow.up")
+            // The app's own hand-drawn share icon (same artwork as the home
+            // screen's share button), matching the illustrated edit pencil.
+            Image("IconShare")
+                .resizable()
+                .renderingMode(.original)
+                .scaledToFit()
+                .frame(width: 24, height: 24)
         }
         .accessibilityLabel("공유하기")
     }

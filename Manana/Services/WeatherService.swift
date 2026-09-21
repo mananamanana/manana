@@ -100,6 +100,14 @@ final class WeatherService: ObservableObject {
         Task { await fetch() }
     }
 
+    /// The device's current coordinates, for callers that need a location but
+    /// not the whole weather refresh (e.g. backfilling past days' historical
+    /// weather). Returns nil if location can't be resolved.
+    func currentCoordinate() async -> (latitude: Double, longitude: Double)? {
+        guard let location = try? await locationManager.requestCurrentLocation() else { return nil }
+        return (location.coordinate.latitude, location.coordinate.longitude)
+    }
+
     private func fetch(isRetry: Bool = false) async {
         do {
             let location = try await locationManager.requestCurrentLocation()

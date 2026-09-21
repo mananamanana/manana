@@ -142,6 +142,19 @@ struct MainView: View {
         loadDrawing(for: displayedDate)
     }
 
+    /// Snaps back to today from any past/future day — bound to an upward swipe
+    /// on the quote, so returning to today doesn't mean swiping right one day
+    /// at a time.
+    private func returnToToday() {
+        guard !isViewingToday else { return }
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+            dayOffset = 0
+            isWeatherExpanded = false
+        }
+        loadDrawing(for: Date())
+    }
+
     /// Jumps the home page straight to a specific date (used by the calendar's
     /// edit pencil: close the archive and land on that day's editable canvas,
     /// rather than opening a separate editor page).
@@ -169,32 +182,74 @@ struct MainView: View {
         return "이 날은 기록이 없어요"
     }
 
-    /// Seeds a fixed entry for yesterday so the swipe-back gesture has
-    /// something to show the very first time, since there's no historical
-    /// weather API wired up — only whatever the app itself has saved.
-    private func seedYesterdayEntryIfNeeded() {
-        guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else { return }
-        let dayKey = DrawingStorage.dateKey(yesterday)
-        let descriptor = FetchDescriptor<DiaryEntry>(predicate: #Predicate { $0.dayKey == dayKey })
-        guard (try? modelContext.fetch(descriptor).first) == nil else { return }
+    /// Ensures every recent day (up to Open-Meteo's 92-day window) has a diary
+    /// entry carrying that day's *real* historical weather, so the whole
+    /// calendar shows weather icons and any past day can be opened, drawn on,
+    /// and shared — not just days the user already recorded.
+    ///
+    /// - Days with no entry get a new one (real weather + that day's sheet
+    ///   quote, empty drawing).
+    /// - Days that already have an entry but no actual drawing on disk (an
+    ///   earlier auto-created/blank day) get their weather/quote refreshed, so
+    ///   the data self-heals as the source fills in.
+    /// - Days the user actually drew on are never touched.
+    /// Today is skipped (the live `WeatherService` owns it); the future is too.
+    private func backfillPastEntries() async {
+        // Fall back to Seoul City Hall when location isn't available, so the
+        // calendar still fills in before/without location permission.
+        let coordinate = await weatherService.currentCoordinate()
+        let latitude = coordinate?.latitude ?? 37.5665
+        let longitude = coordinate?.longitude ?? 126.9780
 
-        // KMA has no accessible historical-observation API with this app's
-        // current key (a real lookup returned 403 — that endpoint needs its
-        // own separate 활용신청 on data.go.kr), so this is a plausible
-        // stand-in for Seoul in July rather than the real recorded weather.
-        let entry = DiaryEntry(
-            date: yesterday,
-            weatherCondition: .rain,
-            temperature: 26,
-            // Broken at clause boundaries (subject/verb groups) rather than
-            // left to width-based auto-wrap, for the same reason as
-            // `futurePlaceholderText` above.
-            quoteText: "어떤 나라에 '눈사람 택배'라는 게 있다 하네요\n눈이 내리지 않는 남쪽 지방으로\n북쪽 지방 눈사람을 특수포장해 보낸다 해요",
-            quoteBookTitle: "최선은 그런 것이에요",
-            quoteAuthor: "이규리",
-            drawingFileName: DrawingStorage.shared.fileName(for: yesterday)
-        )
-        modelContext.insert(entry)
+        guard let days = try? await HistoricalWeatherService.recentDays(latitude: latitude, longitude: longitude),
+              !days.isEmpty
+        else { return }
+
+        let todayKey = DrawingStorage.dateKey(Date())
+        let existing = ((try? modelContext.fetch(FetchDescriptor<DiaryEntry>())) ?? [])
+            .reduce(into: [String: DiaryEntry]()) { $0[$1.dayKey] = $1 }
+
+        let parser = DateFormatter()
+        parser.calendar = Calendar(identifier: .gregorian)
+        parser.timeZone = TimeZone(identifier: "Asia/Seoul")
+        parser.dateFormat = "yyyy-MM-dd"
+
+        var changed = false
+        for (dayKey, weather) in days {
+            // Lexicographic compare is valid for yyyy-MM-dd: skip today and any
+            // future slot the source may include.
+            guard dayKey < todayKey, let date = parser.date(from: dayKey) else { continue }
+            let sheet = QuoteService.sheetQuote(for: date)
+
+            if let entry = existing[dayKey] {
+                // Only refresh days with no real drawing — never overwrite the
+                // weather on a day the user actually drew.
+                let drawing = DrawingStorage.shared.load(fileName: entry.drawingFileName)
+                guard drawing.bounds.isEmpty else { continue }
+                entry.weatherConditionRaw = weather.condition.rawValue
+                entry.temperature = weather.temperature
+                if let sheet {
+                    entry.quoteText = sheet.text
+                    entry.quoteBookTitle = sheet.bookTitle
+                    entry.quoteAuthor = sheet.author
+                }
+                changed = true
+            } else {
+                let entry = DiaryEntry(
+                    date: date,
+                    weatherCondition: weather.condition,
+                    temperature: weather.temperature,
+                    quoteText: sheet?.text ?? "",
+                    quoteBookTitle: sheet?.bookTitle,
+                    quoteAuthor: sheet?.author,
+                    drawingFileName: DrawingStorage.shared.fileName(for: date)
+                )
+                modelContext.insert(entry)
+                changed = true
+            }
+        }
+
+        if changed { try? modelContext.save() }
     }
 
     /// Checked on appear, on a repeating timer, and whenever the app comes
@@ -349,9 +404,13 @@ struct MainView: View {
                     ActivityView(activityItems: [shareImage])
                 }
             }
+            .task {
+                // Fill in every recent day's real (historical) weather so the
+                // whole calendar has icons and every past day can be drawn on.
+                await backfillPastEntries()
+            }
             .onAppear {
                 checkForDayRollover()
-                seedYesterdayEntryIfNeeded()
                 loadTodayDrawing()
                 syncWidgets()
                 withAnimation(.easeOut(duration: 0.6)) {
@@ -990,11 +1049,16 @@ struct MainView: View {
         .gesture(
             DragGesture(minimumDistance: 30)
                 .onEnded { value in
-                    guard abs(value.translation.width) > abs(value.translation.height) else { return }
-                    if value.translation.width < -40 {
-                        navigateDay(by: 1)
-                    } else if value.translation.width > 40 {
-                        navigateDay(by: -1)
+                    if abs(value.translation.width) > abs(value.translation.height) {
+                        // Horizontal: browse day by day.
+                        if value.translation.width < -40 {
+                            navigateDay(by: 1)
+                        } else if value.translation.width > 40 {
+                            navigateDay(by: -1)
+                        }
+                    } else if value.translation.height < -40 {
+                        // Swipe up on the quote: jump straight back to today.
+                        returnToToday()
                     }
                 }
         )
