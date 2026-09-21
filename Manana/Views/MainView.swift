@@ -51,6 +51,11 @@ struct MainView: View {
     /// against a mock that was missing the temperature row.
     private static let expandedBadgeHeight: CGFloat = 312
 
+    /// Caps the main content column so it reads as a centered portrait page on
+    /// iPad instead of stretching edge-to-edge. Wider than any iPhone, so it's
+    /// a no-op there — only the larger iPad canvas gets the centered column.
+    private static let contentMaxWidth: CGFloat = 640
+
     private var todayQuote: Quote? {
         quoteService.quoteForToday(condition: weatherService.condition)
     }
@@ -264,20 +269,13 @@ struct MainView: View {
 
                 Spacer(minLength: 40)
             }
-            .frame(maxHeight: .infinity)
+            // Cap the column width and center it (no-op on iPhone, where the
+            // screen is narrower than contentMaxWidth). The quote/draw-tool
+            // overlays are attached here so they align to the column edges,
+            // not the full iPad screen.
+            .frame(maxWidth: Self.contentMaxWidth, maxHeight: .infinity)
             .opacity(contentAppeared ? 1 : 0)
             .offset(y: contentAppeared ? 0 : 10)
-            // A dedicated `.background(content:)` (rather than a ZStack
-            // sibling with its own `.ignoresSafeArea()`) so the full-bleed
-            // art doesn't grow the container's frame and throw off how the
-            // weather badge above accounts for the safe area — background
-            // content is always sized to match the foreground, regardless
-            // of its own ignoresSafeArea.
-            .background {
-                backgroundArt
-                    .ignoresSafeArea()
-                    .animation(.easeInOut(duration: 1.2), value: displayedBackground)
-            }
             .overlay(alignment: showExpandedBadge ? .top : .bottom) {
                 quoteSheet
                     // Anchored a fixed distance below the badge (its own
@@ -295,6 +293,18 @@ struct MainView: View {
                     .padding(.trailing, 20)
                     .padding(.bottom, 40)
                     .opacity(contentAppeared && !isCapturingShare ? 1 : 0)
+            }
+            // Fill the whole screen so the column above is centered, and paint
+            // the full-bleed background behind everything. A dedicated
+            // `.background(content:)` (rather than a ZStack sibling with its
+            // own `.ignoresSafeArea()`) so the full-bleed art doesn't grow the
+            // container's frame and throw off how the weather badge accounts
+            // for the safe area.
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background {
+                backgroundArt
+                    .ignoresSafeArea()
+                    .animation(.easeInOut(duration: 1.2), value: displayedBackground)
             }
             .sheet(isPresented: $showArchive) { ArchiveListView() }
             .sheet(isPresented: Binding(
