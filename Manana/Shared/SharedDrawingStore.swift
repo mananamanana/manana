@@ -27,6 +27,16 @@ enum SharedDrawingStore {
         defaults?.set(dateKey, forKey: dateKeyDefaultsKey)
     }
 
+    /// Removes the shared drawing entirely so the widget shows no drawing —
+    /// used when today's canvas has been cleared (erased to empty), which the
+    /// normal `save` path skips (it only ever writes non-empty drawings).
+    static func clear() {
+        if let container = containerURL {
+            try? FileManager.default.removeItem(at: container.appendingPathComponent(fileName))
+        }
+        defaults?.removeObject(forKey: dateKeyDefaultsKey)
+    }
+
     /// Returns the shared drawing only if it was saved for `dayKey` — a
     /// widget timeline entry for any other day (most commonly "today" once
     /// midnight has passed and the app hasn't been reopened) gets nil, the

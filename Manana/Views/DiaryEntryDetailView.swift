@@ -9,6 +9,9 @@ struct DiaryEntryDetailView: View {
     let entry: DiaryEntry
 
     @State private var shareImage: UIImage?
+    @State private var isEditing = false
+    /// Bumped after an edit so the scene re-reads the (now changed) drawing.
+    @State private var refreshID = UUID()
     /// The full screen size, used for both the live scene and the shared
     /// image so they always match exactly. A GeometryReader here measured
     /// the safe-area-respecting size instead (nav bar/home indicator insets
@@ -36,13 +39,25 @@ struct DiaryEntryDetailView: View {
         return formatter.string(from: entry.date)
     }
 
+    /// Prefer the sheet's quote for this day (so the archive always matches
+    /// the curated sheet), falling back to whatever was saved on the entry
+    /// when the sheet has no row for that day.
+    private var resolvedQuote: (text: String, bookTitle: String?, author: String?) {
+        if let sheet = QuoteService.sheetQuote(for: entry.date) {
+            return sheet
+        }
+        return (entry.quoteText, entry.quoteBookTitle, entry.quoteAuthor)
+    }
+
     private var byline: String? {
-        let parts = [entry.quoteBookTitle.map { "『\($0)』" }, entry.quoteAuthor].compactMap { $0 }
+        let q = resolvedQuote
+        let parts = [q.bookTitle.map { "『\($0)』" }, q.author].compactMap { $0 }
         return parts.isEmpty ? nil : parts.joined(separator: " ")
     }
 
     var body: some View {
         scene(size: sceneSize)
+        .id(refreshID)
         .ignoresSafeArea()
         .navigationTitle(entry.date.formatted(date: .abbreviated, time: .omitted))
         .navigationBarTitleDisplayMode(.inline)
@@ -51,7 +66,15 @@ struct DiaryEntryDetailView: View {
             // at a fixed bottom position risked covering the quote text
             // whenever it ran long enough to reach that far down.
             ToolbarItem(placement: .topBarTrailing) {
-                shareButton
+                HStack(spacing: 18) {
+                    editButton
+                    shareButton
+                }
+            }
+        }
+        .fullScreenCover(isPresented: $isEditing) {
+            DiaryEntryEditView(entry: entry) {
+                refreshID = UUID()
             }
         }
         .sheet(isPresented: Binding(
@@ -122,7 +145,7 @@ struct DiaryEntryDetailView: View {
                 .foregroundStyle(quoteInkColor.opacity(0.55))
                 .shadow(color: MananaTheme.paper.opacity(0.5), radius: 2, y: 1)
 
-            Text(entry.quoteText)
+            Text(resolvedQuote.text)
                 .font(.manana(size: 29, weight: .semibold))
                 .multilineTextAlignment(.leading)
                 .foregroundStyle(quoteInkColor)
@@ -148,6 +171,15 @@ struct DiaryEntryDetailView: View {
         else { return nil }
         backgroundImageCache[background] = image
         return image
+    }
+
+    private var editButton: some View {
+        Button {
+            isEditing = true
+        } label: {
+            Image(systemName: "pencil")
+        }
+        .accessibilityLabel("그림 수정")
     }
 
     private var shareButton: some View {

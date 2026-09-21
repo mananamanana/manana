@@ -13,6 +13,10 @@ struct MainView: View {
     @State private var canvasView = PKCanvasView()
     @State private var canUndo = false
     @State private var canRedo = false
+    // Tapping the eraser 3 times in a row clears the whole drawing. The streak
+    // resets when another tool is used or after a short pause between taps.
+    @State private var eraserTapCount = 0
+    @State private var lastEraserTapAt = Date.distantPast
     @State private var isErasing = false
     @State private var showToolPanel = false
     @State private var showColorPicker = false
@@ -726,6 +730,7 @@ struct MainView: View {
                     }
 
                     drawToolButton("IconPen", isActive: !isErasing, tint: selectedColor == .white ? nil : selectedColor) {
+                        eraserTapCount = 0  // switching tools breaks the eraser streak
                         isErasing = false
                         withAnimation(.spring(response: 0.25, dampingFraction: 0.7)) {
                             showColorPicker.toggle()
@@ -734,12 +739,12 @@ struct MainView: View {
                     .accessibilityLabel("펜, 다시 누르면 색상 선택")
 
                     drawToolButton("IconEraser", isActive: isErasing) {
-                        isErasing = true
+                        handleEraserTap()
                         withAnimation(.spring(response: 0.25, dampingFraction: 0.7)) {
                             showColorPicker = false
                         }
                     }
-                    .accessibilityLabel("지우개")
+                    .accessibilityLabel("지우개, 세 번 연달아 누르면 전체 삭제")
 
                     drawToolButton("IconUndo", isActive: false) {
                         canvasView.undoManager?.undo()
@@ -984,6 +989,37 @@ struct MainView: View {
         syncWidgets()
     }
 
+    /// Selects the eraser, and on the third consecutive tap wipes the whole
+    /// drawing. The streak resets when another tool is chosen (see the pen
+    /// button) or when taps are spaced more than ~1.5s apart, so only three
+    /// deliberate taps in quick succession trigger the clear.
+    private func handleEraserTap() {
+        let now = Date()
+        if now.timeIntervalSince(lastEraserTapAt) > 1.5 {
+            eraserTapCount = 0
+        }
+        lastEraserTapAt = now
+        eraserTapCount += 1
+        isErasing = true
+
+        if eraserTapCount >= 3 {
+            eraserTapCount = 0
+            clearDrawing()
+        }
+    }
+
+    /// Wipes today's canvas and every saved copy of it (on-disk drawing,
+    /// diary entry, and the widget's shared image), and clears the undo
+    /// history so it's a clean slate.
+    private func clearDrawing() {
+        canvasView.drawing = PKDrawing()
+        canvasView.undoManager?.removeAllActions()
+        canUndo = false
+        canRedo = false
+        saveTodayDrawing(PKDrawing())
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+    }
+
     /// The running average of today's temperature readings so far — falls
     /// back to the live reading if no samples have accumulated yet (e.g.
     /// right at launch, before the first one lands).
@@ -1074,6 +1110,10 @@ struct MainView: View {
                 image = drawing.image(from: drawing.bounds, scale: 2)
             }
             SharedDrawingStore.save(image, dateKey: SharedWeatherStore.dayKey(now))
+        } else {
+            // Canvas is empty (e.g. cleared via the triple-tap eraser) — drop
+            // the widget's copy so it stops showing the old drawing.
+            SharedDrawingStore.clear()
         }
 
         WidgetCenter.shared.reloadAllTimelines()

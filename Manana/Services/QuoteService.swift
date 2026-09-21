@@ -63,6 +63,24 @@ final class QuoteService: ObservableObject {
         )
     }
 
+    /// The sheet's quote for a specific calendar day (month/day), read straight
+    /// from the offline cache so archive/calendar views can resolve it without
+    /// the live service instance. Returns nil when the sheet has no non-empty
+    /// entry for that day, so callers can fall back to a stored value. Lets a
+    /// past day's diary detail always reflect the current sheet instead of
+    /// whatever quote happened to be saved when that day was first recorded.
+    static func sheetQuote(for date: Date) -> (text: String, bookTitle: String?, author: String?)? {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "Asia/Seoul") ?? .current
+        let month = calendar.component(.month, from: date)
+        let day = calendar.component(.day, from: date)
+        let cache = loadCachedDailyQuotes()
+        guard let row = cache[DailyQuote.key(month: month, day: day)],
+              !row.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        else { return nil }
+        return (row.text, row.bookTitle, row.author)
+    }
+
     private func seedQuoteForToday(condition: WeatherCondition, date: Date) -> Quote? {
         guard !quotes.isEmpty else { return nil }
 

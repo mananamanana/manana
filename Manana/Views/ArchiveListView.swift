@@ -96,7 +96,7 @@ struct ArchiveListView: View {
                     // nearly invisible against Dark Mode's system background
                     // showing through this view's faint paper tint.
                     .foregroundStyle(.primary)
-                Text(entry.quoteText)
+                Text(QuoteService.sheetQuote(for: entry.date)?.text ?? entry.quoteText)
                     .font(.manana(size: 15).italic())
                     .foregroundStyle(.primary.opacity(0.85))
             }
