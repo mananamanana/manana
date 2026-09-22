@@ -44,8 +44,23 @@ enum SharedDrawingStore {
     static func loadImage(forDayKey dayKey: String) -> UIImage? {
         guard defaults?.string(forKey: dateKeyDefaultsKey) == dayKey,
               let container = containerURL,
-              let data = try? Data(contentsOf: container.appendingPathComponent(fileName))
+              let data = try? Data(contentsOf: container.appendingPathComponent(fileName)),
+              let image = UIImage(data: data)
         else { return nil }
-        return UIImage(data: data)
+        // Downsample so a big drawing can't push a widget past WidgetKit's image
+        // archive-size limit (which made small/medium widgets render blank).
+        return downsample(image, maxDimension: 500)
+    }
+
+    private static func downsample(_ image: UIImage, maxDimension: CGFloat) -> UIImage {
+        let longest = max(image.size.width, image.size.height)
+        guard longest > maxDimension else { return image }
+        let ratio = maxDimension / longest
+        let newSize = CGSize(width: image.size.width * ratio, height: image.size.height * ratio)
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        return UIGraphicsImageRenderer(size: newSize, format: format).image { _ in
+            image.draw(in: CGRect(origin: .zero, size: newSize))
+        }
     }
 }

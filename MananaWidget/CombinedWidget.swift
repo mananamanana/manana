@@ -60,8 +60,9 @@ struct CombinedWidgetView: View {
                     Text(snapshot.quoteText)
                         .font(.manana(size: 20, relativeTo: .caption, weight: .semibold).italic())
                         .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot))
-                        .lineLimit(3)
-                        .minimumScaleFactor(0.6)
+                        // No hard line cap: shrink to fit so the quote isn't cut.
+                        .lineLimit(nil)
+                        .minimumScaleFactor(0.4)
                         .fixedSize(horizontal: false, vertical: true)
                 } else {
                     Text("Mañana 앱을 열어\n오늘의 날씨를 가져와보세요")

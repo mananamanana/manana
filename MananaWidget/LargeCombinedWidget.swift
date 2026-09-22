@@ -1,10 +1,11 @@
 import SwiftUI
 import WidgetKit
 
-/// Widget 6 — large & extra-large: the app's home scene at a glance. `large`
-/// stacks weather → drawing → quote vertically; `extraLarge` (iPad only) puts
-/// the drawing on the left and the weather + quote on the right, using the wide
-/// canvas iPad gives.
+/// The main Mañana widget — one widget that adapts to every size, so all
+/// families render through the same code path that works reliably (the older
+/// per-size widgets rendered blank on iPad). Small: weather + quote. Medium:
+/// drawing beside weather + quote. Large: stacked vertically. Extra-large
+/// (iPad): drawing on the left, weather + quote on the right.
 struct LargeCombinedWidgetView: View {
     var entry: WeatherEntry
     @Environment(\.widgetFamily) private var family
@@ -19,18 +20,68 @@ struct LargeCombinedWidgetView: View {
         return parts.isEmpty ? nil : parts.joined(separator: " ")
     }
 
+    private var ink: Color { WidgetBackground.quoteColor(for: entry.snapshot) }
+
     var body: some View {
         Group {
-            if family == .systemExtraLarge {
-                extraLargeLayout
-            } else {
-                largeLayout
+            switch family {
+            case .systemSmall: smallLayout
+            case .systemMedium: mediumLayout
+            case .systemExtraLarge: extraLargeLayout
+            default: largeLayout
             }
         }
-        .padding(20)
+        .padding(family == .systemSmall ? 14 : 20)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .containerBackground(for: .widget) {
             WidgetBackground.art(for: entry.snapshot)
+        }
+    }
+
+    // MARK: - small (quote only, compact weather)
+
+    private var smallLayout: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            compactWeatherRow
+            Spacer(minLength: 0)
+            if let snapshot = entry.snapshot {
+                Text(snapshot.quoteText)
+                    .font(.manana(size: 15, relativeTo: .caption, weight: .semibold))
+                    .foregroundStyle(ink)
+                    .lineLimit(5)
+                    .minimumScaleFactor(0.5)
+                    .fixedSize(horizontal: false, vertical: true)
+            } else {
+                placeholderText
+            }
+        }
+    }
+
+    // MARK: - medium (drawing + weather/quote)
+
+    private var mediumLayout: some View {
+        HStack(spacing: drawingImage == nil ? 0 : 12) {
+            if let drawing = drawingImage {
+                Image(uiImage: drawing)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 96, height: 96)
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+            }
+            VStack(alignment: .leading, spacing: 6) {
+                weatherRow(iconSize: 26, tempFont: .title2, condFont: .subheadline)
+                if let snapshot = entry.snapshot {
+                    Text(snapshot.quoteText)
+                        .font(.manana(size: 19, relativeTo: .caption, weight: .semibold))
+                        .foregroundStyle(ink)
+                        .lineLimit(3)
+                        .minimumScaleFactor(0.6)
+                        .fixedSize(horizontal: false, vertical: true)
+                } else {
+                    placeholderText
+                }
+            }
+            Spacer(minLength: 0)
         }
     }
 
@@ -38,26 +89,20 @@ struct LargeCombinedWidgetView: View {
 
     private var largeLayout: some View {
         VStack(alignment: .leading, spacing: 14) {
-            weatherRow
-
+            weatherRow(iconSize: 34, tempFont: .title, condFont: .title3)
             if let drawing = drawingImage {
                 HStack {
                     Spacer(minLength: 0)
-                    Image(uiImage: drawing)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxHeight: 150)
+                    Image(uiImage: drawing).resizable().scaledToFit().frame(maxHeight: 150)
                     Spacer(minLength: 0)
                 }
             }
-
             Spacer(minLength: 0)
-
             quoteBlock(quoteSize: 24, quoteLines: drawingImage == nil ? 8 : 4)
         }
     }
 
-    // MARK: - extra large (iPad: side by side)
+    // MARK: - extra large (iPad)
 
     private var extraLargeLayout: some View {
         HStack(alignment: .top, spacing: 24) {
@@ -68,9 +113,8 @@ struct LargeCombinedWidgetView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
             }
-
             VStack(alignment: .leading, spacing: 18) {
-                weatherRow
+                weatherRow(iconSize: 34, tempFont: .title, condFont: .title3)
                 Spacer(minLength: 0)
                 quoteBlock(quoteSize: 30, quoteLines: drawingImage == nil ? 10 : 7)
             }
@@ -80,36 +124,56 @@ struct LargeCombinedWidgetView: View {
 
     // MARK: - pieces
 
+    private var placeholderText: some View {
+        Text("Mañana 앱을 열어\n오늘의 날씨를 가져와보세요")
+            .font(.manana(.caption2))
+            .foregroundStyle(ink.opacity(0.7))
+    }
+
     @ViewBuilder
-    private var weatherRow: some View {
+    private var compactWeatherRow: some View {
         if let snapshot = entry.snapshot {
-            HStack(spacing: 8) {
-                if let icon = WidgetBackground.icon(for: entry.snapshot) {
-                    icon
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 34, height: 34)
-                        .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot))
-                } else {
-                    Image(systemName: snapshot.symbolName)
-                        .font(.system(size: 34))
-                        .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot))
-                }
+            HStack(spacing: 6) {
+                weatherIcon(size: 24)
                 if let temperature = snapshot.temperature {
                     Text("\(Int(temperature.rounded()))°")
-                        .font(.manana(.title))
-                        .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot))
-                }
-                Text(snapshot.conditionName)
-                    .font(.manana(.title3))
-                    .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot).opacity(0.75))
-                if let detail = WidgetBackground.detailLine(for: snapshot) {
-                    Text(detail)
-                        .font(.manana(.subheadline))
-                        .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot).opacity(0.6))
+                        .font(.manana(.title3))
+                        .foregroundStyle(ink)
                 }
                 Spacer(minLength: 0)
             }
+        }
+    }
+
+    @ViewBuilder
+    private func weatherRow(iconSize: CGFloat, tempFont: Font.TextStyle, condFont: Font.TextStyle) -> some View {
+        if let snapshot = entry.snapshot {
+            HStack(spacing: 8) {
+                weatherIcon(size: iconSize)
+                if let temperature = snapshot.temperature {
+                    Text("\(Int(temperature.rounded()))°")
+                        .font(.manana(tempFont))
+                        .foregroundStyle(ink)
+                }
+                Text(snapshot.conditionName)
+                    .font(.manana(condFont))
+                    .foregroundStyle(ink.opacity(0.75))
+                if let detail = WidgetBackground.detailLine(for: snapshot) {
+                    Text(detail)
+                        .font(.manana(.footnote))
+                        .foregroundStyle(ink.opacity(0.6))
+                }
+                Spacer(minLength: 0)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func weatherIcon(size: CGFloat) -> some View {
+        if let icon = WidgetBackground.icon(for: entry.snapshot) {
+            icon.resizable().scaledToFit().frame(width: size, height: size).foregroundStyle(ink)
+        } else if let snapshot = entry.snapshot {
+            Image(systemName: snapshot.symbolName).font(.system(size: size)).foregroundStyle(ink)
         }
     }
 
@@ -119,21 +183,18 @@ struct LargeCombinedWidgetView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text(snapshot.quoteText)
                     .font(.manana(size: quoteSize, relativeTo: .body, weight: .semibold))
-                    .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot))
+                    .foregroundStyle(ink)
                     .lineLimit(quoteLines)
                     .minimumScaleFactor(0.6)
                     .fixedSize(horizontal: false, vertical: true)
-
                 if let byline {
                     Text(byline)
                         .font(.manana(.subheadline))
-                        .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot).opacity(0.7))
+                        .foregroundStyle(ink.opacity(0.7))
                 }
             }
         } else {
-            Text("Mañana 앱을 열어\n오늘의 날씨를 가져와보세요")
-                .font(.manana(.body))
-                .foregroundStyle(.secondary)
+            placeholderText
         }
     }
 }

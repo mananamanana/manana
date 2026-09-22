@@ -13,8 +13,10 @@ struct WeatherQuoteWidgetView: View {
                     .font(.manana(size: 20, relativeTo: .subheadline, weight: .semibold).italic())
                     .foregroundStyle(WidgetBackground.quoteColor(for: entry.snapshot))
                     .multilineTextAlignment(.center)
-                    .lineLimit(6)
-                    .minimumScaleFactor(0.6)
+                    // No hard line cap: let the whole quote shrink to fit so it's
+                    // never cut off (matches the iPhone widget).
+                    .lineLimit(nil)
+                    .minimumScaleFactor(0.4)
             } else {
                 Text("Mañana 앱을 열어\n오늘의 날씨를 가져와보세요")
                     .font(.manana(.caption2))

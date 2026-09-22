@@ -14,7 +14,10 @@ struct WeatherEntry: TimelineEntry {
 /// minutes, roughly the shortest interval the system tends to honor.
 struct MananaWidgetProvider: TimelineProvider {
     func placeholder(in context: Context) -> WeatherEntry {
-        WeatherEntry(date: Date(), snapshot: nil)
+        // Return the last saved snapshot (not nil) so that if the system ever
+        // falls back to the placeholder — which happened on iPad, leaving the
+        // widget looking blank — it still shows real content.
+        WeatherEntry(date: Date(), snapshot: SharedWeatherStore.load())
     }
 
     func getSnapshot(in context: Context, completion: @escaping (WeatherEntry) -> Void) {
@@ -81,8 +84,29 @@ enum WidgetBackground {
         guard let url = Bundle.main.url(forResource: name, withExtension: "jpg"),
               let image = UIImage(contentsOfFile: url.path)
         else { return nil }
-        imageCache[name] = image
-        return image
+        // WidgetKit archives the backing image at its native pixel size and
+        // rejects anything over a per-family area limit. The source art is
+        // 700×1521 — fine for large/extra-large widgets, but over the small and
+        // medium limit, which made those widgets fail to render (blank). This
+        // downsamples to a widget-appropriate size so every family archives OK.
+        let sized = downsample(image, maxDimension: 500)
+        imageCache[name] = sized
+        return sized
+    }
+
+    /// Redraws `image` so its longest side is at most `maxDimension` points at
+    /// scale 1 (so the archived pixel size stays small). Returns the original
+    /// if it's already small enough.
+    private static func downsample(_ image: UIImage, maxDimension: CGFloat) -> UIImage {
+        let longest = max(image.size.width, image.size.height)
+        guard longest > maxDimension else { return image }
+        let ratio = maxDimension / longest
+        let newSize = CGSize(width: image.size.width * ratio, height: image.size.height * ratio)
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        return UIGraphicsImageRenderer(size: newSize, format: format).image { _ in
+            image.draw(in: CGRect(origin: .zero, size: newSize))
+        }
     }
 
     private static var iconCache: [String: UIImage] = [:]
