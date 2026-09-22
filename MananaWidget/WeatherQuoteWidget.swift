@@ -32,7 +32,11 @@ struct WeatherQuoteWidgetView: View {
 }
 
 struct WeatherQuoteWidget: Widget {
-    let kind = "WeatherQuoteWidget"
+    // Kind renamed (v2) to force a fresh WidgetKit registration — the original
+    // "WeatherQuoteWidget" kind got stuck rendering blank on iPad after the
+    // bundle id was rewritten by AltStore's re-signing; a new kind registers
+    // cleanly under the current bundle id.
+    let kind = "MananaQuoteWidget"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: MananaWidgetProvider()) { entry in

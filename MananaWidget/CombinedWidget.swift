@@ -81,7 +81,9 @@ struct CombinedWidgetView: View {
 }
 
 struct CombinedWidget: Widget {
-    let kind = "CombinedWidget"
+    // Kind renamed (v2) to force a fresh WidgetKit registration — see the note
+    // in WeatherQuoteWidget; the old kind stayed blank on iPad.
+    let kind = "MananaCombinedWidget"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: MananaWidgetProvider()) { entry in
