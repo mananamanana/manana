@@ -153,10 +153,9 @@ struct MainView: View {
             dayOffset = newOffset
             isWeatherExpanded = false
         }
-        // Load whichever day we landed on into the live canvas so it can be
-        // drawn on directly — today or a past day with a record. (A no-record
-        // past day or the future page loads an empty canvas that stays hidden.)
-        loadDrawing(for: displayedDate)
+        // The canvas reloads the new day itself (DrawingCanvasView watches
+        // `displayedDate`); the persist above covers the case of leaving for a
+        // non-editable day, where the canvas view is removed rather than reused.
     }
 
     /// Snaps back to today from any past/future day — bound to an upward swipe
@@ -170,7 +169,6 @@ struct MainView: View {
             dayOffset = 0
             isWeatherExpanded = false
         }
-        loadDrawing(for: Date())
     }
 
     /// Jumps the home page straight to a specific date (used by the calendar's
@@ -187,7 +185,6 @@ struct MainView: View {
             dayOffset = min(1, days)
             isWeatherExpanded = false
         }
-        loadDrawing(for: displayedDate)
     }
 
     /// Whatever the quote block should be typing out right now — today's
@@ -292,7 +289,9 @@ struct MainView: View {
             dayOffset = 0
             isWeatherExpanded = false
         }
-        loadTodayDrawing()
+        // The canvas swaps to the new day on its own (its `date` is now a new
+        // calendar day); just reset the pen color for the fresh day.
+        resetInkColorForDisplayedDay()
         syncWidgets()
         typeOutQuote(currentDisplayText)
     }
@@ -433,7 +432,9 @@ struct MainView: View {
             }
             .onAppear {
                 checkForDayRollover()
-                loadTodayDrawing()
+                // The canvas loads today's drawing itself on first appearance;
+                // just set the pen color to match the day.
+                resetInkColorForDisplayedDay()
                 syncWidgets()
                 withAnimation(.easeOut(duration: 0.6)) {
                     contentAppeared = true
@@ -463,6 +464,7 @@ struct MainView: View {
             // placeholder, or back to today — so the same handwritten
             // reveal + haptic ticks plays no matter which page it lands on.
             .onChange(of: dayOffset) { _, _ in
+                resetInkColorForDisplayedDay()
                 typeOutQuote(currentDisplayText)
             }
             // Detects midnight KST passing while the app is open.
@@ -760,22 +762,22 @@ struct MainView: View {
         GeometryReader { proxy in
             Group {
                 if isEditableDay {
-                    // The same live canvas for today and for any past day with
-                    // a record — so a past day can be drawn on directly in
-                    // place (its drawing is loaded/saved by day; see
-                    // `loadDrawing(for:)` / `saveDrawing`). PencilKit renders
-                    // the saved vector strokes at the canvas's own size, so no
-                    // separate image scaling is needed.
+                    // The same live canvas for today and for any past day with a
+                    // record — a past day can be drawn on directly in place. The
+                    // canvas itself owns per-day load/save (see DrawingCanvasView):
+                    // it loads `displayedDate`'s drawing and, when the day changes,
+                    // flushes the previous day before loading the new one, so
+                    // swiping between days never drops or mixes up drawings.
                     DrawingCanvasView(
                         canvasView: $canvasView,
                         canUndo: $canUndo,
                         canRedo: $canRedo,
                         isErasing: isErasing,
                         inkColor: UIColor(selectedColor),
-                        targetDate: displayedDate
-                    ) { drawing, date in
-                        saveDrawing(drawing, for: date)
-                    }
+                        date: displayedDate,
+                        load: { DrawingStorage.shared.load(fileName: DrawingStorage.shared.fileName(for: $0)) },
+                        save: { drawing, date in saveDrawing(drawing, for: date) }
+                    )
                     // No drawing while the weather box is pulled open — the
                     // layout barely leaves room for the canvas at that point
                     // anyway.
@@ -1107,23 +1109,12 @@ struct MainView: View {
         return parts.isEmpty ? nil : parts.joined(separator: " ")
     }
 
-    private func loadTodayDrawing() {
-        loadDrawing(for: Date())
-    }
-
-    /// Loads the given day's saved drawing into the live canvas so it can be
-    /// viewed and edited in place. Resets the undo history — loading a saved
-    /// drawing shouldn't itself count as an undoable step; undo only appears
-    /// once the user actually draws something new this session.
-    private func loadDrawing(for date: Date) {
-        let fileName = DrawingStorage.shared.fileName(for: date)
-        canvasView.drawing = DrawingStorage.shared.load(fileName: fileName)
-        canvasView.undoManager?.removeAllActions()
-        canUndo = false
-        canRedo = false
-        // Past entries don't record day/night, so they assume the day palette
-        // (black ink); today follows the live day/night.
-        let isToday = Calendar.current.isDateInToday(date)
+    /// Sets the default pen color for the day currently on screen. Loading the
+    /// day's *drawing* is handled by DrawingCanvasView itself now; this only
+    /// picks the ink: today follows the live day/night (white ink at night),
+    /// past days assume day (black), since entries don't record day/night.
+    private func resetInkColorForDisplayedDay() {
+        let isToday = Calendar.current.isDateInToday(displayedDate)
         selectedColor = (isToday ? weatherService.isDay : true) ? .black : .white
     }
 
