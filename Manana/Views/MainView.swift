@@ -56,10 +56,22 @@ struct MainView: View {
     /// against a mock that was missing the temperature row.
     private static let expandedBadgeHeight: CGFloat = 312
 
-    /// Caps the main content column so it reads as a centered portrait page on
-    /// iPad instead of stretching edge-to-edge. Wider than any iPhone, so it's
-    /// a no-op there — only the larger iPad canvas gets the centered column.
+    /// Caps the main content column (badge, quote, and the floating buttons all
+    /// key off this) so it reads as a centered portrait page on iPad instead of
+    /// stretching edge-to-edge. Wider than any iPhone, so it's a no-op there.
+    /// The drawing canvas alone breaks out wider than this on iPad — see
+    /// `canvasHorizontalBreakout`.
     private static let contentMaxWidth: CGFloat = 640
+
+    /// How far the drawing canvas extends beyond the content column on each
+    /// side. iPad only: the centered 640 column left the drawable area too
+    /// narrow, so the canvas alone widens toward the screen edges (leaving a
+    /// 20pt margin) while the badge/quote/buttons stay in the centered column.
+    private var canvasHorizontalBreakout: CGFloat {
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return 0 }
+        let target = UIScreen.main.bounds.width - 40
+        return max(0, (target - Self.contentMaxWidth) / 2)
+    }
 
     private var todayQuote: Quote? {
         quoteService.quoteForToday(condition: weatherService.condition)
@@ -371,6 +383,9 @@ struct MainView: View {
                     .padding(.bottom, showExpandedBadge ? 0 : 40)
                     .animation(.spring(response: 0.4, dampingFraction: 0.8), value: showExpandedBadge)
             }
+            // Buttons align to the centered content column's trailing edge (not
+            // the full screen), so on iPad they sit at the column edge — their
+            // original position — rather than out at the screen edge.
             .overlay(alignment: .bottomTrailing) {
                 drawTools
                     .padding(.trailing, 20)
@@ -717,6 +732,13 @@ struct MainView: View {
         }
     }
 
+    /// iPad enlarges the draw-tool buttons and the quote text by this factor —
+    /// the big screen makes the iPhone-sized controls and type feel too small.
+    /// Every button/swatch in `drawTools` and the quote fonts multiply by this.
+    private var controlScale: CGFloat {
+        UIDevice.current.userInterfaceIdiom == .pad ? 1.5 : 1
+    }
+
     /// The drawing surface — no bordered paper rectangle, no texture, just
     /// the canvas open directly over the weather sky, matching the
     /// reference app's plain full-bleed drawing area. Past days show a
@@ -755,6 +777,11 @@ struct MainView: View {
             }
             .frame(width: proxy.size.width, height: proxy.size.height)
         }
+        // iPad: widen the canvas past the centered content column (toward the
+        // screen edges) so there's more room to draw left/right, without moving
+        // the badge/quote/buttons. Negative padding lets the canvas overflow
+        // the column; it's 0 on iPhone.
+        .padding(.horizontal, -canvasHorizontalBreakout)
     }
 
     /// Captures the actual on-screen pixels (whatever's currently visible —
@@ -791,7 +818,7 @@ struct MainView: View {
                                     Image(paletteCrayonImageName(for: color))
                                         .resizable()
                                         .scaledToFit()
-                                        .frame(width: 22, height: 22)
+                                        .frame(width: 22 * controlScale, height: 22 * controlScale)
                                         .background(
                                             // Faint circle so the white swatch (barely visible
                                             // ink on paper) still reads as a tappable chip.
@@ -812,7 +839,7 @@ struct MainView: View {
 
                         Rectangle()
                             .fill(MananaTheme.ink.opacity(0.12))
-                            .frame(width: 20, height: 1)
+                            .frame(width: 20 * controlScale, height: 1)
                     }
 
                     drawToolButton("IconPen", isActive: !isErasing, tint: selectedColor == .white ? nil : selectedColor) {
@@ -905,8 +932,8 @@ struct MainView: View {
                 .resizable()
                 .renderingMode(tint == nil ? .original : .template)
                 .scaledToFit()
-                .frame(width: 36, height: 36)
-                .frame(width: 48, height: 48)
+                .frame(width: 36 * controlScale, height: 36 * controlScale)
+                .frame(width: 48 * controlScale, height: 48 * controlScale)
                 .foregroundStyle(tint ?? MananaTheme.ink)
                 .shadow(color: MananaTheme.paper.opacity(0.6), radius: 2, y: 1)
                 .contentShape(Rectangle())
@@ -937,8 +964,8 @@ struct MainView: View {
                     .scaledToFit()
                     .foregroundStyle(tint ?? MananaTheme.ink)
             }
-            .frame(width: 36, height: 36)
-            .frame(width: 48, height: 48)
+            .frame(width: 36 * controlScale, height: 36 * controlScale)
+            .frame(width: 48 * controlScale, height: 48 * controlScale)
             .shadow(color: MananaTheme.paper.opacity(0.6), radius: 2, y: 1)
             .contentShape(Rectangle())
         }
@@ -955,8 +982,8 @@ struct MainView: View {
                 .resizable()
                 .renderingMode(tint == nil ? .original : .template)
                 .scaledToFit()
-                .frame(width: 30, height: 30)
-                .frame(width: 40, height: 40)
+                .frame(width: 30 * controlScale, height: 30 * controlScale)
+                .frame(width: 40 * controlScale, height: 40 * controlScale)
                 .foregroundStyle(tint ?? MananaTheme.ink)
                 .opacity(isActive ? 1 : 0.5)
                 .shadow(color: MananaTheme.paper.opacity(0.6), radius: 2, y: 1)
@@ -1007,13 +1034,13 @@ struct MainView: View {
     private var quoteSheet: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(dateLine)
-                .font(.manana(size: 20, weight: .semibold))
+                .font(.manana(size: 20 * controlScale, weight: .semibold))
                 .foregroundStyle(quoteInkColor.opacity(0.55))
                 .shadow(color: MananaTheme.paper.opacity(0.5), radius: 2, y: 1)
 
             if let info = displayedQuoteInfo {
                 Text(displayedQuoteText)
-                    .font(.manana(size: 29, weight: .semibold))
+                    .font(.manana(size: 29 * controlScale, weight: .semibold))
                     .multilineTextAlignment(.leading)
                     .foregroundStyle(quoteInkColor)
                     .shadow(color: MananaTheme.paper.opacity(0.5), radius: 4, y: 1)
@@ -1021,14 +1048,14 @@ struct MainView: View {
 
                 if showByline, let byline = byline(bookTitle: info.bookTitle, author: info.author) {
                     Text(byline)
-                        .font(.manana(size: 19))
+                        .font(.manana(size: 19 * controlScale))
                         .foregroundStyle(quoteInkColor.opacity(0.75))
                         .shadow(color: MananaTheme.paper.opacity(0.5), radius: 3, y: 1)
                         .transition(.opacity)
                 }
             } else {
                 Text(displayedQuoteText)
-                    .font(.manana(size: 19))
+                    .font(.manana(size: 19 * controlScale))
                     .foregroundStyle(quoteInkColor.opacity(0.85))
                     .shadow(color: MananaTheme.paper.opacity(0.5), radius: 3, y: 1)
                     .padding(.vertical, 20)

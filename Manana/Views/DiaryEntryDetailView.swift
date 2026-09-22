@@ -70,22 +70,30 @@ struct DiaryEntryDetailView: View {
     }
 
     var body: some View {
-        scene(size: sceneSize)
+        // Sized to the actual container (via GeometryReader), not
+        // `UIScreen.main.bounds` — on iPad the archive is presented as a form
+        // sheet smaller than the whole screen, so a screen-sized scene was
+        // getting clipped. `.ignoresSafeArea()` on the reader makes `geo.size`
+        // the full container (including under the bars), which also avoids the
+        // bottom-of-quote clipping a safe-area-inset measurement caused.
+        GeometryReader { geo in
+            scene(size: geo.size)
+                .contentShape(Rectangle())
+                // Swipe left/right to page to the next/previous day's record,
+                // matching the home screen's day-browsing gesture.
+                .gesture(
+                    DragGesture(minimumDistance: 30)
+                        .onEnded { value in
+                            guard abs(value.translation.width) > abs(value.translation.height) else { return }
+                            if value.translation.width < -40 {
+                                step(by: 1)   // toward a later day (내일자)
+                            } else if value.translation.width > 40 {
+                                step(by: -1)  // toward an earlier day (어제자)
+                            }
+                        }
+                )
+        }
         .ignoresSafeArea()
-        .contentShape(Rectangle())
-        // Swipe left/right to page to the next/previous day's record, matching
-        // the home screen's day-browsing gesture.
-        .gesture(
-            DragGesture(minimumDistance: 30)
-                .onEnded { value in
-                    guard abs(value.translation.width) > abs(value.translation.height) else { return }
-                    if value.translation.width < -40 {
-                        step(by: 1)   // toward a later day (내일자)
-                    } else if value.translation.width > 40 {
-                        step(by: -1)  // toward an earlier day (어제자)
-                    }
-                }
-        )
         .navigationTitle(entry.date.formatted(date: .abbreviated, time: .omitted))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
