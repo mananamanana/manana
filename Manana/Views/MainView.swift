@@ -57,20 +57,22 @@ struct MainView: View {
     private static let expandedBadgeHeight: CGFloat = 312
 
     /// Caps the main content column (badge, quote, and the floating buttons all
-    /// key off this) so it reads as a centered portrait page on iPad instead of
-    /// stretching edge-to-edge. Wider than any iPhone, so it's a no-op there.
-    /// The drawing canvas alone breaks out wider than this on iPad — see
-    /// `canvasHorizontalBreakout`.
-    private static let contentMaxWidth: CGFloat = 640
+    /// key off this). On iPhone it's wider than the screen, so a no-op. On iPad
+    /// it spans the screen minus a small side margin, so the badge/quote/buttons
+    /// sit close to the edges rather than in a narrow centered strip.
+    private var contentMaxWidth: CGFloat {
+        UIDevice.current.userInterfaceIdiom == .pad
+            ? UIScreen.main.bounds.width - 64
+            : 640
+    }
 
     /// How far the drawing canvas extends beyond the content column on each
-    /// side. iPad only: the centered 640 column left the drawable area too
-    /// narrow, so the canvas alone widens toward the screen edges (leaving a
-    /// 20pt margin) while the badge/quote/buttons stay in the centered column.
+    /// side. iPad only: the canvas widens all the way to a 20pt screen margin
+    /// (a touch past the content column) so there's maximum room to draw.
     private var canvasHorizontalBreakout: CGFloat {
         guard UIDevice.current.userInterfaceIdiom == .pad else { return 0 }
         let target = UIScreen.main.bounds.width - 40
-        return max(0, (target - Self.contentMaxWidth) / 2)
+        return max(0, (target - contentMaxWidth) / 2)
     }
 
     private var todayQuote: Quote? {
@@ -368,7 +370,7 @@ struct MainView: View {
             // screen is narrower than contentMaxWidth). The quote/draw-tool
             // overlays are attached here so they align to the column edges,
             // not the full iPad screen.
-            .frame(maxWidth: Self.contentMaxWidth, maxHeight: .infinity)
+            .frame(maxWidth: contentMaxWidth, maxHeight: .infinity)
             .opacity(contentAppeared ? 1 : 0)
             .offset(y: contentAppeared ? 0 : 10)
             .overlay(alignment: showExpandedBadge ? .top : .bottom) {
