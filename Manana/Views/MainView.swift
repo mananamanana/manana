@@ -145,6 +145,9 @@ struct MainView: View {
     private func navigateDay(by delta: Int) {
         let newOffset = min(1, dayOffset + delta)
         guard newOffset != dayOffset else { return }
+        // Save the current day's drawing before the canvas is reloaded with the
+        // new day's, so a just-made stroke isn't lost.
+        persistCurrentDrawing()
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
             dayOffset = newOffset
@@ -161,6 +164,7 @@ struct MainView: View {
     /// at a time.
     private func returnToToday() {
         guard !isViewingToday else { return }
+        persistCurrentDrawing()
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
             dayOffset = 0
@@ -173,6 +177,7 @@ struct MainView: View {
     /// edit pencil: close the archive and land on that day's editable canvas,
     /// rather than opening a separate editor page).
     private func goToDate(_ date: Date) {
+        persistCurrentDrawing()
         showArchive = false
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
@@ -468,6 +473,10 @@ struct MainView: View {
             .onChange(of: scenePhase) { _, newPhase in
                 if newPhase == .active {
                     checkForDayRollover()
+                } else {
+                    // Leaving the foreground: flush any un-saved stroke so it
+                    // isn't lost if the app is closed right after drawing.
+                    persistCurrentDrawing()
                 }
             }
         }
@@ -1128,6 +1137,17 @@ struct MainView: View {
         } else {
             savePastDrawing(drawing, for: date)
         }
+    }
+
+    /// Immediately writes the live canvas to the day currently on screen,
+    /// bypassing the 500ms debounced auto-save. Called right before any day
+    /// navigation (and when the app leaves the foreground): navigating reloads
+    /// the canvas with another day's drawing, which cancels a still-pending
+    /// debounced save — so without this flush a stroke made just before
+    /// swiping would be lost. No-op on days that aren't editable.
+    private func persistCurrentDrawing() {
+        guard isEditableDay else { return }
+        saveDrawing(canvasView.drawing, for: displayedDate)
     }
 
     private func saveTodayDrawing(_ drawing: PKDrawing) {
