@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		012431919A8B12F3241A4F14 /* background_비(밤).jpg in Resources */ = {isa = PBXBuildFile; fileRef = 38FEA2019DB84A28561DCFDD /* background_비(밤).jpg */; };
 		049FF27803C5C162BDB04DA3 /* background_실안개.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 99341FD45B3B90CABB9024D6 /* background_실안개.jpg */; };
+		04F814DFB15F0BCB44D32F14 /* LargeCombinedWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8812F291C4A69318E386371A /* LargeCombinedWidget.swift */; };
 		08C763B5B4BE651A600C4461 /* weathericon_폭설.iconpng in Resources */ = {isa = PBXBuildFile; fileRef = A59BB7DDC70DD02B0FFA465C /* weathericon_폭설.iconpng */; };
 		0E5F1A74B5661A35DD2A4DA1 /* background_흐림.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4B73EF8A78B1263E212D851E /* background_흐림.jpg */; };
 		1184205FA2DF20C5E7A3EF7D /* SharedWeatherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2577C04803329F8E28394181 /* SharedWeatherStore.swift */; };
@@ -179,6 +180,7 @@
 		81E802B0C693EA06C496BD01 /* DayQuoteDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DayQuoteDetailView.swift; sourceTree = "<group>"; };
 		86FF4458BE310E3A1511C588 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		87D9C2A0B9756ABAFD754629 /* YoonChildfundkoreaDaeHan.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = YoonChildfundkoreaDaeHan.ttf; sourceTree = "<group>"; };
+		8812F291C4A69318E386371A /* LargeCombinedWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LargeCombinedWidget.swift; sourceTree = "<group>"; };
 		886A4C3677B72DEE80AF8E5A /* weathericon_뇌우.iconpng */ = {isa = PBXFileReference; includeInIndex = 1; path = "weathericon_뇌우.iconpng"; sourceTree = "<group>"; };
 		88D5371CB1569393622280FA /* background_호우.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "background_호우.jpg"; sourceTree = "<group>"; };
 		8CF7112DD17A41EBD802773E /* SharedDrawingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDrawingStore.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 				A3F65A7120BAB03CFAC5C834 /* Backgrounds */,
 				DA7443B76D4F532D7D7E946B /* PrivacyInfo.xcprivacy */,
 				B4D46F85E995D308C4E9FE79 /* WeatherIcons */,
+				8812F291C4A69318E386371A /* LargeCombinedWidget.swift */,
 			);
 			path = MananaWidget;
 			sourceTree = "<group>";
@@ -621,6 +624,7 @@
 				BAEDC42850845C0C2F9A413E /* WeatherEntryProvider.swift in Sources */,
 				F68616936C1AEE977261B30C /* WeatherQuoteWidget.swift in Sources */,
 				E896870A78F6C0E2E80E5352 /* AppGroup.swift in Sources */,
+				04F814DFB15F0BCB44D32F14 /* LargeCombinedWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,10 +644,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Manana/Manana.entitlements;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				INFOPLIST_FILE = Manana/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				MARKETING_VERSION = 0.1.19;
+				MARKETING_VERSION = 0.1.20;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -653,11 +657,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MananaWidget/MananaWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MananaWidget/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				MARKETING_VERSION = 0.1.19;
+				MARKETING_VERSION = 0.1.20;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana.widget;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -688,11 +692,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MananaWidget/MananaWidget.entitlements;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MananaWidget/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				MARKETING_VERSION = 0.1.19;
+				MARKETING_VERSION = 0.1.20;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana.widget;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -724,10 +728,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Manana/Manana.entitlements;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				INFOPLIST_FILE = Manana/Info.plist;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				MARKETING_VERSION = 0.1.19;
+				MARKETING_VERSION = 0.1.20;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wonji.manana;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

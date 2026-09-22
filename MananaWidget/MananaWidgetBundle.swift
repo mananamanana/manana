@@ -7,6 +7,7 @@ struct MananaWidgetBundle: WidgetBundle {
         WeatherQuoteWidget()
         DrawingWidget()
         CombinedWidget()
+        LargeCombinedWidget()
         QuoteLockScreenWidget()
         QuoteLockScreenWideWidget()
     }
