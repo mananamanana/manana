@@ -736,7 +736,7 @@ struct MainView: View {
     /// the big screen makes the iPhone-sized controls and type feel too small.
     /// Every button/swatch in `drawTools` and the quote fonts multiply by this.
     private var controlScale: CGFloat {
-        UIDevice.current.userInterfaceIdiom == .pad ? 1.5 : 1
+        UIDevice.current.userInterfaceIdiom == .pad ? 1.3 : 1
     }
 
     /// The drawing surface — no bordered paper rectangle, no texture, just
