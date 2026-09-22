@@ -1,3 +1,4 @@
+import SwiftData
 import SwiftUI
 import UIKit
 
@@ -6,11 +7,23 @@ import UIKit
 /// "card" — so a past day's detail page and its shared image both read as
 /// the same screenshot-style scene as sharing from the live screen does.
 struct DiaryEntryDetailView: View {
-    let entry: DiaryEntry
     /// Called with this entry's date when the edit pencil is tapped — the home
     /// screen jumps to that day's editable canvas (and this archive sheet
     /// closes), rather than a separate editor opening on top.
     var onEditInHome: ((Date) -> Void)? = nil
+
+    /// All entries, oldest→newest, so a left/right swipe can page to the
+    /// adjacent day's record without leaving this screen.
+    @Query(sort: \DiaryEntry.date, order: .forward) private var allEntries: [DiaryEntry]
+
+    /// The entry currently shown. Starts at whichever day was tapped and moves
+    /// as the user swipes between days.
+    @State private var entry: DiaryEntry
+
+    init(entry: DiaryEntry, onEditInHome: ((Date) -> Void)? = nil) {
+        self.onEditInHome = onEditInHome
+        _entry = State(initialValue: entry)
+    }
 
     @State private var shareImage: UIImage?
     /// The full screen size, used for both the live scene and the shared
@@ -59,6 +72,20 @@ struct DiaryEntryDetailView: View {
     var body: some View {
         scene(size: sceneSize)
         .ignoresSafeArea()
+        .contentShape(Rectangle())
+        // Swipe left/right to page to the next/previous day's record, matching
+        // the home screen's day-browsing gesture.
+        .gesture(
+            DragGesture(minimumDistance: 30)
+                .onEnded { value in
+                    guard abs(value.translation.width) > abs(value.translation.height) else { return }
+                    if value.translation.width < -40 {
+                        step(by: 1)   // toward a later day (내일자)
+                    } else if value.translation.width > 40 {
+                        step(by: -1)  // toward an earlier day (어제자)
+                    }
+                }
+        )
         .navigationTitle(entry.date.formatted(date: .abbreviated, time: .omitted))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -79,6 +106,20 @@ struct DiaryEntryDetailView: View {
             if let shareImage {
                 ActivityView(activityItems: [shareImage])
             }
+        }
+    }
+
+    /// Moves to the entry `delta` days away in the sorted list (＋ later, − earlier),
+    /// stopping at the ends. Records are sorted oldest→newest, so this steps by
+    /// list position — which, now that every recent day is backfilled, is one
+    /// calendar day at a time.
+    private func step(by delta: Int) {
+        guard let index = allEntries.firstIndex(where: { $0.dayKey == entry.dayKey }) else { return }
+        let target = index + delta
+        guard allEntries.indices.contains(target) else { return }
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        withAnimation(.easeInOut(duration: 0.25)) {
+            entry = allEntries[target]
         }
     }
 
