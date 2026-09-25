@@ -45,6 +45,8 @@ struct DiaryCalendarView: View {
                 Button { shiftMonth(by: -1) } label: {
                     Image(systemName: "chevron.left")
                 }
+                .disabled(!canGoBack)
+                .opacity(canGoBack ? 1 : 0.25)
                 Spacer()
                 Text(monthTitle)
                     .font(.manana(size: 22, weight: .semibold))
@@ -84,6 +86,20 @@ struct DiaryCalendarView: View {
 
             Spacer(minLength: 0)
         }
+        .contentShape(Rectangle())
+        // Swipe left/right to change months (left = next, right = previous),
+        // in addition to the chevrons. Respects the Jan 2026 lower bound.
+        .gesture(
+            DragGesture(minimumDistance: 30)
+                .onEnded { value in
+                    guard abs(value.translation.width) > abs(value.translation.height) else { return }
+                    if value.translation.width < -40 {
+                        shiftMonth(by: 1)
+                    } else if value.translation.width > 40 {
+                        shiftMonth(by: -1)
+                    }
+                }
+        )
         .background {
             Image("CalendarBackground")
                 .resizable()
@@ -92,8 +108,30 @@ struct DiaryCalendarView: View {
         }
     }
 
+    /// The calendar never goes earlier than January 2026 — the app's first year.
+    private var minimumMonthStart: Date? {
+        calendar.date(from: DateComponents(year: 2026, month: 1, day: 1))
+    }
+
+    /// False when the displayed month is already the earliest allowed (Jan 2026),
+    /// so the "previous month" control can be disabled.
+    private var canGoBack: Bool {
+        guard let minStart = minimumMonthStart,
+              let currentStart = calendar.dateInterval(of: .month, for: displayedMonth)?.start
+        else { return true }
+        return currentStart > minStart
+    }
+
     private func shiftMonth(by value: Int) {
-        if let newMonth = calendar.date(byAdding: .month, value: value, to: displayedMonth) {
+        guard let newMonth = calendar.date(byAdding: .month, value: value, to: displayedMonth) else { return }
+        // Block going before Jan 2026.
+        if value < 0,
+           let minStart = minimumMonthStart,
+           let newStart = calendar.dateInterval(of: .month, for: newMonth)?.start,
+           newStart < minStart {
+            return
+        }
+        withAnimation(.easeInOut(duration: 0.22)) {
             displayedMonth = newMonth
         }
     }
