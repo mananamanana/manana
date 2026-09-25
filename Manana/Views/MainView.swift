@@ -198,8 +198,8 @@ struct MainView: View {
         return "이 날은 기록이 없어요"
     }
 
-    /// Ensures every recent day (up to Open-Meteo's 92-day window) has a diary
-    /// entry carrying that day's *real* historical weather, so the whole
+    /// Ensures every day from Jan 1 of the current year through yesterday has a
+    /// diary entry carrying that day's *real* historical weather, so the whole
     /// calendar shows weather icons and any past day can be opened, drawn on,
     /// and shared — not just days the user already recorded.
     ///
@@ -217,7 +217,18 @@ struct MainView: View {
         let latitude = coordinate?.latitude ?? 37.5665
         let longitude = coordinate?.longitude ?? 126.9780
 
-        guard let days = try? await HistoricalWeatherService.recentDays(latitude: latitude, longitude: longitude),
+        // Fill in from Jan 1 of the current year through yesterday, using the
+        // archive endpoint (the forecast API only reaches back 92 days).
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "Asia/Seoul") ?? .current
+        let now = Date()
+        let year = calendar.component(.year, from: now)
+        let startDate = String(format: "%04d-01-01", year)
+        let yesterday = calendar.date(byAdding: .day, value: -1, to: now) ?? now
+        let endDate = DrawingStorage.dateKey(yesterday)
+
+        guard let days = try? await HistoricalWeatherService.daysInRange(
+                latitude: latitude, longitude: longitude, startDate: startDate, endDate: endDate),
               !days.isEmpty
         else { return }
 

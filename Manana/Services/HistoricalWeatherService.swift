@@ -46,7 +46,28 @@ enum HistoricalWeatherService {
             URLQueryItem(name: "forecast_days", value: "1"),
         ]
 
-        let (data, _) = try await URLSession.shared.data(from: components.url!)
+        return try await fetch(url: components.url!)
+    }
+
+    /// Historical daily weather for an explicit date range (yyyy-MM-dd), using
+    /// Open-Meteo's archive endpoint — which, unlike the forecast API's 92-day
+    /// `past_days` window, covers arbitrary past dates (e.g. back to Jan 1).
+    /// Keyed by `DrawingStorage.dateKey` so it maps onto `DiaryEntry.dayKey`.
+    static func daysInRange(latitude: Double, longitude: Double, startDate: String, endDate: String) async throws -> [String: DayWeather] {
+        var components = URLComponents(string: "https://archive-api.open-meteo.com/v1/archive")!
+        components.queryItems = [
+            URLQueryItem(name: "latitude", value: String(latitude)),
+            URLQueryItem(name: "longitude", value: String(longitude)),
+            URLQueryItem(name: "daily", value: "weather_code,temperature_2m_max,temperature_2m_min"),
+            URLQueryItem(name: "timezone", value: "Asia/Seoul"),
+            URLQueryItem(name: "start_date", value: startDate),
+            URLQueryItem(name: "end_date", value: endDate),
+        ]
+        return try await fetch(url: components.url!)
+    }
+
+    private static func fetch(url: URL) async throws -> [String: DayWeather] {
+        let (data, _) = try await URLSession.shared.data(from: url)
         let daily = try JSONDecoder().decode(Response.self, from: data).daily
 
         var result: [String: DayWeather] = [:]
